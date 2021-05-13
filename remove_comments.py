@@ -4,7 +4,7 @@ import io
 
 top_dir = "/Users/bianjunyu/Desktop/NYU/2021Spring/DL/Project/Data/idf"
 
-# 标识状态
+# states
 S_INIT              = 0
 S_SLASH             = 1
 S_BLOCK_COMMENT     = 2
@@ -21,7 +21,7 @@ S_DDOT_BACK_1       = 12
 S_DDOT_BACK_2       = 13
 S_DBLOCK_COMMENT    = 14
 
-# 处理文件夹
+# handle dirs
 def trim_dir(path):
     print("dir:" + path)
     for root, dirs, files in os.walk(path):
@@ -30,7 +30,7 @@ def trim_dir(path):
         for name in files:
             trim_file(os.path.join(root,name))
 
-# 处理文件
+# handle files
 def trim_file(path):
     print("file:" + path)
     if re.match(r".*?\.(py)$",path):
@@ -73,6 +73,7 @@ def trim_file(path):
                 else:
                     fp_dst.write('"')
                     fp_dst.write(c)
+                    state = S_INIT
                     # state = S_STR   
             # State Double Dot 2:
             elif state == S_DDOT_2:
@@ -81,6 +82,7 @@ def trim_file(path):
                 else:
                     fp_dst.write('""')
                     fp_dst.write(c)  
+                    state = S_INIT
             # State Double Block_comment state 
             elif state == S_DBLOCK_COMMENT:
                 if c == '"':

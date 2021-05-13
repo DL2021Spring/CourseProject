@@ -3,9 +3,9 @@ from github import Github
 from pprint import pprint
 
 # Github username
-username = "algorhythms"
+username = "idf"
 # pygithub object
-g = Github("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")
+g = Github("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")
 # get that user by username
 user = g.get_user(username)
 
