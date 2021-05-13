@@ -23,6 +23,6 @@ class Solution(object):
             lst.extend(cur)
             return lst
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""n""u""m""b""e""r""s""B""y""R""e""c""u""r""s""i""o""n""(""2"")""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""n""u""m""b""e""r""s""B""y""R""e""c""u""r""s""i""o""n""(""2"")"" ""=""="" ""[""i""+""1"" ""f""o""r"" ""i"" ""i""n"" ""x""r""a""n""g""e""(""9""9"")""]
+if __name__ == "__main__":
+    print Solution().numbersByRecursion(2)
+    assert Solution().numbersByRecursion(2) == [i+1 for i in xrange(99)]

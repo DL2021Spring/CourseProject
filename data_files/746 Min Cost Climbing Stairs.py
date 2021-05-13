@@ -19,5 +19,5 @@ class Solution:
         return F[-1]
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""m""i""n""C""o""s""t""C""l""i""m""b""i""n""g""S""t""a""i""r""s""(""[""1""0"","" ""1""5"","" ""2""0""]"")"" ""=""="" ""1""5""
+if __name__ == "__main__":
+    assert Solution().minCostClimbingStairs([10, 15, 20]) == 15

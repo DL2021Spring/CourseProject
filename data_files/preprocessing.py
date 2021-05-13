@@ -20,25 +20,122 @@ class Resize(AbstractFeature):
         return imresize(X, self._size)
 
     def __repr__(self):
-        return "R"e"s"i"z"e" "("s"i"z"e"="%"s")"" ""%"" ""(""s""e""l""f"".""_""s""i""z""e"","")""
-""
-""
-""c""l""a""s""s"" ""H""i""s""t""o""g""r""a""m""E""q""u""a""l""i""z""a""t""i""o""n""(""A""b""s""t""r""a""c""t""F""e""a""t""u""r""e"")"":""
-"" "" "" "" ""d""e""f"" ""_""_""i""n""i""t""_""_""(""s""e""l""f"","" ""n""u""m""_""b""i""n""s""=""2""5""6"")"":""
-"" "" "" "" "" "" "" "" ""A""b""s""t""r""a""c""t""F""e""a""t""u""r""e"".""_""_""i""n""i""t""_""_""(""s""e""l""f"")""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""_""n""u""m""_""b""i""n""s"" ""="" ""n""u""m""_""b""i""n""s""
-""
-"" "" "" "" ""d""e""f"" ""c""o""m""p""u""t""e""(""s""e""l""f"","" ""X"","" ""y"")"":""
-"" "" "" "" "" "" "" "" ""X""p"" ""="" ""[""]""
-"" "" "" "" "" "" "" "" ""f""o""r"" ""x""i"" ""i""n"" ""X"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""X""p"".""a""p""p""e""n""d""(""s""e""l""f"".""e""x""t""r""a""c""t""(""x""i"")"")""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""X""p""
-""
-"" "" "" "" ""d""e""f"" ""e""x""t""r""a""c""t""(""s""e""l""f"","" ""X"")"":""
-"" "" "" "" "" "" "" "" ""h"","" ""b"" ""="" ""n""p"".""h""i""s""t""o""g""r""a""m""(""X"".""f""l""a""t""t""e""n""("")"","" ""s""e""l""f"".""_""n""u""m""_""b""i""n""s"","" ""n""o""r""m""e""d""=""T""r""u""e"")""
-"" "" "" "" "" "" "" "" ""c""d""f"" ""="" ""h"".""c""u""m""s""u""m""("")""
-"" "" "" "" "" "" "" "" ""c""d""f"" ""="" ""2""5""5"" ""*"" ""c""d""f"" ""/"" ""c""d""f""[""-""1""]""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""n""p"".""i""n""t""e""r""p""(""X"".""f""l""a""t""t""e""n""("")"","" ""b""["":""-""1""]"","" ""c""d""f"")"".""r""e""s""h""a""p""e""(""X"".""s""h""a""p""e"")""
-""
-"" "" "" "" ""d""e""f"" ""_""_""r""e""p""r""_""_""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" 
+        return "Resize (size=%s)" % (self._size,)
+
+
+class HistogramEqualization(AbstractFeature):
+    def __init__(self, num_bins=256):
+        AbstractFeature.__init__(self)
+        self._num_bins = num_bins
+
+    def compute(self, X, y):
+        Xp = []
+        for xi in X:
+            Xp.append(self.extract(xi))
+        return Xp
+
+    def extract(self, X):
+        h, b = np.histogram(X.flatten(), self._num_bins, normed=True)
+        cdf = h.cumsum()
+        cdf = 255 * cdf / cdf[-1]
+        return np.interp(X.flatten(), b[:-1], cdf).reshape(X.shape)
+
+    def __repr__(self):
+        return "HistogramEqualization (num_bins=%s)" % (self._num_bins)
+
+
+class TanTriggsPreprocessing(AbstractFeature):
+    def __init__(self, alpha=0.1, tau=10.0, gamma=0.2, sigma0=1.0, sigma1=2.0):
+        AbstractFeature.__init__(self)
+        self._alpha = float(alpha)
+        self._tau = float(tau)
+        self._gamma = float(gamma)
+        self._sigma0 = float(sigma0)
+        self._sigma1 = float(sigma1)
+
+    def compute(self, X, y):
+        Xp = []
+        for xi in X:
+            Xp.append(self.extract(xi))
+        return Xp
+
+    def extract(self, X):
+        X = np.array(X, dtype=np.float32)
+        X = np.power(X, self._gamma)
+        X = np.asarray(ndimage.gaussian_filter(X, self._sigma1) - ndimage.gaussian_filter(X, self._sigma0))
+        X = X / np.power(np.mean(np.power(np.abs(X), self._alpha)), 1.0 / self._alpha)
+        X = X / np.power(np.mean(np.power(np.minimum(np.abs(X), self._tau), self._alpha)), 1.0 / self._alpha)
+        X = self._tau * np.tanh(X / self._tau)
+        return X
+
+    def __repr__(self):
+        return "TanTriggsPreprocessing (alpha=%.3f,tau=%.3f,gamma=%.3f,sigma0=%.3f,sigma1=%.3f)" % (
+            self._alpha, self._tau, self._gamma, self._sigma0, self._sigma1)
+
+
+from facerec_py.facerec.lbp import ExtendedLBP
+
+
+class LBPPreprocessing(AbstractFeature):
+    def __init__(self, lbp_operator=ExtendedLBP(radius=1, neighbors=8)):
+        AbstractFeature.__init__(self)
+        self._lbp_operator = lbp_operator
+
+    def compute(self, X, y):
+        Xp = []
+        for xi in X:
+            Xp.append(self.extract(xi))
+        return Xp
+
+    def extract(self, X):
+        return self._lbp_operator(X)
+
+    def __repr__(self):
+        return "LBPPreprocessing (lbp_operator=%s)" % (repr(self._lbp_operator))
+
+
+from facerec_py.facerec.normalization import zscore, minmax
+
+
+class MinMaxNormalizePreprocessing(AbstractFeature):
+    def __init__(self, low=0, high=1):
+        AbstractFeature.__init__(self)
+        self._low = low
+        self._high = high
+
+    def compute(self, X, y):
+        Xp = []
+        XC = asColumnMatrix(X)
+        self._min = np.min(XC)
+        self._max = np.max(XC)
+        for xi in X:
+            Xp.append(self.extract(xi))
+        return Xp
+
+    def extract(self, X):
+        return minmax(X, self._low, self._high, self._min, self._max)
+
+    def __repr__(self):
+        return "MinMaxNormalizePreprocessing (low=%s, high=%s)" % (self._low, self._high)
+
+
+class ZScoreNormalizePreprocessing(AbstractFeature):
+    def __init__(self):
+        AbstractFeature.__init__(self)
+        self._mean = 0.0
+        self._std = 1.0
+
+    def compute(self, X, y):
+        XC = asColumnMatrix(X)
+        self._mean = XC.mean()
+        self._std = XC.std()
+        Xp = []
+        for xi in X:
+            Xp.append(self.extract(xi))
+        return Xp
+
+    def extract(self, X):
+        return zscore(X, self._mean, self._std)
+
+    def __repr__(self):
+        return "ZScoreNormalizePreprocessing (mean=%s, std=%s)" % (self._mean, self._std)

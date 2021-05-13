@@ -81,13 +81,13 @@ class PoolManager(RequestMethods):
         if response.status == 303:
             method = 'GET'
 
-        log.info("R"e"d"i"r"e"c"t"i"n"g" "%"s" "-">" "%"s"" ""%"" ""(""u""r""l"","" ""r""e""d""i""r""e""c""t""_""l""o""c""a""t""i""o""n"")"")""
-"" "" "" "" "" "" "" "" ""k""w""[""'""r""e""t""r""i""e""s""'""]"" ""="" ""k""w"".""g""e""t""(""'""r""e""t""r""i""e""s""'"","" ""3"")"" ""-"" ""1"" "" ""#"" ""P""e""r""s""i""s""t"" ""r""e""t""r""i""e""s"" ""c""o""u""n""t""d""o""w""n""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""s""e""l""f"".""u""r""l""o""p""e""n""(""m""e""t""h""o""d"","" ""r""e""d""i""r""e""c""t""_""l""o""c""a""t""i""o""n"","" ""*""*""k""w"")""
-""
-""
-""c""l""a""s""s"" ""P""r""o""x""y""M""a""n""a""g""e""r""(""R""e""q""u""e""s""t""M""e""t""h""o""d""s"")"":""
-"" "" "" "" 
+        log.info("Redirecting %s -> %s" % (url, redirect_location))
+        kw['retries'] = kw.get('retries', 3) - 1  
+        return self.urlopen(method, redirect_location, **kw)
+
+
+class ProxyManager(RequestMethods):
+    
 
     def __init__(self, proxy_pool):
         self.proxy_pool = proxy_pool
@@ -100,12 +100,12 @@ class PoolManager(RequestMethods):
         return headers_
 
     def urlopen(self, method, url, **kw):
-        "S"a"m"e" "a"s" "H"T"T"P"("S")"C"o"n"n"e"c"t"i"o"n"P"o"o"l"."u"r"l"o"p"e"n"," "`"`"u"r"l"`"`" "m"u"s"t" "b"e" "a"b"s"o"l"u"t"e".""
-"" "" "" "" "" "" "" "" ""k""w""[""'""a""s""s""e""r""t""_""s""a""m""e""_""h""o""s""t""'""]"" ""="" ""F""a""l""s""e""
-"" "" "" "" "" "" "" "" ""k""w""[""'""h""e""a""d""e""r""s""'""]"" ""="" ""s""e""l""f"".""_""s""e""t""_""p""r""o""x""y""_""h""e""a""d""e""r""s""(""k""w"".""g""e""t""(""'""h""e""a""d""e""r""s""'"")"")""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""s""e""l""f"".""p""r""o""x""y""_""p""o""o""l"".""u""r""l""o""p""e""n""(""m""e""t""h""o""d"","" ""u""r""l"","" ""*""*""k""w"")""
-""
-""
-""d""e""f"" ""p""r""o""x""y""_""f""r""o""m""_""u""r""l""(""u""r""l"","" ""*""*""p""o""o""l""_""k""w"")"":""
-"" "" "" "" ""p""r""o""x""y""_""p""o""o""l"" ""="" ""c""o""n""n""e""c""t""i""o""n""_""f""r""o""m""_""u""r""l""(""u""r""l"","" ""*""*""p""o""o""l""_""k""w"")""
-"" "" "" "" ""r""e""t""u""r""n"" ""P""r""o""x""y""M""a""n""a""g""e""r""(""p""r""o""x""y""_""p""o""o""l"")""
+        "Same as HTTP(S)ConnectionPool.urlopen, ``url`` must be absolute."
+        kw['assert_same_host'] = False
+        kw['headers'] = self._set_proxy_headers(kw.get('headers'))
+        return self.proxy_pool.urlopen(method, url, **kw)
+
+
+def proxy_from_url(url, **pool_kw):
+    proxy_pool = connection_from_url(url, **pool_kw)
+    return ProxyManager(proxy_pool)

@@ -39,4 +39,4 @@ class EUCKRProber(MultiByteCharSetProber):
         self.reset()
 
     def get_charset_name(self):
-        return "E"U"C"-"K"R""
+        return "EUC-KR"

@@ -15,13 +15,47 @@ class Solution(object):
     def dfs(self, word):
         
         if not word:
-            return [("","" ""0"")""]""
-""
-"" "" "" "" "" "" "" "" ""r""e""t"" ""="" ""[""]""
-"" "" "" "" "" "" "" "" ""f""o""r"" ""l"" ""i""n"" ""x""r""a""n""g""e""(""l""e""n""(""w""o""r""d"")""+""1"")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""l""e""f""t""_""n""u""m"" ""="" ""s""t""r""(""l"")"" ""i""f"" ""l"" ""e""l""s""e"" 
-        pointers
-        :type word: str
-        :type abbr: str
-        :rtype: bool
+            return [("", 0)]
+
+        ret = []
+        for l in xrange(len(word)+1):
+            left_num = str(l) if l else ""
+            left_l = 1 if left_num != "" else 0
+            left_l += 1 if l < len(word) else 0
+
+            for right, right_l in self.dfs(word[l+1:]):
+                cur = left_num + word[l:l+1] + right  
+                ret.append((cur, left_l + right_l))
+
+        return ret
+
+    def validate(self, dictionary, abbr):
+        for w in dictionary:
+            if self.validWordAbbreviation(w, abbr):
+                return False
+
+        return True
+
+    def validWordAbbreviation(self, word, abbr):
         
+        w = 0
+        a = 0
+        while w < len(word) and a < len(abbr):
+            if abbr[a].isdigit() and abbr[a] != '0':
+                e = a
+                while e < len(abbr) and abbr[e].isdigit(): e += 1
+                num = int(abbr[a:e])
+                a = e
+                w += num
+            else:
+                if word[w] != abbr[a]:
+                    return False
+
+                w += 1
+                a += 1
+
+        return w == len(word) and a == len(abbr)
+
+
+if __name__ == "__main__":
+    assert Solution().minAbbreviation("apple", ["blade"]) == "a4"

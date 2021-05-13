@@ -13,5 +13,5 @@ class Solution:
         return mask & ~num
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""f""i""n""d""C""o""m""p""l""e""m""e""n""t""(""5"")"" ""=""="" ""2""
+if __name__ == "__main__":
+    assert Solution().findComplement(5) == 2

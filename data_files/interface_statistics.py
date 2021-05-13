@@ -87,5 +87,80 @@ class ShowInterfaceStatistics(InformationWindow):
         self.win = gtk.Dialog(parent=visualizer.window,
                               flags=gtk.DIALOG_DESTROY_WITH_PARENT|gtk.DIALOG_NO_SEPARATOR,
                               buttons=(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE))
-        self.win.connect("r"e"s"p"o"n"s"e"","" ""s""e""l""f"".""_""r""e""s""p""o""n""s""e""_""c""b"")""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""w""i""n"".""s""e""t""_""t""i""t""l""e""(
+        self.win.connect("response", self._response_cb)
+        self.win.set_title("Statistics for node %i" % node_index) 
+        self.visualizer = visualizer
+        self.statistics_collector = statistics_collector
+        self.node_index = node_index
+        self.viz_node = visualizer.get_node(node_index)
+
+        self.table_model = gtk.ListStore(*([str]*13))
+
+        treeview = gtk.TreeView(self.table_model)
+        treeview.show()
+        self.win.vbox.add(treeview)
+        
+        def add_column(descr, colid):
+            column = gtk.TreeViewColumn(descr, gtk.CellRendererText(), text=colid)
+            treeview.append_column(column)
+            
+        add_column("Interface", self.COLUMN_INTERFACE)
+
+        add_column("Tx Packets", self.COLUMN_TX_PACKETS)
+        add_column("Tx Bytes", self.COLUMN_TX_BYTES)
+        add_column("Tx pkt/1s", self.COLUMN_TX_PACKET_RATE)
+        add_column("Tx bit/1s", self.COLUMN_TX_BIT_RATE)
+
+        add_column("Rx Packets", self.COLUMN_RX_PACKETS)
+        add_column("Rx Bytes", self.COLUMN_RX_BYTES)
+        add_column("Rx pkt/1s", self.COLUMN_RX_PACKET_RATE)
+        add_column("Rx bit/1s", self.COLUMN_RX_BIT_RATE)
+
+        self.visualizer.add_information_window(self)
+        self.win.show()
+
+    def _response_cb(self, win, response):
+        self.win.destroy()
+        self.visualizer.remove_information_window(self)
+    
+    def update(self):
+        node = ns.network.NodeList.GetNode(self.node_index)
+        stats_list = self.statistics_collector.get_interface_statistics(self.node_index)
+        self.table_model.clear()
+        for iface, stats in enumerate(stats_list):
+            tree_iter = self.table_model.append()
+            netdevice = node.GetDevice(iface)
+            interface_name = ns.core.Names.FindName(netdevice)
+            if not interface_name:
+                interface_name = "(interface %i)" % iface
+            self.table_model.set(tree_iter,
+                                 self.COLUMN_INTERFACE, interface_name,
+
+                                 self.COLUMN_TX_PACKETS, str(stats.txPackets),
+                                 self.COLUMN_TX_BYTES, str(stats.txBytes),
+                                 self.COLUMN_TX_PACKET_RATE, str(stats.txPacketRate),
+                                 self.COLUMN_TX_BIT_RATE, str(stats.txBitRate),
+                                 
+                                 self.COLUMN_RX_PACKETS, str(stats.rxPackets),
+                                 self.COLUMN_RX_BYTES, str(stats.rxBytes),
+                                 self.COLUMN_RX_PACKET_RATE, str(stats.rxPacketRate),
+                                 self.COLUMN_RX_BIT_RATE, str(stats.rxBitRate)
+                                 )
+
+
+def populate_node_menu(viz, node, menu, statistics_collector):
+    
+    menu_item = gtk.MenuItem("Show Interface Statistics")
+    menu_item.show()
+
+    def _show_it(dummy_menu_item):
+        ShowInterfaceStatistics(viz, node.node_index, statistics_collector)
+
+    menu_item.connect("activate", _show_it)
+    menu.add(menu_item)
+
+
+def register(viz):
+    statistics_collector = StatisticsCollector(viz)
+    viz.connect("populate-node-menu", populate_node_menu, statistics_collector)
+    viz.connect("simulation-periodic-update", statistics_collector.simulation_periodic_update)

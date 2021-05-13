@@ -35,5 +35,5 @@ class Solution:
         return ret
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""n""u""m""b""e""r""O""f""A""r""i""t""h""m""e""t""i""c""S""l""i""c""e""s""(""[""2"","" ""4"","" ""6"","" ""8"","" ""1""0""]"")"" ""=""="" ""7""
+if __name__ == "__main__":
+    assert Solution().numberOfArithmeticSlices([2, 4, 6, 8, 10]) == 7

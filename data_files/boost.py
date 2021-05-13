@@ -206,20 +206,41 @@ def boost_get_libs(self, *k, **kw):
 def check_boost(self, *k, **kw):
 	
 	if not self.env['CXX']:
-		self.fatal('load a c++ compiler first, conf.load("c"o"m"p"i"l"e"r"_"c"x"x"")""'"")""
-""
-""	""p""a""r""a""m""s"" ""="" ""{""'""l""i""b""'"":"" ""k"" ""a""n""d"" ""k""[""0""]"" ""o""r"" ""k""w"".""g""e""t""(""'""l""i""b""'"","" ""N""o""n""e"")""}""
-""	""f""o""r"" ""k""e""y"","" ""v""a""l""u""e"" ""i""n"" ""s""e""l""f"".""o""p""t""i""o""n""s"".""_""_""d""i""c""t""_""_"".""i""t""e""m""s""("")"":""
-""	""	""i""f"" ""n""o""t"" ""k""e""y"".""s""t""a""r""t""s""w""i""t""h""(""'""b""o""o""s""t""_""'"")"":""
-""	""	""	""c""o""n""t""i""n""u""e""
-""	""	""k""e""y"" ""="" ""k""e""y""[""l""e""n""(""'""b""o""o""s""t""_""'"")"":""]""
-""	""	""p""a""r""a""m""s""[""k""e""y""]"" ""="" ""v""a""l""u""e"" ""a""n""d"" ""v""a""l""u""e"" ""o""r"" ""k""w"".""g""e""t""(""k""e""y"","" ""'""'"")""
-""
-""	""v""a""r"" ""="" ""k""w"".""g""e""t""(""'""u""s""e""l""i""b""_""s""t""o""r""e""'"","" ""'""B""O""O""S""T""'"")""
-""
-""	""s""e""l""f"".""s""t""a""r""t""_""m""s""g""(""'""C""h""e""c""k""i""n""g"" ""b""o""o""s""t"" ""i""n""c""l""u""d""e""s""'"")""
-""	""t""r""y"":""
-""	""	""s""e""l""f"".""e""n""v""[""'""I""N""C""L""U""D""E""S""_""%""s""'"" ""%"" ""v""a""r""]"" ""="" ""s""e""l""f"".""b""o""o""s""t""_""g""e""t""_""i""n""c""l""u""d""e""s""(""*""*""p""a""r""a""m""s"")""
-""	""	""s""e""l""f"".""e""n""v"".""B""O""O""S""T""_""V""E""R""S""I""O""N"" ""="" ""s""e""l""f"".""b""o""o""s""t""_""g""e""t""_""v""e""r""s""i""o""n""(""s""e""l""f"".""e""n""v""[""'""I""N""C""L""U""D""E""S""_""%""s""'"" ""%"" ""v""a""r""]"")""
-""	""e""x""c""e""p""t"" ""W""a""f""E""r""r""o""r"":""
-""	""	""s""e""l""f"".""e""n""d""_""m""s""g""(
+		self.fatal('load a c++ compiler first, conf.load("compiler_cxx")')
+
+	params = {'lib': k and k[0] or kw.get('lib', None)}
+	for key, value in self.options.__dict__.items():
+		if not key.startswith('boost_'):
+			continue
+		key = key[len('boost_'):]
+		params[key] = value and value or kw.get(key, '')
+
+	var = kw.get('uselib_store', 'BOOST')
+
+	self.start_msg('Checking boost includes')
+	try:
+		self.env['INCLUDES_%s' % var] = self.boost_get_includes(**params)
+		self.env.BOOST_VERSION = self.boost_get_version(self.env['INCLUDES_%s' % var])
+	except WafError:
+		self.end_msg("not found", 'YELLOW')
+		raise
+	self.end_msg(self.env.BOOST_VERSION)
+	if Logs.verbose:
+		Logs.pprint('CYAN', '	path : %s' % self.env['INCLUDES_%s' % var])
+
+	if not params['lib']:
+		return
+	self.start_msg('Checking boost libs')
+	try:
+		suffix = params.get('static', 'ST') or ''
+		path, libs = self.boost_get_libs(**params)
+	except WafError:
+		self.end_msg("not found", 'YELLOW')
+		raise
+	self.env['%sLIBPATH_%s' % (suffix, var)] = [path]
+	self.env['%sLIB_%s' % (suffix, var)] = libs
+	self.end_msg('ok')
+	if Logs.verbose:
+		Logs.pprint('CYAN', '	path : %s' % path)
+		Logs.pprint('CYAN', '	libs : %s' % libs)
+

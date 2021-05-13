@@ -20,7 +20,22 @@ class Solution(object):
                 while i < len(hash_map[target]) and hash_map[target][i] <= ind:
                     i += 1
                 if i != len(hash_map[target]):
-                    return "%"d" "%"d"" ""%"" ""(""i""n""d"" ""+"" ""1"","" ""h""a""s""h""_""m""a""p""[""t""a""r""g""e""t""]""[""i""]"" ""+"" ""1"")""
-""
-""
-""i""f"" ""_""_""n""a""m""e""_""_"" ""=""="" 
+                    return "%d %d" % (ind + 1, hash_map[target][i] + 1)
+
+
+if __name__ == "__main__":
+    import sys
+
+    f = open("1.in", "r")
+    
+    testcases = int(f.readline().strip())
+
+    for t in xrange(testcases):
+        
+        M = int(f.readline().strip())
+        N = int(f.readline().strip())
+        C = map(int, f.readline().strip().split(' '))
+        cipher = M, N, C
+        
+        s = "%s\n" % (Solution().solve(cipher))
+        print s,

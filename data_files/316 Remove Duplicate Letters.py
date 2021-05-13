@@ -22,10 +22,11 @@ class Solution(object):
                 stk.append(v)
                 stk_set.add(v)
 
-        return "".""j""o""i""n""(""s""t""k"")""
-""
-"" "" "" "" ""d""e""f"" ""_""i""d""x""(""s""e""l""f"","" ""x"")"":""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""o""r""d""(""x"")"" ""-"" ""o""r""d""(""'""a""'"")""
-""
-""
-""i""f"" ""_""_""n""a""m""e""_""_"" ""=""="" 
+        return "".join(stk)
+
+    def _idx(self, x):
+        return ord(x) - ord('a')
+
+
+if __name__ == "__main__":
+    assert Solution().removeDuplicateLetters("cbacdcbc") == "acdb

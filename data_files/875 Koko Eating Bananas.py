@@ -26,5 +26,5 @@ class Solution:
         return lo
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""m""i""n""E""a""t""i""n""g""S""p""e""e""d""(""[""3"",""6"",""7"",""1""1""]"","" ""8"")"" ""=""="" ""4""
+if __name__ == "__main__":
+    assert Solution().minEatingSpeed([3,6,7,11], 8) == 4

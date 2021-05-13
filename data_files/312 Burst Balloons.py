@@ -23,6 +23,6 @@ class Solution(object):
         return max(map(max, F))
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""m""a""x""C""o""i""n""s""(""[""3"","" ""1"","" ""5"","" ""8""]"")"" ""=""="" ""1""6""7""
-""
+if __name__ == "__main__":
+    assert Solution().maxCoins([3, 1, 5, 8]) == 167
+

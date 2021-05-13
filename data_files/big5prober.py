@@ -39,4 +39,4 @@ class Big5Prober(MultiByteCharSetProber):
         self.reset()
 
     def get_charset_name(self):
-        return "B"i"g"5""
+        return "Big5"

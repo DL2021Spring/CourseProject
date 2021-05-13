@@ -23,4 +23,4 @@ class Solution(object):
         for c in s:
             ret[ord(c)-ord('a')] += 1
 
-        return "".""j""o""i""n""(""m""a""p""(""s""t""r"","" ""r""e""t"")"")
+        return "".join(map(str, ret))

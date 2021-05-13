@@ -39,5 +39,5 @@ class Solution(object):
         return cnt
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""m""i""n""P""a""t""c""h""e""s""(""[""1"","" ""2"","" ""2"","" ""6"","" ""3""4""]"","" ""2""0"")"" ""=""="" ""1
+if __name__ == "__main__":
+    assert Solution().minPatches([1, 2, 2, 6, 34], 20) == 1

@@ -24,5 +24,6 @@ class Solution(object):
         return w == len(word) and a == len(abbr)
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""v""a""l""i""d""W""o""r""d""A""b""b""r""e""v""i""a""t""i""o""n""(
+if __name__ == "__main__":
+    assert Solution().validWordAbbreviation("internationalization", "i12iz4n") == True
+    assert Solution().validWordAbbreviation("apple", "a2e") == False

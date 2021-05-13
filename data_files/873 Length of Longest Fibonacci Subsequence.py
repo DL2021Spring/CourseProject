@@ -51,5 +51,5 @@ class Solution:
             for j in range(i)
         )
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""l""e""n""L""o""n""g""e""s""t""F""i""b""S""u""b""s""e""q""(""[""1"",""2"",""3"",""4"",""5"",""6"",""7"",""8""]"")"" ""=""="" ""5""
+if __name__ == "__main__":
+    assert Solution().lenLongestFibSubseq([1,2,3,4,5,6,7,8]) == 5

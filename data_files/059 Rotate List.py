@@ -44,9 +44,9 @@ class Solution:
 
         return dummy.next
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""l""e""n""g""t""h"" ""="" ""1""
-"" "" "" "" ""l""s""t"" ""="" ""[""L""i""s""t""N""o""d""e""(""i""+""1"")"" ""f""o""r"" ""i"" ""i""n"" ""x""r""a""n""g""e""(""l""e""n""g""t""h"")""]""
-"" "" "" "" ""f""o""r"" ""i"" ""i""n"" ""r""a""n""g""e""(""l""e""n""g""t""h""-""1"")"":""
-"" "" "" "" "" "" "" "" ""l""s""t""[""i""]"".""n""e""x""t"" ""="" ""l""s""t""[""i""+""1""]""
-"" "" "" "" ""S""o""l""u""t""i""o""n""("")"".""r""o""t""a""t""e""R""i""g""h""t""(""l""s""t""[""0""]"","" ""1"")""
+if __name__=="__main__":
+    length = 1
+    lst = [ListNode(i+1) for i in xrange(length)]
+    for i in range(length-1):
+        lst[i].next = lst[i+1]
+    Solution().rotateRight(lst[0], 1)

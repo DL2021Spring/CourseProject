@@ -23,5 +23,5 @@ class Solution(object):
         ret.appendleft(cur)
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""f""i""n""d""I""t""i""n""e""r""a""r""y""(""[""[
+if __name__ == "__main__":
+    assert Solution().findItinerary([["JFK","KUL"],["JFK","NRT"],["NRT","JFK"]]) == ['JFK', 'NRT', 'JFK', 'KUL']

@@ -55,15 +55,16 @@ def extract(dir_path, dst_path, include_folder_name=False):
             load = []
             for f in files:
                 img_path = root + '/' + f
-                folder = "" ""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""i""n""c""l""u""d""e""_""f""o""l""d""e""r""_""n""a""m""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""f""o""l""d""e""r"" ""="" ""r""o""o""t"".""r""e""p""l""a""c""e""(""'""/""'"","" ""'""/""'"")"".""s""p""l""i""t""(""'""/""'"")""[""-""1""]""+""'""_""'""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""f""t""r""_""n""a""m""e"" ""="" ""o""s"".""p""a""t""h"".""j""o""i""n""(""d""s""t""_""p""a""t""h"","" ""f""o""l""d""e""r""+""f"".""s""p""l""i""t""(""'"".""'"")""[""0""]"" ""+"" ""'"".""t""x""t""'"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""l""o""a""d"".""a""p""p""e""n""d""(""(""i""m""g""_""p""a""t""h"","" ""f""t""r""_""n""a""m""e"")"")""
-""
-"" "" "" "" "" "" "" "" "" "" "" "" ""p"".""m""a""p""(""e""x""t""r""a""c""t""_""f""e""a""t""u""r""e"","" ""l""o""a""d"")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""#"" ""e""x""t""r""a""c""t""_""f""e""a""t""u""r""e""(""l""o""a""d""[""0""]"")""
-"" "" "" "" "" "" "" "" ""p""r""i""n""t"" ""r""o""o""t""
-"" "" "" "" ""p"".""c""l""o""s""e""("")""
-""
-""i""f"" ""_""_""n""a""m""e""_""_""=""=
+                folder = "" 
+                if include_folder_name:
+                    folder = root.replace('/', '/').split('/')[-1]+'_'
+                ftr_name = os.path.join(dst_path, folder+f.split('.')[0] + '.txt')
+                load.append((img_path, ftr_name))
+
+            p.map(extract_feature, load)
+            
+        print root
+    p.close()
+
+if __name__=="__main__":
+    extract(orl_path, orl_dst_path, True)

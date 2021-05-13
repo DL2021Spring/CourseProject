@@ -5,5 +5,5 @@ app = Celery('overridden by celery command', broker=redis_url)
 
 @app.task
 def consume(a, b):
-    print "c"o"n"s"u"m"e" "a"+"b" "=" "%"d"" ""%"" ""(""a"" ""+"" ""b"")""
-"" "" "" "" ""r""e""t""u""r""n"" ""a"" ""+"" ""b""
+    print "consume a+b = %d" % (a + b)
+    return a + b

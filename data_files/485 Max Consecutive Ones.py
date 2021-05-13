@@ -21,5 +21,5 @@ class Solution:
         return ret
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""f""i""n""d""M""a""x""C""o""n""s""e""c""u""t""i""v""e""O""n""e""s""(""[""1"",""1"",""0"",""1"",""1"",""1""]"")"" ""=""="" ""3""
+if __name__ == "__main__":
+    assert Solution().findMaxConsecutiveOnes([1,1,0,1,1,1]) == 3

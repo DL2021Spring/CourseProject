@@ -60,5 +60,11 @@ class Solution:
         return None
 
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""n""e""e""d""l""e"" ""="" 
+if __name__=="__main__":
+    needle = "ABCDABD"
+    haystack = "ABC ABCDAB ABCDABCDABDE"
+    needle = "aaa"
+    haystack = "aaa"
+    solution = Solution()
+    assert solution.strStr_brute_force(haystack, needle)==solution.strStr(haystack, needle)
+

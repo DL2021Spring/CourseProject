@@ -62,6 +62,15 @@ class Solution2:
     def walk(self, cur, counter, ret) -> str:
         
         if not cur:
-            return "N"o"n"e""
-""
-"" "" "" "" "" "" "" "" ""c""u""r""_""k""e""y"" ""="" 
+            return "None"
+
+        cur_key = ",".join([
+            self.walk(cur.left, counter, ret),
+            self.walk(cur.right, counter, ret),
+            str(cur.val),
+        ])
+        if counter[cur_key] == 1:
+            ret.append(cur)
+
+        counter[cur_key] += 1
+        return cur_key

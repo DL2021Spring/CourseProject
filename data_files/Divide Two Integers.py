@@ -42,5 +42,5 @@ class Solution:
 
         return q*sign
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""d""i""v""i""d""e""(""-""1"","" ""1"")
+if __name__ == "__main__":
+    print Solution().divide(-1, 1)

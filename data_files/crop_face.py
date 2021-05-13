@@ -81,5 +81,9 @@ def CropFace(image, eye_left=(0,0), eye_right=(0,0), offset_pct=(0.2,0.2), dest_
   image = image.resize(dest_sz, Image.ANTIALIAS)
   return image
   
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" ""i""m""a""g""e"" ""="" "" ""I""m""a""g""e"".""o""p""e""n""(
+if __name__ == "__main__":
+  image =  Image.open("arnie.jpg")
+  CropFace(image, eye_left=(280,322), eye_right=(435,395), offset_pct=(0.3,0.3), dest_sz=(200,200)).save("arnie_10_10_200_200.jpg")
+
+
+

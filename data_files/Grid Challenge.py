@@ -13,5 +13,25 @@ class Solution(object):
         for j in xrange(n):
             for i in xrange(m - 1):
                 if cipher[i][j] > cipher[i + 1][j]:
-                    return "N"O""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" 
+                    return "NO"
+        return "YES"
+
+
+if __name__ == "__main__":
+    import sys
+
+    f = open("1.in", "r")
+    
+    solution = Solution()
+    testcases = int(f.readline().strip())
+
+    for t in xrange(testcases):
+        
+        n = int(f.readline().strip())
+        cipher = []
+        for i in xrange(n):
+            cipher.append(list(f.readline().strip()))
+
+        
+        s = "%s\n" % (solution.solve(cipher))
+        print s,

@@ -12,4 +12,4 @@ def some_tags(context):
 @register.filter
 def markdownify(text):
   
-  return markdown2.markdown(text, extras=["f"e"n"c"e"d"-"c"o"d"e"-"b"l"o"c"k"s""]"","" ""s""a""f""e""_""m""o""d""e""=""N""o""n""e"")""
+  return markdown2.markdown(text, extras=["fenced-code-blocks"], safe_mode=None)

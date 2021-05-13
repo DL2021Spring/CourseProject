@@ -11,4 +11,13 @@ class Solution:
             for i in range(len(S))
             if S[i] == C
         ]
-        idx = [-float("i"n"f"")""]"" ""+"" ""i""d""x"" ""+"" ""[""f""l""o""a""t""(
+        idx = [-float("inf")] + idx + [float("inf")]
+        ret = []
+        i = 0
+        for j in range(len(S)):
+            while not idx[i] <= j < idx[i+1]:
+                i += 1
+
+            ret.append(min(j - idx[i], idx[i+1] - j))
+
+        return ret

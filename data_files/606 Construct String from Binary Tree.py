@@ -13,9 +13,13 @@ class Solution:
     def tree2str(self, t: TreeNode) -> str:
         if not t:
             return ""
-""
-"" "" "" "" "" "" "" "" ""l""e""f""t"" ""="" ""s""e""l""f"".""t""r""e""e""2""s""t""r""(""t"".""l""e""f""t"")""
-"" "" "" "" "" "" "" "" ""r""i""g""h""t"" ""="" ""s""e""l""f"".""t""r""e""e""2""s""t""r""(""t"".""r""i""g""h""t"")""
-"" "" "" "" "" "" "" "" ""r""e""t"" ""="" ""[""s""t""r""(""t"".""v""a""l"")""]""
-"" "" "" "" "" "" "" "" ""i""f"" ""l""e""f""t"" ""o""r"" ""r""i""g""h""t"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t"".""a""p""p""e""n""d""(
+
+        left = self.tree2str(t.left)
+        right = self.tree2str(t.right)
+        ret = [str(t.val)]
+        if left or right:
+            ret.append("(" + left + ")")
+        if right:
+            ret.append("(" + right + ")")
+
+        return "".join(ret)

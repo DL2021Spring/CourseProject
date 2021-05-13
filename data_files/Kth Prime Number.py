@@ -82,5 +82,5 @@ class Solution:
         return heapq.heappop(heap).val
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""k""t""h""P""r""i""m""e""N""u""m""b""e""r""(""3""2""1"")"" ""=""="" ""1""4""5""8""6""0""7""5
+if __name__ == "__main__":
+    assert Solution().kthPrimeNumber(321) == 14586075

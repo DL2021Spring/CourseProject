@@ -59,5 +59,5 @@ class Solution:
         return product
 
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""p""o""w""(""8"".""8""8""0""2""3"","" ""3"")""
+if __name__=="__main__":
+    print Solution().pow(8.88023, 3)

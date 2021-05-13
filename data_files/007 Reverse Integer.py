@@ -19,9 +19,11 @@ class Solution(object):
         x = str(x)
         lst = list(x)  
         lst.reverse()
-        x = "".""j""o""i""n""(""l""s""t"")""
-"" "" "" "" "" "" "" "" ""x"" ""="" ""i""n""t""(""x"")""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""s""i""g""n""*""x""
-""
-""
-""i""f"" ""_""_""n""a""m""e""_""_"" ""=""="" 
+        x = "".join(lst)
+        x = int(x)
+        return sign*x
+
+
+if __name__ == "__main__":
+    print Solution().reverse(123)
+

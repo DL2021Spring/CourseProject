@@ -28,8 +28,8 @@ class Solution:
         return ret
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""k""t""h""G""r""a""m""m""a""r""(""1"","" ""1"")"" ""=""="" ""0""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""k""t""h""G""r""a""m""m""a""r""(""2"","" ""1"")"" ""=""="" ""0""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""k""t""h""G""r""a""m""m""a""r""(""2"","" ""2"")"" ""=""="" ""1""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""k""t""h""G""r""a""m""m""a""r""(""4"","" ""5"")"" ""=""="" ""1""
+if __name__ == "__main__":
+    assert Solution().kthGrammar(1, 1) == 0
+    assert Solution().kthGrammar(2, 1) == 0
+    assert Solution().kthGrammar(2, 2) == 1
+    assert Solution().kthGrammar(4, 5) == 1

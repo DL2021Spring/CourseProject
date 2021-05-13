@@ -71,18 +71,27 @@ class HIGContainer(gtk.Bin):
 
     def do_set_property(self, pspec, value):
         if pspec.name == 'title':
-            self.__title.set_markup('<span weight="b"o"l"d"">""%""s""<""/""s""p""a""n"">""'"" ""%""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""g""o""b""j""e""c""t"".""m""a""r""k""u""p""_""e""s""c""a""p""e""_""t""e""x""t""(""v""a""l""u""e"")"")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""_""_""t""i""t""l""e""_""t""e""x""t"" ""="" ""v""a""l""u""e""
-"" "" "" "" "" "" "" "" ""e""l""s""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""a""i""s""e"" ""A""t""t""r""i""b""u""t""e""E""r""r""o""r"","" ""'""u""n""k""n""o""w""n"" ""p""r""o""p""e""r""t""y"" ""%""s""'"" ""%"" ""p""s""p""e""c"".""n""a""m""e""
-""
-"" "" "" "" ""d""e""f"" ""d""o""_""g""e""t""_""p""r""o""p""e""r""t""y""(""s""e""l""f"","" ""p""s""p""e""c"")"":""
-"" "" "" "" "" "" "" "" ""i""f"" ""p""s""p""e""c"".""n""a""m""e"" ""=""="" ""'""t""i""t""l""e""'"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""s""e""l""f"".""_""_""t""i""t""l""e""_""t""e""x""t""
-"" "" "" "" "" "" "" "" ""e""l""s""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""a""i""s""e"" ""A""t""t""r""i""b""u""t""e""E""r""r""o""r"","" ""'""u""n""k""n""o""w""n"" ""p""r""o""p""e""r""t""y"" ""%""s""'"" ""%"" ""p""s""p""e""c"".""n""a""m""e""
-""
-""i""f"" ""_""_""n""a""m""e""_""_"" ""=""="" ""'""_""_""m""a""i""n""_""_""'"":""
-"" "" "" "" ""f""r""a""m""e"" ""="" ""g""t""k"".""F""r""a""m""e""("")""
-"" "" "" "" ""g""r""o""u""p"" ""="" ""g""o""b""j""e""c""t"".""n""e""w""(""H""I""G""C""o""n""t""a""i""n""e""r"","" ""t""i""t""l""e""=
+            self.__title.set_markup('<span weight="bold">%s</span>' %
+                                    gobject.markup_escape_text(value))
+            self.__title_text = value
+        else:
+            raise AttributeError, 'unknown property %s' % pspec.name
+
+    def do_get_property(self, pspec):
+        if pspec.name == 'title':
+            return self.__title_text
+        else:
+            raise AttributeError, 'unknown property %s' % pspec.name
+
+if __name__ == '__main__':
+    frame = gtk.Frame()
+    group = gobject.new(HIGContainer, title="Hello")
+    frame.add(group)
+    check = gtk.CheckButton("foobar")
+    group.add(check)
+    w = gtk.Window()
+    w.add(frame)
+    w.show_all()
+    w.connect("destroy", lambda w: gtk.main_quit())
+    gtk.main()
+    

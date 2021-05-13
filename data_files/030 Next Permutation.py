@@ -29,5 +29,5 @@ class Solution:
         return num
 
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""n""e""x""t""P""e""r""m""u""t""a""t""i""o""n""(""[""3"","" ""2"","" ""1""]"")""
+if __name__=="__main__":
+    print Solution().nextPermutation([3, 2, 1])

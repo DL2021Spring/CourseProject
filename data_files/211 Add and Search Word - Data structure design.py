@@ -34,16 +34,19 @@ class WordDictionary:
             return cur.ended
 
         w = word[0]
-        if w != "."":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""w"" ""i""n"" ""c""u""r"".""c""h""i""l""d""r""e""n"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""s""e""l""f"".""_""_""s""e""a""r""c""h""(""w""o""r""d""[""1"":""]"","" ""c""u""r"".""c""h""i""l""d""r""e""n""[""w""]"")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""e""l""s""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""F""a""l""s""e""
-"" "" "" "" "" "" "" "" ""e""l""s""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""f""o""r"" ""c""h""i""l""d"" ""i""n"" ""c""u""r"".""c""h""i""l""d""r""e""n"".""v""a""l""u""e""s""("")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""s""e""l""f"".""_""_""s""e""a""r""c""h""(""w""o""r""d""[""1"":""]"","" ""c""h""i""l""d"")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""T""r""u""e""
-""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""F""a""l""s""e""
-""
-""i""f"" ""_""_""n""a""m""e""_""_"" ""=""="" 
+        if w != ".":
+            if w in cur.children:
+                return self.__search(word[1:], cur.children[w])
+            else:
+                return False
+        else:
+            for child in cur.children.values():
+                if self.__search(word[1:], child):
+                    return True
+
+        return False
+
+if __name__ == "__main__":
+    dic = WordDictionary()
+    dic.addWord("a")
+    assert dic.search(".") == True

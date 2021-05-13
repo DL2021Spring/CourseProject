@@ -15,12 +15,26 @@ class Solution(object):
             for l in xrange(1, n - i + 1):
                 sub = lst[i: i + l]
                 sub.sort()
-                d["".""j""o""i""n""(""s""u""b"")""]"" ""+""="" ""1""
-""
-"" "" "" "" "" "" "" "" ""s"" ""="" ""0""
-"" "" "" "" "" "" "" "" ""f""o""r"" ""v"" ""i""n"" ""d"".""v""a""l""u""e""s""("")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""s"" ""+""="" ""v"" ""*"" ""(""v"" ""-"" ""1"")"" ""/"" ""2""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""s""
-""
-""
-""i""f"" ""_""_""n""a""m""e""_""_"" ""=""="" 
+                d["".join(sub)] += 1
+
+        s = 0
+        for v in d.values():
+            s += v * (v - 1) / 2
+        return s
+
+
+if __name__ == "__main__":
+    import sys
+
+    f = open("0.in", "r")
+    
+    solution = Solution()
+    testcases = int(f.readline().strip())
+
+    for t in xrange(testcases):
+        
+        cipher = f.readline().strip()
+
+        
+        s = "%s\n" % (solution.solve(cipher))
+        print s,

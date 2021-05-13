@@ -26,15 +26,15 @@ class Solution:
                     next_level.append(element.right)
         return result
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""S""o""l""u""t""i""o""n""("")"".""l""e""v""e""l""O""r""d""e""r""B""o""t""t""o""m""(""T""r""e""e""N""o""d""e""(""1"")"")""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
+if __name__=="__main__":
+    Solution().levelOrderBottom(TreeNode(1))
+
+
+
+
+
+
+
+
+
+

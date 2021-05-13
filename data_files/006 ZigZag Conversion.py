@@ -24,5 +24,9 @@ class Solution:
             except IndexError:
                 break
 
-        lst = ["".""j""o""i""n""(""e""l""e""m""e""n""t"")"" ""f""o""r"" ""e""l""e""m""e""n""t"" ""i""n"" ""m""a""t""r""i""x""]""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" 
+        lst = ["".join(element) for element in matrix]
+        return "".join(lst)
+
+
+if __name__ == "__main__":
+    assert Solution().convert("ABCD", 2) == "ACBD

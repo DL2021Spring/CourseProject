@@ -22,5 +22,5 @@ class Solution:
 
         
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""S""o""l""u""t""i""o""n""("")"".""s""o""r""t""C""o""l""o""r""s""(""[""1"","" ""2"","" ""0""]"")
+if __name__=="__main__":
+    Solution().sortColors([1, 2, 0])

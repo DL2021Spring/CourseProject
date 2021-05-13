@@ -44,21 +44,21 @@ class MockRequest(object):
 
     def add_header(self, key, val):
         
-        raise NotImplementedError("C"o"o"k"i"e" "h"e"a"d"e"r"s" "s"h"o"u"l"d" "b"e" "a"d"d"e"d" "w"i"t"h" "a"d"d"_"u"n"r"e"d"i"r"e"c"t"e"d"_"h"e"a"d"e"r"(")"")""
-""
-"" "" "" "" ""d""e""f"" ""a""d""d""_""u""n""r""e""d""i""r""e""c""t""e""d""_""h""e""a""d""e""r""(""s""e""l""f"","" ""n""a""m""e"","" ""v""a""l""u""e"")"":""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""_""n""e""w""_""h""e""a""d""e""r""s""[""n""a""m""e""]"" ""="" ""v""a""l""u""e""
-""
-"" "" "" "" ""d""e""f"" ""g""e""t""_""n""e""w""_""h""e""a""d""e""r""s""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""s""e""l""f"".""_""n""e""w""_""h""e""a""d""e""r""s""
-""
-"" "" "" "" ""@""p""r""o""p""e""r""t""y""
-"" "" "" "" ""d""e""f"" ""u""n""v""e""r""i""f""i""a""b""l""e""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""s""e""l""f"".""i""s""_""u""n""v""e""r""i""f""i""a""b""l""e""("")""
-""
-""
-""c""l""a""s""s"" ""M""o""c""k""R""e""s""p""o""n""s""e""(""o""b""j""e""c""t"")"":""
-"" "" "" "" 
+        raise NotImplementedError("Cookie headers should be added with add_unredirected_header()")
+
+    def add_unredirected_header(self, name, value):
+        self._new_headers[name] = value
+
+    def get_new_headers(self):
+        return self._new_headers
+
+    @property
+    def unverifiable(self):
+        return self.is_unverifiable()
+
+
+class MockResponse(object):
+    
 
     def __init__(self, headers):
         

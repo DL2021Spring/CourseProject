@@ -21,5 +21,5 @@ class Solution:
         return ret
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""l""o""n""g""e""s""t""A""r""i""t""h""S""e""q""L""e""n""g""t""h""(""[""2""0"",""1"",""1""5"",""3"",""1""0"",""5"",""8""]"")"" ""=""="" ""4""
+if __name__ == "__main__":
+    assert Solution().longestArithSeqLength([20,1,15,3,10,5,8]) == 4

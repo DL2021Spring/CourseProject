@@ -33,5 +33,5 @@ class Solution:
         return ret
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""o""r""d""e""r""O""f""L""a""r""g""e""s""t""P""l""u""s""S""i""g""n""(""5"","" ""[""[""4"","" ""2""]""]"")"" ""=""="" ""2""
+if __name__ == "__main__":
+    assert Solution().orderOfLargestPlusSign(5, [[4, 2]]) == 2

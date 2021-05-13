@@ -32,5 +32,5 @@ class Solution:
                     return ind1+1, ind2+1
 
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""t""w""o""S""u""m""(""[""3"","" ""2"","" ""4""]"","" ""6"")
+if __name__=="__main__":
+    print Solution().twoSum([3, 2, 4], 6)

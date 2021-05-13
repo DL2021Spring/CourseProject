@@ -30,5 +30,5 @@ class Solution:
 
         return max_gap
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""m""a""x""i""m""u""m""G""a""p""(""[""1"","" ""1""0""0""0""]"")"" ""=""="" ""9""9""9
+if __name__ == "__main__":
+    assert Solution().maximumGap([1, 1000]) == 999

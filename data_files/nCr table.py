@@ -14,7 +14,20 @@ class Solution(object):
             comb = comb * (n + 1 - i) / i
             result.append(comb % MOD)
 
-        return " "".""j""o""i""n""(""m""a""p""(""s""t""r"","" ""r""e""s""u""l""t"")"")""
-""
-""
-""i""f"" ""_""_""n""a""m""e""_""_"" ""=""="" 
+        return " ".join(map(str, result))
+
+
+if __name__ == "__main__":
+    import sys
+
+    f = open("1.in", "r")
+    
+    testcases = int(f.readline().strip())
+
+    for t in xrange(testcases):
+        
+        cipher = int(f.readline().strip())
+
+        
+        s = "%s\n" % (Solution().solve(cipher))
+        print s,

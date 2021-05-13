@@ -22,36 +22,54 @@ def _normspace(s):
 
 def sentencebreaks_to_newlines(text):
     line_offset = 1
-    if "\"r"\"n"" ""i""n"" ""t""e""x""t"":""
-"" "" "" "" "" "" "" "" ""l""i""n""e""_""o""f""f""s""e""t"" ""="" ""2""
-"" "" "" "" ""o""f""f""s""e""t""s"" ""="" ""[""o"" ""f""o""r"" ""o"" ""i""n"" ""r""e""g""e""x""_""s""e""n""t""e""n""c""e""_""b""o""u""n""d""a""r""y""_""g""e""n""(""t""e""x""t"")""]""
-""
-"" "" "" "" ""#"" ""b""r""e""a""k"" ""i""n""t""o"" ""s""e""n""t""e""n""c""e""s""
-"" "" "" "" ""s""e""n""t""e""n""c""e""s"" ""="" ""[""s"" ""f""o""r"" ""s"" ""i""n"" ""_""t""e""x""t""_""b""y""_""o""f""f""s""e""t""s""_""g""e""n""(""t""e""x""t"","" ""o""f""f""s""e""t""s"")""]""
-""
-"" "" "" "" ""#"" ""j""o""i""n"" ""u""p"","" ""a""d""d""i""n""g"" ""a"" ""n""e""w""l""i""n""e"" ""f""o""r"" ""s""p""a""c""e"" ""w""h""e""r""e"" ""p""o""s""s""i""b""l""e""
-"" "" "" "" ""o""r""i""g""_""p""a""r""t""s"" ""="" ""[""]""
-"" "" "" "" ""n""e""w""_""p""a""r""t""s"" ""="" ""[""]""
-""
-"" "" "" "" ""s""e""n""t""n""u""m"" ""="" ""l""e""n""(""s""e""n""t""e""n""c""e""s"")""
-"" "" "" "" ""f""o""r"" ""i"" ""i""n"" ""r""a""n""g""e""(""s""e""n""t""n""u""m"")"":""
-"" "" "" "" "" "" "" "" ""s""e""n""t"" ""="" ""s""e""n""t""e""n""c""e""s""[""i""]""
-"" "" "" "" "" "" "" "" ""o""r""i""g""_""p""a""r""t""s"".""a""p""p""e""n""d""(""s""e""n""t"")""
-"" "" "" "" "" "" "" "" ""n""e""w""_""p""a""r""t""s"".""a""p""p""e""n""d""(""s""e""n""t"")""
-""
-"" "" "" "" "" "" "" "" ""i""f"" ""i"" ""<"" ""s""e""n""t""n""u""m""-""1"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""o""r""i""g""_""p""a""r""t""s"".""a""p""p""e""n""d""(""t""e""x""t""[""o""f""f""s""e""t""s""[""i""]""[""1""]"":""o""f""f""s""e""t""s""[""i""+""1""]""[""0""]""]"")""
-""
-"" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""(""o""f""f""s""e""t""s""[""i""]""[""1""]"" ""<"" ""o""f""f""s""e""t""s""[""i""+""1""]""[""0""]"" ""a""n""d""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""t""e""x""t""[""o""f""f""s""e""t""s""[""i""]""[""1""]""]"".""i""s""s""p""a""c""e""("")"")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""#"" ""i""n""t""e""r""v""e""n""i""n""g"" ""s""p""a""c""e"";"" ""c""a""n"" ""a""d""d"" ""n""e""w""l""i""n""e""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""n""e""w""_""p""a""r""t""s"".""a""p""p""e""n""d""(""'""\""n""'""+""t""e""x""t""[""o""f""f""s""e""t""s""[""i""]""[""1""]""+""l""i""n""e""_""o""f""f""s""e""t"":""o""f""f""s""e""t""s""[""i""+""1""]""[""0""]""]"")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""e""l""s""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""n""e""w""_""p""a""r""t""s"".""a""p""p""e""n""d""(""t""e""x""t""[""o""f""f""s""e""t""s""[""i""]""[""1""]"":""o""f""f""s""e""t""s""[""i""+""1""]""[""0""]""]"")""
-""
-"" "" "" "" ""i""f"" ""l""e""n""(""o""f""f""s""e""t""s"")"" ""a""n""d"" ""o""f""f""s""e""t""s""[""-""1""]""[""1""]"" ""<"" ""l""e""n""(""t""e""x""t"")"":""
-"" "" "" "" "" "" "" "" ""o""r""i""g""_""p""a""r""t""s"".""a""p""p""e""n""d""(""t""e""x""t""[""o""f""f""s""e""t""s""[""-""1""]""[""1""]"":""]"")""
-"" "" "" "" "" "" "" "" ""n""e""w""_""p""a""r""t""s"".""a""p""p""e""n""d""(""t""e""x""t""[""o""f""f""s""e""t""s""[""-""1""]""[""1""]"":""]"")""
-""
-"" "" "" "" ""#"" ""s""a""n""i""t""y"" ""c""h""e""c""k""
-"" "" "" "" ""a""s""s""e""r""t"" ""t""e""x""t"" ""=""="" ""'""'"".""j""o""i""n""(""o""r""i""g""_""p""a""r""t""s"")"","" 
+    if "\r\n" in text:
+        line_offset = 2
+    offsets = [o for o in regex_sentence_boundary_gen(text)]
+
+    
+    sentences = [s for s in _text_by_offsets_gen(text, offsets)]
+
+    
+    orig_parts = []
+    new_parts = []
+
+    sentnum = len(sentences)
+    for i in range(sentnum):
+        sent = sentences[i]
+        orig_parts.append(sent)
+        new_parts.append(sent)
+
+        if i < sentnum-1:
+            orig_parts.append(text[offsets[i][1]:offsets[i+1][0]])
+
+            if (offsets[i][1] < offsets[i+1][0] and
+                text[offsets[i][1]].isspace()):
+                
+                new_parts.append('\n'+text[offsets[i][1]+line_offset:offsets[i+1][0]])
+            else:
+                new_parts.append(text[offsets[i][1]:offsets[i+1][0]])
+
+    if len(offsets) and offsets[-1][1] < len(text):
+        orig_parts.append(text[offsets[-1][1]:])
+        new_parts.append(text[offsets[-1][1]:])
+
+    
+    assert text == ''.join(orig_parts), "INTERNAL ERROR:\n    '%s'\nvs\n    '%s'" % (text, ''.join(orig_parts))
+
+    splittext = ''.join(new_parts)
+
+    
+    assert len(text) == len(splittext), "INTERNAL ERROR"
+    assert _normspace(text) == _normspace(splittext), "INTERNAL ERROR:\n    '%s'\nvs\n    '%s'" % (_normspace(text), _normspace(splittext))
+
+    return splittext
+
+def main(argv):
+    while True:        
+        text = sys.stdin.readline()
+        if len(text) == 0:
+            break
+        sys.stdout.write(sentencebreaks_to_newlines(text))
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))

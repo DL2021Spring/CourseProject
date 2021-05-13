@@ -24,5 +24,5 @@ class Solution:
         return count == 3 and cur_sum == 0
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""c""a""n""T""h""r""e""e""P""a""r""t""s""E""q""u""a""l""S""u""m""(""[""3"",""3"",""6"",""5"",""-""2"",""2"",""5"",""1"",""-""9"",""4""]"")"" ""=""="" ""T""r""u""e""
+if __name__ == "__main__":
+    assert Solution().canThreePartsEqualSum([3,3,6,5,-2,2,5,1,-9,4]) == True

@@ -25,9 +25,9 @@ from bs4.testing import (
 
 @skipIf(
     not LXML_PRESENT,
-    "l"x"m"l" "s"e"e"m"s" "n"o"t" "t"o" "b"e" "p"r"e"s"e"n"t"," "n"o"t" "t"e"s"t"i"n"g" "i"t"s" "t"r"e"e" "b"u"i"l"d"e"r"."")""
-""c""l""a""s""s"" ""L""X""M""L""T""r""e""e""B""u""i""l""d""e""r""S""m""o""k""e""T""e""s""t""(""S""o""u""p""T""e""s""t"","" ""H""T""M""L""T""r""e""e""B""u""i""l""d""e""r""S""m""o""k""e""T""e""s""t"")"":""
-"" "" "" "" 
+    "lxml seems not to be present, not testing its tree builder.")
+class LXMLTreeBuilderSmokeTest(SoupTest, HTMLTreeBuilderSmokeTest):
+    
 
     @property
     def default_builder(self):
@@ -35,7 +35,36 @@ from bs4.testing import (
 
     def test_out_of_range_entity(self):
         self.assertSoupEquals(
-            "<"p">"f"o"o"&"#"1"0"0"0"0"0"0"0"0"0"0"0"0"0";"b"a"r"<"/"p">"","" lxml strips the XML definition from an XHTML doc, which is fine.<?xml version="1"."0"" ""e""n""c""o""d""i""n""g""=
+            "<p>foo&
+        self.assertSoupEquals(
+            "<p>foo&
+        self.assertSoupEquals(
+            "<p>foo&
+
+    def test_beautifulstonesoup_is_xml_parser(self):
+        
+        
+        with warnings.catch_warnings(record=False) as w:
+            soup = BeautifulStoneSoup("<b />")
+            self.assertEqual(u"<b/>", unicode(soup.b))
+
+    def test_real_xhtml_document(self):
+        
+        markup = b
         soup = self.soup(markup)
         self.assertEqual(
-            soup.encode("u"t"f"-"8"")"".""r""e""p""l""a""c""e""(""bSee ``HTMLTreeBuilderSmokeTest``.
+            soup.encode("utf-8").replace(b"\n", b''),
+            markup.replace(b'\n', b'').replace(
+                b'<?xml version="1.0" encoding="utf-8"?>', b''))
+
+
+@skipIf(
+    not LXML_PRESENT,
+    "lxml seems not to be present, not testing its XML tree builder.")
+class LXMLXMLTreeBuilderSmokeTest(SoupTest, XMLTreeBuilderSmokeTest):
+    
+
+    @property
+    def default_builder(self):
+        return LXMLTreeBuilderForXML()
+

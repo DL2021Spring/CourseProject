@@ -18,5 +18,5 @@ class Solution(object):
         return n-s
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""h""I""n""d""e""x""(""[""0"","" ""1"","" ""3"","" ""5"","" ""6""]"")"" ""=""="" ""3
+if __name__ == "__main__":
+    assert Solution().hIndex([0, 1, 3, 5, 6]) == 3

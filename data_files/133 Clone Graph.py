@@ -50,13 +50,13 @@ class Solution:
         return original2copy[node]
 
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""l""s""t"" ""="" ""[""U""n""d""i""r""e""c""t""e""d""G""r""a""p""h""N""o""d""e""(""i""+""1"")"" ""f""o""r"" ""i"" ""i""n"" ""r""a""n""g""e""(""3"")""]""
-"" "" "" "" ""f""o""r"" ""i""t""e""m"" ""i""n"" ""l""s""t"":""
-"" "" "" "" "" "" "" "" ""i""t""e""m"".""n""e""i""g""h""b""o""r""s"" ""="" ""l""i""s""t""(""l""s""t"")""
-"" "" "" "" "" "" "" "" ""i""t""e""m"".""n""e""i""g""h""b""o""r""s"".""r""e""m""o""v""e""(""i""t""e""m"")""
-"" "" "" "" ""c""l""o""n""e""d"" ""="" ""S""o""l""u""t""i""o""n""("")"".""c""l""o""n""e""G""r""a""p""h""(""l""s""t""[""0""]"")""
-"" "" "" "" ""a""s""s""e""r""t"" ""c""l""o""n""e""d"".""n""e""i""g""h""b""o""r""s""[""0""]"".""l""a""b""e""l"" ""i""n"" ""(""2"","" ""3"")""
-"" "" "" "" ""a""s""s""e""r""t"" ""c""l""o""n""e""d"".""n""e""i""g""h""b""o""r""s""[""1""]"".""l""a""b""e""l"" ""i""n"" ""(""2"","" ""3"")""
-""
-""
+if __name__=="__main__":
+    lst = [UndirectedGraphNode(i+1) for i in range(3)]
+    for item in lst:
+        item.neighbors = list(lst)
+        item.neighbors.remove(item)
+    cloned = Solution().cloneGraph(lst[0])
+    assert cloned.neighbors[0].label in (2, 3)
+    assert cloned.neighbors[1].label in (2, 3)
+
+

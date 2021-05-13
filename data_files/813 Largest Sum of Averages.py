@@ -53,5 +53,5 @@ class Solution:
         return F[i, k]
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""l""a""r""g""e""s""t""S""u""m""O""f""A""v""e""r""a""g""e""s""(""[""9"",""1"",""2"",""3"",""9""]"","" ""3"")"" ""=""="" ""2""0""
+if __name__ == "__main__":
+    assert Solution().largestSumOfAverages([9,1,2,3,9], 3) == 20

@@ -40,38 +40,189 @@ EXCLUDED_TAGS = [
 EXCLUDED_TAG = { t:True for t in EXCLUDED_TAGS }
 
 
-ELIDED_TEXT_STRING = "["["["."."."]"]"]""
-""
-""#"" ""m""a""x""i""m""u""m"" ""l""e""n""g""t""h"" ""o""f"" ""t""e""x""t"" ""s""t""r""i""n""g""s"" ""p""r""i""n""t""e""d"" ""w""i""t""h""o""u""t"" ""e""l""i""s""i""o""n""
-""M""A""X""I""M""U""M""_""T""E""X""T""_""D""I""S""P""L""A""Y""_""L""E""N""G""T""H"" ""="" ""1""0""0""0""
-""
-""#"" ""c""-""s""t""y""l""e"" ""s""t""r""i""n""g"" ""e""s""c""a""p""i""n""g"" ""f""o""r"" ""j""u""s""t"" ""n""e""w""l""i""n""e"","" ""t""a""b"" ""a""n""d"" ""b""a""c""k""s""l""a""s""h"".""
-""#"" ""(""s"".""e""n""c""o""d""e""(""'""s""t""r""i""n""g""_""e""s""c""a""p""e""'"")"" ""d""o""e""s"" ""t""o""o"" ""m""u""c""h"" ""f""o""r"" ""u""t""f""-""8"")""
-""d""e""f"" ""c""_""e""s""c""a""p""e""(""s"")"":""
-"" "" "" "" ""r""e""t""u""r""n"" ""s"".""r""e""p""l""a""c""e""(""'""\""\""'"","" ""'""\""\""\""\""'"")"".""r""e""p""l""a""c""e""(""'""\""t""'"",""'""\""\""t""'"")"".""r""e""p""l""a""c""e""(""'""\""n""'"",""'""\""\""n""'"")""
-""
-""d""e""f"" ""s""t""r""i""p""_""n""s""(""t""a""g"")"":""
-"" "" "" "" ""#"" ""r""e""m""o""v""e"" ""n""a""m""e""s""p""a""c""e"" ""s""p""e""c"" ""f""r""o""m"" ""t""a""g"","" ""i""f"" ""a""n""y""
-"" "" "" "" ""r""e""t""u""r""n"" ""t""a""g"" ""i""f"" ""t""a""g""[""0""]"" ""!""="" ""'""{""'"" ""e""l""s""e"" ""r""e"".""s""u""b""(""r""'""\""{"".""*""?""\""}""'"","" ""'""'"","" ""t""a""g"")""
-""
-""c""l""a""s""s"" ""S""t""a""n""d""o""f""f"":""
-"" "" "" "" ""d""e""f"" ""_""_""i""n""i""t""_""_""(""s""e""l""f"","" ""s""i""d"","" ""e""l""e""m""e""n""t"","" ""s""t""a""r""t"","" ""e""n""d"","" ""t""e""x""t"")"":""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""s""i""d"" "" "" "" "" ""="" ""s""i""d""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""e""l""e""m""e""n""t"" ""="" ""e""l""e""m""e""n""t""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""s""t""a""r""t"" "" "" ""="" ""s""t""a""r""t""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""e""n""d"" "" "" "" "" ""="" ""e""n""d""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""t""e""x""t"" "" "" "" ""="" ""t""e""x""t""
-""
-"" "" "" "" ""d""e""f"" ""c""o""m""p""r""e""s""s""_""t""e""x""t""(""s""e""l""f"","" ""l"")"":""
-"" "" "" "" "" "" "" "" ""i""f"" ""l""e""n""(""s""e""l""f"".""t""e""x""t"")"" "">""="" ""l"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""e""l"" ""="" ""l""e""n""(""E""L""I""D""E""D""_""T""E""X""T""_""S""T""R""I""N""G"")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""s""l"" ""="" ""(""l""-""e""l"")""/""2""
-"" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""t""e""x""t"" ""="" ""(""s""e""l""f"".""t""e""x""t""["":""s""l""]""+""E""L""I""D""E""D""_""T""E""X""T""_""S""T""R""I""N""G""+""s""e""l""f"".""t""e""x""t""[""-""(""l""-""s""l""-""e""l"")"":""]"")""
-"" "" "" "" ""d""e""f"" ""t""a""g""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""s""t""r""i""p""_""n""s""(""s""e""l""f"".""e""l""e""m""e""n""t"".""t""a""g"")""
-""
-"" "" "" "" ""d""e""f"" ""a""t""t""r""i""b""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" ""#"" ""r""e""m""o""v""e"" ""n""a""m""e""s""p""a""c""e"" ""s""p""e""c""s"" ""f""r""o""m"" ""a""t""t""r""i""b""u""t""e"" ""n""a""m""e""s"","" ""i""f"" ""a""n""y""
-"" "" "" "" "" "" "" "" ""a""t""t""r""i""b"" ""="" ""{""}""
-"" "" "" "" "" "" "" "" ""f""o""r"" ""a"" ""i""n"" ""s""e""l""f"".""e""l""e""m""e""n""t"".""a""t""t""r""i""b"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""a""[""0""]"" ""=""="" 
+ELIDED_TEXT_STRING = "[[[...]]]"
+
+
+MAXIMUM_TEXT_DISPLAY_LENGTH = 1000
+
+
+
+def c_escape(s):
+    return s.replace('\\', '\\\\').replace('\t','\\t').replace('\n','\\n')
+
+def strip_ns(tag):
+    
+    return tag if tag[0] != '{' else re.sub(r'\{.*?\}', '', tag)
+
+class Standoff:
+    def __init__(self, sid, element, start, end, text):
+        self.sid     = sid
+        self.element = element
+        self.start   = start
+        self.end     = end
+        self.text    = text
+
+    def compress_text(self, l):
+        if len(self.text) >= l:
+            el = len(ELIDED_TEXT_STRING)
+            sl = (l-el)/2
+            self.text = (self.text[:sl]+ELIDED_TEXT_STRING+self.text[-(l-sl-el):])
+    def tag(self):
+        return strip_ns(self.element.tag)
+
+    def attrib(self):
+        
+        attrib = {}
+        for a in self.element.attrib:
+            if a[0] == "{":
+                an = re.sub(r'\{.*?\}', '', a)
+            else:
+                an = a
+            attrib[an] = self.element.attrib[a]
+        return attrib
+
+    def __str__(self):
+        return "X%d\t%s %d %d\t%s\t%s" % \
+            (self.sid, self.tag(), self.start, self.end, 
+             c_escape(self.text.encode("utf-8")),
+             " ".join(['%s="%s"' % (k.encode("utf-8"), v.encode("utf-8"))
+                       for k,v in self.attrib().items()]))
+
+def txt(s):
+    return s if s is not None else ""
+
+next_free_so_id = 1
+
+def text_and_standoffs(e, curroff=0, standoffs=None):
+    global next_free_so_id
+
+    if standoffs == None:
+        standoffs = []
+    startoff = curroff
+    
+    
+    so = Standoff(next_free_so_id, e, 0, 0, "")
+    next_free_so_id += 1
+    standoffs.append(so)
+    setext, dummy = subelem_text_and_standoffs(e, curroff+len(txt(e.text)), standoffs)
+    text = txt(e.text) + setext
+    curroff += len(text)
+    so.start = startoff
+    so.end   = curroff
+    so.text  = text
+    return (text, standoffs)
+
+def subelem_text_and_standoffs(e, curroff, standoffs):
+    startoff = curroff
+    text = ""
+    for s in e:
+        stext, dummy = text_and_standoffs(s, curroff, standoffs)
+        text += stext
+        text += txt(s.tail)
+        curroff = startoff + len(text)
+    return (text, standoffs)
+
+def empty_elements(e, tags=None):
+    if tags is None or strip_ns(e.tag) in tags:
+        e.clear()
+    for c in e:
+        empty_elements(c, tags)
+
+def add_space(e):
+    if strip_ns(e.tag) in ('title', ):
+        e.tail = (e.tail if e.tail is not None else '') + '\n'
+    for c in e:
+        add_space(c)
+
+def convert_coresc1(s):
+    sostrings = []
+
+    
+    
+
+    tid = "T%d" % convert_coresc1._idseq
+    sostrings.append('%s\t%s %d %d\t%s' % \
+                         (tid, s.attrib()['type'], s.start, s.end, 
+                          s.text.encode('utf-8')))
+
+    
+
+    convert_coresc1._idseq += 1
+
+    return sostrings
+convert_coresc1._idseq = 1
+
+convert_function = {
+    'CoreSc1' : convert_coresc1,
+    'annotationART' : convert_coresc1,
+}
+
+def main(argv=[]):
+    if len(argv) != 4:
+        print >> sys.stderr, "Usage:", argv[0], "IN-XML OUT-TEXT OUT-SO"
+        return -1
+
+    in_fn, out_txt_fn, out_so_fn = argv[1:]
+
+    
+    if in_fn == "-":
+        in_fn = "/dev/stdin"
+    if out_txt_fn == "-":
+        out_txt_fn = "/dev/stdout"
+    if out_so_fn == "-":
+        out_so_fn = "/dev/stdout"
+
+    tree = ET.parse(in_fn)
+    root = tree.getroot()
+
+    
+    empty_elements(root, set(['article-categories', 
+                              'copyright-statement', 'license', 
+                              'copyright-holder', 'copyright-year',
+                              'journal-meta', 'article-id',
+                              'back', 
+                              'fig', 'table-wrap', 
+                              'contrib-group',
+                              'aff', 'author-notes',
+                              'pub-date', 
+                              'volume', 'issue', 
+                              'fpage', 'lpage', 
+                              'history'
+                              ]))
+
+    add_space(root)
+    
+
+    text, standoffs = text_and_standoffs(root)
+
+    
+    standoffs = [s for s in standoffs if not s.tag() in EXCLUDED_TAG]
+
+    
+    converted = []
+    for s in standoffs:
+        if s.tag() in convert_function:
+            converted.extend(convert_function[s.tag()](s))
+
+
+    standoffs = converted
+
+    for so in standoffs:
+        try:
+            so.compress_text(MAXIMUM_TEXT_DISPLAY_LENGTH)
+        except AttributeError:
+            pass
+
+    
+    out_txt = open(out_txt_fn, "wt")
+    out_so  = open(out_so_fn, "wt")
+
+    out_txt.write(text.encode("utf-8"))
+    for so in standoffs:
+        print >> out_so, so
+
+    out_txt.close()
+    out_so.close()
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))

@@ -21,5 +21,5 @@ class Solution:
         return False
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""c""h""e""c""k""S""u""b""a""r""r""a""y""S""u""m""(""[""2""3"",""2"",""4"",""6"",""7""]"","" ""6"")"" ""=""="" ""T""r""u""e""
+if __name__ == "__main__":
+    assert Solution().checkSubarraySum([23,2,4,6,7], 6) == True

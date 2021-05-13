@@ -70,6 +70,6 @@ class Solution:
         return lt+1, gt
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""k""t""h""L""a""r""g""e""s""t""E""l""e""m""e""n""t""(""1""0"","" ""r""a""n""g""e""(""1"","" ""1""1"")"")"" ""=""="" ""1""
-""
+if __name__ == "__main__":
+    assert Solution().kthLargestElement(10, range(1, 11)) == 1
+

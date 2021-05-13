@@ -32,46 +32,136 @@
 
 
 import sys, os
-sys.path.append("."."/"."."")""
-""#"" ""f""a""c""e""r""e""c""
-""f""r""o""m"" ""f""a""c""e""r""e""c"".""f""e""a""t""u""r""e"" ""i""m""p""o""r""t"" ""F""i""s""h""e""r""f""a""c""e""s"","" ""P""C""A"","" ""S""p""a""t""i""a""l""H""i""s""t""o""g""r""a""m"","" ""I""d""e""n""t""i""t""y""
-""f""r""o""m"" ""f""a""c""e""r""e""c"".""d""i""s""t""a""n""c""e"" ""i""m""p""o""r""t"" ""E""u""c""l""i""d""e""a""n""D""i""s""t""a""n""c""e"","" ""C""h""i""S""q""u""a""r""e""D""i""s""t""a""n""c""e""
-""f""r""o""m"" ""f""a""c""e""r""e""c"".""c""l""a""s""s""i""f""i""e""r"" ""i""m""p""o""r""t"" ""N""e""a""r""e""s""t""N""e""i""g""h""b""o""r""
-""f""r""o""m"" ""f""a""c""e""r""e""c"".""m""o""d""e""l"" ""i""m""p""o""r""t"" ""P""r""e""d""i""c""t""a""b""l""e""M""o""d""e""l""
-""f""r""o""m"" ""f""a""c""e""r""e""c"".""v""a""l""i""d""a""t""i""o""n"" ""i""m""p""o""r""t"" ""K""F""o""l""d""C""r""o""s""s""V""a""l""i""d""a""t""i""o""n""
-""f""r""o""m"" ""f""a""c""e""r""e""c"".""v""i""s""u""a""l"" ""i""m""p""o""r""t"" ""s""u""b""p""l""o""t""
-""f""r""o""m"" ""f""a""c""e""r""e""c"".""u""t""i""l"" ""i""m""p""o""r""t"" ""m""i""n""m""a""x""_""n""o""r""m""a""l""i""z""e""
-""f""r""o""m"" ""f""a""c""e""r""e""c"".""s""e""r""i""a""l""i""z""a""t""i""o""n"" ""i""m""p""o""r""t"" ""s""a""v""e""_""m""o""d""e""l"","" ""l""o""a""d""_""m""o""d""e""l""
-""#"" ""r""e""q""u""i""r""e""d"" ""l""i""b""r""a""r""i""e""s""
-""i""m""p""o""r""t"" ""n""u""m""p""y"" ""a""s"" ""n""p""
-""#"" ""t""r""y"" ""t""o"" ""i""m""p""o""r""t"" ""t""h""e"" ""P""I""L"" ""I""m""a""g""e"" ""m""o""d""u""l""e""
-""t""r""y"":""
-"" "" "" "" ""f""r""o""m"" ""P""I""L"" ""i""m""p""o""r""t"" ""I""m""a""g""e""
-""e""x""c""e""p""t"" ""I""m""p""o""r""t""E""r""r""o""r"":""
-"" "" "" "" ""i""m""p""o""r""t"" ""I""m""a""g""e""
-""i""m""p""o""r""t"" ""m""a""t""p""l""o""t""l""i""b"".""c""m"" ""a""s"" ""c""m""
-""i""m""p""o""r""t"" ""l""o""g""g""i""n""g""
-""i""m""p""o""r""t"" ""m""a""t""p""l""o""t""l""i""b"".""p""y""p""l""o""t"" ""a""s"" ""p""l""t""
-""i""m""p""o""r""t"" ""m""a""t""p""l""o""t""l""i""b"".""c""m"" ""a""s"" ""c""m""
-""f""r""o""m"" ""f""a""c""e""r""e""c"".""l""b""p"" ""i""m""p""o""r""t"" ""L""P""Q"","" ""E""x""t""e""n""d""e""d""L""B""P""
-""
-""c""l""a""s""s"" ""F""i""l""e""N""a""m""e""F""i""l""t""e""r"":""
-"" "" "" "" ""d""e""f"" ""_""_""i""n""i""t""_""_""(""s""e""l""f"","" ""n""a""m""e"")"":""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""_""n""a""m""e"" ""="" ""n""a""m""e""
-""
-"" "" "" "" ""d""e""f"" ""_""_""c""a""l""l""_""_""(""s""e""l""f"","" ""f""i""l""e""n""a""m""e"")"":""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""T""r""u""e""
-"" "" "" "" "" "" "" "" ""
-"" "" "" "" ""d""e""f"" ""_""_""r""e""p""r""_""_""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" Reads the images in a given folder, resizes images on the fly if size is given.
+sys.path.append("../..")
 
-    Args:
-        path: Path to a folder with subfolders representing the subjects (persons).
-        sz: A tuple with the size Resizes 
+from facerec.feature import Fisherfaces, PCA, SpatialHistogram, Identity
+from facerec.distance import EuclideanDistance, ChiSquareDistance
+from facerec.classifier import NearestNeighbor
+from facerec.model import PredictableModel
+from facerec.validation import KFoldCrossValidation
+from facerec.visual import subplot
+from facerec.util import minmax_normalize
+from facerec.serialization import save_model, load_model
 
-    Returns:
-        A list [X,y]
+import numpy as np
 
-            X: The images, which is a Python list of numpy arrays.
-            y: The corresponding labels (the unique number of the subject, person) in a Python list.
+try:
+    from PIL import Image
+except ImportError:
+    import Image
+import matplotlib.cm as cm
+import logging
+import matplotlib.pyplot as plt
+import matplotlib.cm as cm
+from facerec.lbp import LPQ, ExtendedLBP
+
+class FileNameFilter:
+    def __init__(self, name):
+        self._name = name
+
+    def __call__(self, filename):
+        return True
+        
+    def __repr__(self):
+        return "FileNameFilter (name=%s)" % (self._name) 
+
+
+class YaleBaseFilter(FileNameFilter):
+    def __init__(self, min_azimuth, max_azimuth, min_elevation, max_elevation):
+        FileNameFilter.__init__(self, "Filter YaleFDB Subset1")
+        self._min_azimuth = min_azimuth
+        self._max_azimuth = max_azimuth
+        self._min_elevation = min_elevation
+        self._max_elevation = max_elevation
+
+    def __call__(self, filename):
+        
+        
+        filetype = filename[-4:]
+        if filetype != ".pgm":
+            return False
+
+        
+        if "Ambient" in filename:
+            return False
+        
+        azimuth = int(filename[12:16])
+        elevation = int(filename[17:20])
+
+        
+        if azimuth < self._min_azimuth or azimuth > self._max_azimuth:
+            return False
+        if elevation < self._min_elevation or elevation > self._max_elevation:
+            return False
+            
+        return True
+
+def read_images(path, fileNameFilter=FileNameFilter("None"), sz=None):
     
+    c = 0
+    X,y = [], []
+    for dirname, dirnames, filenames in os.walk(path):
+        for subdirname in dirnames:
+            subject_path = os.path.join(dirname, subdirname)
+            for filename in os.listdir(subject_path):
+                if fileNameFilter(filename):
+                    print filename
+                    try:
+                        im = Image.open(os.path.join(subject_path, filename))
+                        im = im.convert("L")
+                        
+                        if (sz is not None):
+                            im = im.resize(self.sz, Image.ANTIALIAS)
+                        X.append(np.asarray(im, dtype=np.uint8))
+                        y.append(c)
+                    except IOError, (errno, strerror):
+                        print "I/O error({0}): {1}".format(errno, strerror)
+                    except:
+                        print "Unexpected error:", sys.exc_info()[0]
+                        raise
+            c = c+1
+    return [X,y]
+
+
+if __name__ == "__main__":
+    
+    
+    out_dir = None
+    
+    
+    
+    if len(sys.argv) < 2:
+        print "USAGE: facerec_demo.py </path/to/images>"
+        sys.exit()
+    yale_filter = YaleBaseFilter(-25, 25, -25, 25)
+    
+    [X,y] = read_images(sys.argv[1], yale_filter)
+    
+    handler = logging.StreamHandler(sys.stdout)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    handler.setFormatter(formatter)
+    
+    logger = logging.getLogger("facerec")
+    logger.addHandler(handler)
+    logger.setLevel(logging.DEBUG)
+    
+    feature = PCA()
+    
+    classifier = NearestNeighbor(dist_metric=EuclideanDistance(), k=1)
+    
+    model = PredictableModel(feature=feature, classifier=classifier)
+    
+    model.compute(X, y)
+    
+    
+    E = []
+    for i in xrange(min(model.feature.eigenvectors.shape[1], 16)):
+        e = model.feature.eigenvectors[:,i].reshape(X[0].shape)
+        E.append(minmax_normalize(e,0,255, dtype=np.uint8))
+    
+    subplot(title="Fisherfaces", images=E, rows=4, cols=4, sptitle="Fisherface", colormap=cm.jet, filename="fisherfaces.png")
+    
+    cv = KFoldCrossValidation(model, k=10)
+    cv.validate(X, y)
+    
+    cv.print_results()

@@ -11,12 +11,12 @@ class Solution:
     def sumNumbers(self, root):
         
         result = []
-        self.dfs(root, "","" ""r""e""s""u""l""t"")""
-"" "" "" "" "" "" "" "" ""r""e""s""u""l""t"" ""="" ""[""i""n""t""(""e""l""e""m""e""n""t"")"" ""f""o""r"" ""e""l""e""m""e""n""t"" ""i""n"" ""r""e""s""u""l""t""]""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""s""u""m""(""r""e""s""u""l""t"")""
-""
-"" "" "" "" ""d""e""f"" ""d""f""s""(""s""e""l""f"","" ""r""o""o""t"","" ""c""u""r"","" ""r""e""s""u""l""t"")"":""
-"" "" "" "" "" "" "" "" 
+        self.dfs(root, "", result)
+        result = [int(element) for element in result]
+        return sum(result)
+
+    def dfs(self, root, cur, result):
+        
         if not root:
             return
         cur = cur+str(root.val)
@@ -47,8 +47,8 @@ class Solution:
             self.dfs_error(root.right, cur, result)
 
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""n""o""d""e""s"" ""="" ""[""T""r""e""e""N""o""d""e""(""0"")"","" ""T""r""e""e""N""o""d""e""(""1"")"","" ""T""r""e""e""N""o""d""e""(""3"")""]""
-"" "" "" "" ""n""o""d""e""s""[""0""]"".""l""e""f""t"" ""="" ""n""o""d""e""s""[""1""]""
-"" "" "" "" ""n""o""d""e""s""[""0""]"".""r""i""g""h""t"" ""="" ""n""o""d""e""s""[""2""]""
-"" "" "" "" ""S""o""l""u""t""i""o""n""("")"".""s""u""m""N""u""m""b""e""r""s""(""n""o""d""e""s""[""0""]"")
+if __name__=="__main__":
+    nodes = [TreeNode(0), TreeNode(1), TreeNode(3)]
+    nodes[0].left = nodes[1]
+    nodes[0].right = nodes[2]
+    Solution().sumNumbers(nodes[0])

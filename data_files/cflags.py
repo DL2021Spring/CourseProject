@@ -149,5 +149,44 @@ def options(opt):
 	opt.add_option('-d', '--build-profile',
 		       action='store',
 		       default=default_profile,
-		       help=("S"p"e"c"i"f"y" "t"h"e" "b"u"i"l"d" "p"r"o"f"i"l"e"." " ""
-""	""	""	"" "" "" "" "" 
+		       help=("Specify the build profile.  "
+			     "Build profiles control the default compilation flags"
+			     " used for C/C++ programs, if CCFLAGS/CXXFLAGS are not"
+			     " set set in the environment. [Allowed Values: %s]"
+			     % ", ".join([repr(p) for p in profiles.keys()])),
+		       choices=profiles.keys(),
+		       dest='build_profile')
+
+def configure(conf):
+	cc = conf.env['COMPILER_CC'] or None
+	cxx = conf.env['COMPILER_CXX'] or None
+	if not (cc or cxx):
+		raise Utils.WafError("neither COMPILER_CC nor COMPILER_CXX are defined; "
+				     "maybe the compiler_cc or compiler_cxx tool has not been configured yet?")
+	
+	try:
+		compiler = compiler_mapping[cc]
+	except KeyError:
+		try:
+			compiler = compiler_mapping[cxx]
+		except KeyError:
+			Logs.warn("No compiler flags support for compiler %r or %r"
+				  % (cc, cxx))
+			return
+
+	opt_level, warn_level, dbg_level = profiles[Options.options.build_profile]
+
+	optimizations = compiler.get_optimization_flags(opt_level)
+	debug, debug_defs = compiler.get_debug_flags(dbg_level)
+	warnings = compiler.get_warnings_flags(warn_level)
+	
+	if cc and not conf.env['CCFLAGS']:
+		conf.env.append_value('CCFLAGS', optimizations)
+		conf.env.append_value('CCFLAGS', debug)
+		conf.env.append_value('CCFLAGS', warnings)
+		conf.env.append_value('CCDEFINES', debug_defs)
+	if cxx and not conf.env['CXXFLAGS']:
+		conf.env.append_value('CXXFLAGS', optimizations)
+		conf.env.append_value('CXXFLAGS', debug)
+		conf.env.append_value('CXXFLAGS', warnings)
+		conf.env.append_value('CXXDEFINES', debug_defs)

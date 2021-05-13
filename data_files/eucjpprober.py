@@ -47,44 +47,44 @@ class EUCJPProber(MultiByteCharSetProber):
         self._mContextAnalyzer.reset()
 
     def get_charset_name(self):
-        return "E"U"C"-"J"P""
-""
-"" "" "" "" ""d""e""f"" ""f""e""e""d""(""s""e""l""f"","" ""a""B""u""f"")"":""
-"" "" "" "" "" "" "" "" ""a""L""e""n"" ""="" ""l""e""n""(""a""B""u""f"")""
-"" "" "" "" "" "" "" "" ""f""o""r"" ""i"" ""i""n"" ""r""a""n""g""e""(""0"","" ""a""L""e""n"")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""#"" ""P""Y""3""K"":"" ""a""B""u""f"" ""i""s"" ""a"" ""b""y""t""e"" ""a""r""r""a""y"","" ""s""o"" ""a""B""u""f""[""i""]"" ""i""s"" ""a""n"" ""i""n""t"","" ""n""o""t"" ""a"" ""b""y""t""e""
-"" "" "" "" "" "" "" "" "" "" "" "" ""c""o""d""i""n""g""S""t""a""t""e"" ""="" ""s""e""l""f"".""_""m""C""o""d""i""n""g""S""M"".""n""e""x""t""_""s""t""a""t""e""(""a""B""u""f""[""i""]"")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""c""o""d""i""n""g""S""t""a""t""e"" ""=""="" ""c""o""n""s""t""a""n""t""s"".""e""E""r""r""o""r"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""c""o""n""s""t""a""n""t""s"".""_""d""e""b""u""g"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""y""s"".""s""t""d""e""r""r"".""w""r""i""t""e""(""s""e""l""f"".""g""e""t""_""c""h""a""r""s""e""t""_""n""a""m""e""("")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""+"" ""'"" ""p""r""o""b""e""r"" ""h""i""t"" ""e""r""r""o""r"" ""a""t"" ""b""y""t""e"" ""'"" ""+"" ""s""t""r""(""i"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""+"" ""'""\""n""'"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""_""m""S""t""a""t""e"" ""="" ""c""o""n""s""t""a""n""t""s"".""e""N""o""t""M""e""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""b""r""e""a""k""
-"" "" "" "" "" "" "" "" "" "" "" "" ""e""l""i""f"" ""c""o""d""i""n""g""S""t""a""t""e"" ""=""="" ""c""o""n""s""t""a""n""t""s"".""e""I""t""s""M""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""_""m""S""t""a""t""e"" ""="" ""c""o""n""s""t""a""n""t""s"".""e""F""o""u""n""d""I""t""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""b""r""e""a""k""
-"" "" "" "" "" "" "" "" "" "" "" "" ""e""l""i""f"" ""c""o""d""i""n""g""S""t""a""t""e"" ""=""="" ""c""o""n""s""t""a""n""t""s"".""e""S""t""a""r""t"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""c""h""a""r""L""e""n"" ""="" ""s""e""l""f"".""_""m""C""o""d""i""n""g""S""M"".""g""e""t""_""c""u""r""r""e""n""t""_""c""h""a""r""l""e""n""("")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""i"" ""=""="" ""0"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""_""m""L""a""s""t""C""h""a""r""[""1""]"" ""="" ""a""B""u""f""[""0""]""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""_""m""C""o""n""t""e""x""t""A""n""a""l""y""z""e""r"".""f""e""e""d""(""s""e""l""f"".""_""m""L""a""s""t""C""h""a""r"","" ""c""h""a""r""L""e""n"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""_""m""D""i""s""t""r""i""b""u""t""i""o""n""A""n""a""l""y""z""e""r"".""f""e""e""d""(""s""e""l""f"".""_""m""L""a""s""t""C""h""a""r"","" ""c""h""a""r""L""e""n"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""e""l""s""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""_""m""C""o""n""t""e""x""t""A""n""a""l""y""z""e""r"".""f""e""e""d""(""a""B""u""f""[""i"" ""-"" ""1"":""i"" ""+"" ""1""]"","" ""c""h""a""r""L""e""n"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""_""m""D""i""s""t""r""i""b""u""t""i""o""n""A""n""a""l""y""z""e""r"".""f""e""e""d""(""a""B""u""f""[""i"" ""-"" ""1"":""i"" ""+"" ""1""]"",""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""c""h""a""r""L""e""n"")""
-""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""_""m""L""a""s""t""C""h""a""r""[""0""]"" ""="" ""a""B""u""f""[""a""L""e""n"" ""-"" ""1""]""
-""
-"" "" "" "" "" "" "" "" ""i""f"" ""s""e""l""f"".""g""e""t""_""s""t""a""t""e""("")"" ""=""="" ""c""o""n""s""t""a""n""t""s"".""e""D""e""t""e""c""t""i""n""g"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""(""s""e""l""f"".""_""m""C""o""n""t""e""x""t""A""n""a""l""y""z""e""r"".""g""o""t""_""e""n""o""u""g""h""_""d""a""t""a""("")"" ""a""n""d""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""(""s""e""l""f"".""g""e""t""_""c""o""n""f""i""d""e""n""c""e""("")"" "">"" ""c""o""n""s""t""a""n""t""s"".""S""H""O""R""T""C""U""T""_""T""H""R""E""S""H""O""L""D"")"")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""_""m""S""t""a""t""e"" ""="" ""c""o""n""s""t""a""n""t""s"".""e""F""o""u""n""d""I""t""
-""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""s""e""l""f"".""g""e""t""_""s""t""a""t""e""("")""
-""
-"" "" "" "" ""d""e""f"" ""g""e""t""_""c""o""n""f""i""d""e""n""c""e""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" ""c""o""n""t""x""t""C""f"" ""="" ""s""e""l""f"".""_""m""C""o""n""t""e""x""t""A""n""a""l""y""z""e""r"".""g""e""t""_""c""o""n""f""i""d""e""n""c""e""("")""
-"" "" "" "" "" "" "" "" ""d""i""s""t""r""i""b""C""f"" ""="" ""s""e""l""f"".""_""m""D""i""s""t""r""i""b""u""t""i""o""n""A""n""a""l""y""z""e""r"".""g""e""t""_""c""o""n""f""i""d""e""n""c""e""("")""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""m""a""x""(""c""o""n""t""x""t""C""f"","" ""d""i""s""t""r""i""b""C""f"")""
+        return "EUC-JP"
+
+    def feed(self, aBuf):
+        aLen = len(aBuf)
+        for i in range(0, aLen):
+            
+            codingState = self._mCodingSM.next_state(aBuf[i])
+            if codingState == constants.eError:
+                if constants._debug:
+                    sys.stderr.write(self.get_charset_name()
+                                     + ' prober hit error at byte ' + str(i)
+                                     + '\n')
+                self._mState = constants.eNotMe
+                break
+            elif codingState == constants.eItsMe:
+                self._mState = constants.eFoundIt
+                break
+            elif codingState == constants.eStart:
+                charLen = self._mCodingSM.get_current_charlen()
+                if i == 0:
+                    self._mLastChar[1] = aBuf[0]
+                    self._mContextAnalyzer.feed(self._mLastChar, charLen)
+                    self._mDistributionAnalyzer.feed(self._mLastChar, charLen)
+                else:
+                    self._mContextAnalyzer.feed(aBuf[i - 1:i + 1], charLen)
+                    self._mDistributionAnalyzer.feed(aBuf[i - 1:i + 1],
+                                                     charLen)
+
+        self._mLastChar[0] = aBuf[aLen - 1]
+
+        if self.get_state() == constants.eDetecting:
+            if (self._mContextAnalyzer.got_enough_data() and
+               (self.get_confidence() > constants.SHORTCUT_THRESHOLD)):
+                self._mState = constants.eFoundIt
+
+        return self.get_state()
+
+    def get_confidence(self):
+        contxtCf = self._mContextAnalyzer.get_confidence()
+        distribCf = self._mDistributionAnalyzer.get_confidence()
+        return max(contxtCf, distribCf)

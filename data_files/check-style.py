@@ -299,5 +299,49 @@ def run_as_main():
     parser.add_option('--debug', action='store_true', dest='debug', default=False,
                       help='Output some debugging information')
     parser.add_option('-l', '--level', type='int', dest='level', default=0,
-                      help="L"e"v"e"l" "o"f" "s"t"y"l"e" "c"o"n"f"o"r"m"a"n"c"e":" "h"i"g"h"e"r" "l"e"v"e"l"s" "i"n"c"l"u"d"e" "a"l"l" "l"o"w"e"r" "l"e"v"e"l"s"." ""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" 
+                      help="Level of style conformance: higher levels include all lower levels. "
+                      "level=0: re-indent only. level=1: add extra spaces. level=2: insert extra newlines and "
+                      "extra braces around single-line statements. level=3: remove all trailing spaces")
+    parser.add_option('--check-hg-hook', action='store_true', dest='hg_hook', default=False, 
+                      help='Get the list of files to check from mercurial\'s list of modified '
+                      'and added files and assume that the script runs as a pretxncommit mercurial hook')
+    parser.add_option('--check-hg', action='store_true', dest='hg', default=False,
+                      help="Get the list of files to check from mercurial\'s list of modified and added files")
+    parser.add_option('-f', '--check-file', action='store', dest='file', default='',
+                      help="Check a single file")
+    parser.add_option('--diff', action='store_true', dest='diff', default=False,
+                      help="Generate a diff on stdout of the indented files")
+    parser.add_option('-i', '--in-place', action='store_true', dest='in_place', default=False,
+                      help="Indent the input files in-place")
+    (options,args) = parser.parse_args()
+    debug = options.debug
+    if options.hg_hook:
+        files = hg_modified_files()
+        if not indent_files(files, debug=options.debug,
+                            level=options.level,
+                            inplace=False):
+            sys.exit(1)
+    elif options.hg:
+        files = hg_modified_files()
+        indent_files(files, diff=options.diff, 
+                     debug=options.debug,
+                     level=options.level,
+                     inplace=options.in_place)
+    elif options.file != '':
+        file = options.file
+        if not os.path.exists(file) or \
+                not os.path.isfile(file):
+            print 'file %s does not exist' % file
+            sys.exit(1)
+        indent_files([file], diff=options.diff, 
+                     debug=options.debug,
+                     level=options.level,
+                     inplace=options.in_place)
+    sys.exit(0)
+
+if __name__ == '__main__':
+
+        run_as_main()
+
+
+

@@ -24,7 +24,8 @@ class Solution(object):
                 B += 1
                 cnt[v] -= 1
 
-        return "%"d"A"%"d"B"" ""%"" ""(""A"","" ""B"")""
-""
-""
-""i""f"" ""_""_""n""a""m""e""_""_"" ""=""="" 
+        return "%dA%dB" % (A, B)
+
+
+if __name__ == "__main__":
+    assert Solution().getHint("0", "1") == "0A0B"

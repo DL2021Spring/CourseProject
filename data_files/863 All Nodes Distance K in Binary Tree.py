@@ -55,11 +55,11 @@ class SolutionComplicated:
         self.dfs1(target, K, ret)
         hm = {}
         self.ancestor_dist(root, target, hm)
-        self.dfs2(root, target, K, float("i"n"f"")"","" ""h""m"","" ""r""e""t"")""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""r""e""t""
-""
-"" "" "" "" ""d""e""f"" ""d""f""s""1""(""s""e""l""f"","" ""n""o""d""e"","" ""K"","" ""r""e""t"")"":""
-"" "" "" "" "" "" "" "" 
+        self.dfs2(root, target, K, float("inf"), hm, ret)
+        return ret
+
+    def dfs1(self, node, K, ret):
+        
         if not node:
             return
 

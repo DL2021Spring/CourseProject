@@ -38,5 +38,5 @@ class Solution:
         return ret[::-1]
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""t""o""p""K""F""r""e""q""u""e""n""t""(""[
+if __name__ == "__main__":
+    assert Solution().topKFrequent(["i", "love", "leetcode", "i", "love", "coding"], 2)

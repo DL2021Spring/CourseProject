@@ -19,5 +19,5 @@ class Solution:
             
             
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""p""e""r""m""u""t""e""(""[""1"","" ""2"","" ""3""]"")
+if __name__=="__main__":
+    print Solution().permute([1, 2, 3])

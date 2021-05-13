@@ -43,5 +43,5 @@ class Solution:
         raise
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""b""r""o""k""e""n""C""a""l""c""(""2"","" ""3"")"" ""=""="" ""2""
+if __name__ == "__main__":
+    assert Solution().brokenCalc(2, 3) == 2

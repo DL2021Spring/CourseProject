@@ -20,24 +20,24 @@ __author__ = 'Danyang'
 
 class Drawer(object):
     def __init__(self, smooth=False):
-        plt.figure("R"O"C"")""
-"" "" "" "" "" "" "" "" ""p""l""t"".""a""x""i""s""(""[""0"","" ""0"".""5"","" ""0"".""5"","" ""1"".""0""0""1""]"")""
-"" "" "" "" "" "" "" "" ""#"" ""a""x"" ""="" ""p""y""p""l""o""t"".""g""c""a""("")""
-"" "" "" "" "" "" "" "" ""#"" ""a""x"".""s""e""t""_""a""u""t""o""s""c""a""l""e""_""o""n""(""F""a""l""s""e"")""
-"" "" "" "" "" "" "" "" ""p""l""t"".""x""l""a""b""e""l""(""'""F""P""R""'"")""
-"" "" "" "" "" "" "" "" ""p""l""t"".""y""l""a""b""e""l""(""'""T""P""R""'"")""
-"" "" "" "" "" "" "" "" ""#"" ""c""o""l""o""r""s"":"" ""h""t""t""p"":""/""/""s""t""a""c""k""o""v""e""r""f""l""o""w"".""c""o""m""/""q""u""e""s""t""i""o""n""s""/""2""2""4""0""8""2""3""7""/""n""a""m""e""d""-""c""o""l""o""r""s""-""i""n""-""m""a""t""p""l""o""t""l""i""b""
-"" "" "" "" "" "" "" "" ""p""l""t"".""r""c""(""'""a""x""e""s""'"","" ""c""o""l""o""r""_""c""y""c""l""e""=""[""'""r""'"","" ""'""g""'"","" ""'""b""'"","" ""'""c""'"","" ""'""m""'"","" ""'""y""'"","" ""'""k""'"",""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""'""d""a""r""k""g""r""e""e""n""'"","" ""'""c""h""o""c""o""l""a""t""e""'"","" ""'""d""a""r""k""s""a""l""m""o""n""'"","" ""'""d""a""r""k""s""e""a""g""r""e""e""n""'"","" ""'""y""e""l""l""o""w""g""r""e""e""n""'""]"")""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""i""s""_""s""m""o""o""t""h"" ""="" ""s""m""o""o""t""h""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""_""r""o""c""s"" ""="" ""[""]""
-""
-"" "" "" "" ""d""e""f"" ""s""h""o""w""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" ""p""l""t"".""l""e""g""e""n""d""(""h""a""n""d""l""e""s""=""s""e""l""f"".""_""r""o""c""s"")""
-"" "" "" "" "" "" "" "" ""p""l""t"".""s""h""o""w""("")""
-""
-"" "" "" "" ""d""e""f"" ""p""l""o""t""_""r""o""c""(""s""e""l""f"","" ""c""v"")"":""
-"" "" "" "" "" "" "" "" 
+        plt.figure("ROC")
+        plt.axis([0, 0.5, 0.5, 1.001])
+        
+        
+        plt.xlabel('FPR')
+        plt.ylabel('TPR')
+        
+        plt.rc('axes', color_cycle=['r', 'g', 'b', 'c', 'm', 'y', 'k',
+                                    'darkgreen', 'chocolate', 'darksalmon', 'darkseagreen', 'yellowgreen'])
+        self.is_smooth = smooth
+        self._rocs = []
+
+    def show(self):
+        plt.legend(handles=self._rocs)
+        plt.show()
+
+    def plot_roc(self, cv):
+        
         
         FPRs = [r.FPR for r in cv.validation_results]
         TPRs = [r.TPR for r in cv.validation_results]
@@ -69,46 +69,129 @@ class Drawer(object):
 class Experiment(object):
     def __init__(self, smooth=False, froze_shuffle=False):
         
-        self.logger = LoggerFactory().getConsoleLogger("f"a"c"e"r"e"c"")""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""_""d""r""a""w""e""r"" ""="" ""D""r""a""w""e""r""(""s""m""o""o""t""h"")""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""X"","" ""s""e""l""f"".""y"" ""="" ""s""h""u""f""f""l""e""(""*""s""e""l""f"".""r""e""a""d""("")"")"" "" ""#"" ""s""h""u""f""f""l""e"" ""o""n""c""e""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""f""r""o""z""e""_""s""h""u""f""f""l""e"" ""="" ""f""r""o""z""e""_""s""h""u""f""f""l""e"" "" ""#"" ""w""h""e""t""h""e""r"" ""t""o"" ""f""r""o""z""e"" ""t""h""e"" ""s""u""b""s""e""q""u""e""n""t"" ""s""h""u""f""f""l""i""n""g"" ""i""n"" ""v""a""l""i""d""a""t""i""o""n""
-""
-"" "" "" "" ""d""e""f"" ""r""e""a""d""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" ""#"" ""T""h""i""s"" ""i""s"" ""w""h""e""r""e"" ""w""e"" ""w""r""i""t""e"" ""t""h""e"" ""i""m""a""g""e""s"","" ""i""f"" ""a""n"" ""o""u""t""p""u""t""_""d""i""r"" ""i""s"" ""g""i""v""e""n""
-"" "" "" "" "" "" "" "" ""#"" ""i""n"" ""c""o""m""m""a""n""d"" ""l""i""n""e"":""
-"" "" "" "" "" "" "" "" ""o""u""t""_""d""i""r"" ""="" ""N""o""n""e""
-"" "" "" "" "" "" "" "" ""#"" ""Y""o""u""'""l""l"" ""n""e""e""d"" ""a""t"" ""l""e""a""s""t"" ""a"" ""p""a""t""h"" ""t""o"" ""y""o""u""r"" ""i""m""a""g""e"" ""d""a""t""a"","" ""p""l""e""a""s""e"" ""s""e""e""
-"" "" "" "" "" "" "" "" ""#"" ""t""h""e"" ""t""u""t""o""r""i""a""l"" ""c""o""m""i""n""g"" ""w""i""t""h"" ""t""h""i""s"" ""s""o""u""r""c""e"" ""c""o""d""e"" ""o""n"" ""h""o""w"" ""t""o"" ""p""r""e""p""a""r""e""
-"" "" "" "" "" "" "" "" ""#"" ""y""o""u""r"" ""i""m""a""g""e"" ""d""a""t""a"":""
-"" "" "" "" "" "" "" "" ""i""f"" ""l""e""n""(""s""y""s"".""a""r""g""v"")"" ""<"" ""2"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""p""r""i""n""t"" 
-        draw fisher face components
-        color map: http://matplotlib.org/examples/color/colormaps_reference.html
-        :param X: images
-        :param model: fisher face model
-        :param r: number of rows
-        :param c: number of cols
-        :return:
-        
-        Define the Fisherfaces as Feature Extraction method
+        self.logger = LoggerFactory().getConsoleLogger("facerec")
+        self._drawer = Drawer(smooth)
+        self.X, self.y = shuffle(*self.read())  
+        self.froze_shuffle = froze_shuffle  
 
-        :param feature: feature extraction
-        :param plot: function to plot
-        :param dist_metric: distance metric
-        :param threshold_up: threshold for ROC
-        :param kNN_k: k for kNN classifier
-        :param debug: if true, display the images of wrongly classified face
-        :return:
+    def read(self):
         
-        Plot the graph at the end
-        :return:
         
-        Plot a individual result
-        :param cv:
-        :return:
+        out_dir = None
         
-    set threshold_up=1
-    :param expr:
-    :return:
+        
+        
+        if len(sys.argv) < 2:
+            print "USAGE: experiment_setup.py </path/to/images>"
+            sys.exit()
+        
+        X, y = read_images(sys.argv[1])
+
+        X = np.asarray(X)
+        y = np.asarray(y)
+        return X, y
+
+    def plot_fisher_original(self, X, model):
+        E = []
+        for i in xrange(min(model.feature.eigenvectors.shape[1], 16)):
+            e = model.feature.eigenvectors[:, i].reshape(X[0].shape)
+            E.append(minmax_normalize(e, 0, 255, dtype=np.uint8))
+        
+        subplot(title="Fisherfaces", images=E, rows=4, cols=4, sptitle="Fisherface", colormap=cm.jet,
+                filename="fisherfaces.png")
+        
+        plt.close()
+
+    def plot_fisher(self, X, model, r=3, c=5):
+        
+        E = []
+        for i in xrange(min(model.feature.eigenvectors.shape[1], r*c)):
+            e = model.feature.eigenvectors[:, i].reshape(X[0].shape)
+            E.append(minmax_normalize(e, 0, 255, dtype=np.uint8))
+
+        
+        subplot(title="Fisherface Components", images=E, rows=r, cols=c, sptitle="fisherface", colormap=cm.rainbow,
+                filename="fisherfaces.png")
+        plt.close()
+
+
+    def experiment(self, feature=Fisherfaces(), plot=None, dist_metric=EuclideanDistance(), threshold_up=0, kNN_k=1, number_folds=None, debug=True):
+        
+        
+        classifier = NearestNeighbor(dist_metric=dist_metric, k=kNN_k)
+        
+        
+        model = self._get_model(feature, classifier)
+        
+        model.compute(self.X, self.y)
+        
+        
+        if plot:
+            plot(self.X, model)
+        
+        
+        if number_folds is None:
+            number_folds = len(np.unique(self.y))
+            if number_folds>15: number_folds = 10
+
+
+        cv = KFoldCrossValidation(model, k=number_folds, threshold_up=threshold_up, froze_shuffle=self.froze_shuffle, debug=debug)
+        
+        cv.validate(self.X, self.y)
+
+        
+        print cv
+        if debug:
+            self.logger.info("Cross validation completed; press any key on any image to continue")
+            cv2.waitKey(0)
+            cv2.destroyAllWindows()
+        return cv
+
+    def _get_model(self, feature, classifier):
+        return PredictableModel(feature=feature, classifier=classifier)
+
+    def show_plot(self):
+        
+        self._drawer.show()
+
+    def plot_roc(self, cv):
+        
+        self._drawer.plot_roc(cv)
+
+
+class FeaturesEnsembleExperiment(Experiment):
+    def _get_model(self, features, classifier):
+        return FeaturesEnsemblePredictableModel(features, classifier)
+
+
+def draw_roc(expr):
+    
+    cv = expr.experiment(Fisherfaces(14), threshold_up=1)
+    expr.plot_roc(cv)
+    cv = expr.experiment(PCA(50), threshold_up=1)
+    expr.plot_roc(cv)
+    cv = expr.experiment(SpatialHistogram(), dist_metric=HistogramIntersection(), threshold_up=1)
+    expr.plot_roc(cv)
+
+    expr.show_plot()
+
+
+def ensemble_lbp_fisher():
+    
+    features = [LbpFisher(ExtendedLBP(i)) for i in (3, 6, 10, 11, 14, 15, 19)]
+    expr = FeaturesEnsembleExperiment()
+    expr.experiment(features, debug=False)
+
+
+if __name__ == "__main__":
+    expr = Experiment(froze_shuffle=True)
+    
+    
+    
+    
+    
+    
+    
+    
+    
     

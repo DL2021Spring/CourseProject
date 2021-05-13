@@ -53,16 +53,92 @@ def run_tagger(cmd):
     try:
         tagger_process = Popen(cmd, stdin=PIPE, stdout=PIPE, bufsize=1)
     except Exception, e:
-        print >> stderr, "E"r"r"o"r" "r"u"n"n"i"n"g" "'"%"s"'":"" ""%"" ""c""m""d"","" ""e""
-"" "" "" "" "" "" "" "" ""r""a""i""s""e""
-""
-""d""e""f"" ""_""a""p""p""l""y""_""t""a""g""g""e""r""(""t""e""x""t"")"":""
-"" "" "" "" ""g""l""o""b""a""l"" ""t""a""g""g""e""r""_""p""r""o""c""e""s""s"","" ""t""a""g""g""e""r""_""q""u""e""u""e""
-""
-"" "" "" "" ""#"" ""t""h""e"" ""t""a""g""g""e""r"" ""e""x""p""e""c""t""s"" ""a"" ""s""e""n""t""e""n""c""e"" ""p""e""r"" ""l""i""n""e"","" ""s""o"" ""d""o"" ""b""a""s""i""c"" ""s""p""l""i""t""t""i""n""g""
-"" "" "" "" ""t""r""y"":""
-"" "" "" "" "" "" "" "" ""s""p""l""i""t""t""e""x""t"" ""="" ""s""e""n""t""e""n""c""e""b""r""e""a""k""s""_""t""o""_""n""e""w""l""i""n""e""s""(""t""e""x""t"")""
-"" "" "" "" ""e""x""c""e""p""t"":""
-"" "" "" "" "" "" "" "" ""#"" ""i""f"" ""a""n""y""t""h""i""n""g"" ""g""o""e""s"" ""w""r""o""n""g"","" ""j""u""s""t"" ""g""o"" ""w""i""t""h"" ""t""h""e""
-"" "" "" "" "" "" "" "" ""#"" ""o""r""i""g""i""n""a""l"" ""t""e""x""t"" ""i""n""s""t""e""a""d""
-"" "" "" "" "" "" "" "" ""p""r""i""n""t"" "">"">"" ""s""t""d""e""r""r"","" 
+        print >> stderr, "Error running '%s':" % cmd, e
+        raise
+
+def _apply_tagger(text):
+    global tagger_process, tagger_queue
+
+    
+    try:
+        splittext = sentencebreaks_to_newlines(text)
+    except:
+        
+        
+        print >> stderr, "Warning: sentence splitting failed for input:\n'%s'" % text
+        splittext = text
+
+    print >> tagger_process.stdin, splittext
+    print >> tagger_process.stdin, DOCUMENT_BOUNDARY
+    tagger_process.stdin.flush()
+
+    response_lines = []
+    while True:
+        l = tagger_process.stdout.readline()
+        l = l.rstrip('\n')
+        
+        if l == DOCUMENT_BOUNDARY:
+            break
+
+        response_lines.append(l)
+        
+    try:
+        tagged_entities = BIO_lines_to_standoff(response_lines, text)
+    except:
+        
+        print >> stderr, "Warning: BIO-to-standoff conversion failed for BIO:\n'%s'" % '\n'.join(response_lines)
+        return {}
+
+    anns = {}
+
+    for t in tagged_entities:
+        anns["T%d" % t.idNum] = {
+            'type': t.eType,
+            'offsets': ((t.startOff, t.endOff), ),
+            'texts': (t.eText, ),
+            }
+
+    return anns
+
+class NERsuiteTaggerHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        
+        query = parse_qs(urlparse(self.path).query)
+
+        try:
+            json_dic = _apply_tagger(query['text'][0])
+        except KeyError:
+            
+            json_dic = {}
+
+        
+        self.send_response(200)
+        self.send_header('Content-type', 'application/json; charset=utf-8')
+        self.end_headers()
+
+        self.wfile.write(dumps(json_dic))
+        print >> stderr, ('Generated %d annotations' % len(json_dic))
+
+    def log_message(self, format, *args):
+        return 
+
+def main(args):
+    argp = ARGPARSER.parse_args(args[1:])
+
+    print >> stderr, 'Starting NERsuite ...'
+    run_tagger(NERSUITE_COMMAND)
+
+    server_class = HTTPServer
+    httpd = server_class(('localhost', argp.port), NERsuiteTaggerHandler)
+
+    print >> stderr, 'NERsuite tagger service started'
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        pass
+    httpd.server_close()
+    print >> stderr, 'NERsuite tagger service stopped'
+
+if __name__ == '__main__':
+    from sys import argv
+    exit(main(argv))

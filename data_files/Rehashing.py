@@ -37,11 +37,11 @@ class Solution:
         return key%capacity
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""h""a""s""h""T""a""b""l""e"" ""="" ""[""N""o""n""e"" ""f""o""r"" ""_"" ""i""n"" ""x""r""a""n""g""e""(""3"")""]""
-"" "" "" "" ""n""0"" ""="" ""L""i""s""t""N""o""d""e""(""2""9"")""
-"" "" "" "" ""n""1"" ""="" ""L""i""s""t""N""o""d""e""(""5"")""
-"" "" "" "" ""n""0"".""n""e""x""t"" ""="" ""n""1""
-"" "" "" "" ""h""a""s""h""T""a""b""l""e""[""2""]"" ""="" ""n""0""
-""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""r""e""h""a""s""h""i""n""g""(""h""a""s""h""T""a""b""l""e"")
+if __name__ == "__main__":
+    hashTable = [None for _ in xrange(3)]
+    n0 = ListNode(29)
+    n1 = ListNode(5)
+    n0.next = n1
+    hashTable[2] = n0
+
+    print Solution().rehashing(hashTable)

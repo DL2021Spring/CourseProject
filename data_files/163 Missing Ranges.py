@@ -25,6 +25,6 @@ class Solution(object):
 
     def mapper(self, x):
         if x[0] == x[1]:
-            return "%"d"" ""%"" ""x""[""0""]""
-"" "" "" "" "" "" "" "" ""e""l""s""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" 
+            return "%d" % x[0]
+        else:
+            return "%d->%d" % tuple(x)

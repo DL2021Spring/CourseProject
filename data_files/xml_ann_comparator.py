@@ -41,28 +41,86 @@ def get_ann_entity(content):
 	content = content.split('\n')
 	for line in content:
 		token = line.split('\t')
-		if("T"" ""i""n"" ""t""o""k""e""n""[""0""]"")"":""
-""	""	""	""t""a""g""_""n""a""m""e"" ""="" ""t""o""k""e""n""[""1""]"".""s""p""l""i""t""(""'"" ""'"")""[""0""]""
-""	""	""	""i""f""(""t""o""k""e""n""[""2""]"" ""i""n"" ""e""n""t""i""t""y""_""d""i""c""t""[""t""a""g""_""n""a""m""e""]"")"":""
-""	""	""	""	""e""n""t""i""t""y""_""d""i""c""t""[""t""a""g""_""n""a""m""e""]""[""t""o""k""e""n""[""2""]""]"" ""+""="" ""1""
-""	""	""	""e""l""s""e"":""
-""	""	""	""	""e""n""t""i""t""y""_""d""i""c""t""[""t""a""g""_""n""a""m""e""]""[""t""o""k""e""n""[""2""]""]"" ""="" ""1""
-""	""r""e""t""u""r""n"" ""e""n""t""i""t""y""_""d""i""c""t""
-""
-""
-""d""e""f"" ""g""e""t""_""x""m""l""_""e""n""t""i""t""y""(""c""o""n""t""e""n""t"")"":""
-""	""e""n""t""i""t""y""_""d""i""c""t"" ""="" ""d""i""c""t""("")""
-""	""i""n""i""t""_""d""i""c""t""(""e""n""t""i""t""y""_""d""i""c""t"")""
-""	""f""o""r"" ""e"" ""i""n"" ""e""n""t""i""t""i""e""s"":""
-""	""	""e""_""r""e""g"" ""="" ""r""e"".""c""o""m""p""i""l""e""(""'""<""'""+""e"" ""+"" ""'"">""(""?""P""<""'""+""e""+""'"">""[""^""<""]""+"")""<""/""'""+""e""+""'"">""'"")"";""
-""	""	""f""o""r"" ""i"" ""i""n"" ""e""_""r""e""g"".""f""i""n""d""a""l""l""(""c""o""n""t""e""n""t"")"":""
-""	""	""	""i""f""(""i"" ""i""n"" ""e""n""t""i""t""y""_""d""i""c""t""[""e""]"")"":""
-""	""	""	""	""e""n""t""i""t""y""_""d""i""c""t""[""e""]""[""i""]"" ""+""="" ""1""
-""	""	""	""e""l""s""e"":""
-""	""	""	""	""e""n""t""i""t""y""_""d""i""c""t""[""e""]""[""i""]"" ""="" ""1""
-""	""r""e""t""u""r""n"" ""e""n""t""i""t""y""_""d""i""c""t""
-""
-""d""e""f"" ""p""r""e""_""f""o""r""m""a""t""(""c""o""n""t""e""n""t"")"":""
-""
-""	""#""f""o""r"" ""n""o""n""-""a""u""t""o""
-""	""c""o""n""t""e""n""t"" ""="" ""r""e"".""s""u""b""(
+		if("T" in token[0]):
+			tag_name = token[1].split(' ')[0]
+			if(token[2] in entity_dict[tag_name]):
+				entity_dict[tag_name][token[2]] += 1
+			else:
+				entity_dict[tag_name][token[2]] = 1
+	return entity_dict
+
+
+def get_xml_entity(content):
+	entity_dict = dict()
+	init_dict(entity_dict)
+	for e in entities:
+		e_reg = re.compile('<'+e + '>(?P<'+e+'>[^<]+)</'+e+'>');
+		for i in e_reg.findall(content):
+			if(i in entity_dict[e]):
+				entity_dict[e][i] += 1
+			else:
+				entity_dict[e][i] = 1
+	return entity_dict
+
+def pre_format(content):
+
+	
+	content = re.sub("<entity type=\"(\w+)\">([^<]+)</entity>", "<\g<1>>\g<2></\g<1>>", content)
+	
+	content = content.replace("<s>", "")
+	content = content.replace("</B-Ingredient> <I-Ingredient>", " ")
+	content = content.replace("</I-Ingredient> <I-Ingredient>", " ")
+	content = content.replace("</B-Recipe> <I-Recipe>", " ")
+	content = content.replace("</I-Recipe> <I-Recipe>", " ")
+	content = content.replace("</B-Amount> <I-Amount>", " ")
+	content = content.replace("</I-Amount> <I-Amount>", " ")
+	content = content.replace("</B-Unit> <I-Unit>", " ")
+	content = content.replace("</I-Unit> <I-Unit>", " ")
+	content = content.replace("</I-", "</")
+	content = content.replace("</B-", "</")
+	content = content.replace("<B-", "<")
+	content = content.replace("<I-", "<")
+
+	return content
+
+def calc_diff_by_entity(nonauto_tag_set,auto_tag_set):
+	diff_matrix = dict()
+	init_dict(diff_matrix)
+	for key, value in diff_matrix.iteritems():
+		value['FP'] = 0
+		value['TP'] = 0
+		value['FN'] = 0
+
+	for article in zip(nonauto_tag_set,auto_tag_set):
+		for entity in entities:
+			for key, value in article[0][entity].iteritems():
+				if key in article[1][entity]:
+					if article[1][entity][key] - value > 0:
+						diff_matrix[entity]['FP'] += (article[1][entity][key] - value)
+					else: 
+						diff_matrix[entity]['FN'] += (value - article[1][entity][key])
+					diff_matrix[entity]['TP'] += min(article[1][entity][key],value)
+				else:
+					diff_matrix[entity]['FN'] += value
+			for key, value in article[1][entity].iteritems():
+				if not key in article[0][entity]:
+					diff_matrix[entity]['FP'] += value
+
+	return diff_matrix
+
+process_files_in_dir('tagged_data')
+confusion_matrix = calc_diff_by_entity(nonauto_tag_set,auto_tag_set)
+for key, value in confusion_matrix.iteritems():
+	if value['TP'] == 0:
+		precision = 0
+		recall = 0
+		f_measure = 0
+	else:
+		precision = 1.0 * value['TP'] / (value['TP'] + value['FP'])
+		recall = 1.0 * value['TP'] / (value['TP'] + value['FN'])
+		f_measure = 2.0 * (precision * recall)/(precision + recall)
+
+	print key+':\tPrecision-'+str("{0:.4f}".format(precision))+'\tRecall-'+str("{0:.4f}".format(recall))+'\tF-measure-'+str("{0:.4f}".format(f_measure))
+
+
+

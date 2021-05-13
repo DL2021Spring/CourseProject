@@ -54,5 +54,5 @@ class Solution:
         return closed
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""S""o""l""u""t""i""o""n""("")"".""w""i""g""g""l""e""S""o""r""t""(""[""1"","" ""5"","" ""1"","" ""1"","" ""6"","" ""4""]"")""
+if __name__ == "__main__":
+    Solution().wiggleSort([1, 5, 1, 1, 6, 4])

@@ -35,6 +35,6 @@ class BIT(object):
             print bit.pre_sum(i+1)
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""B""I""T"".""t""e""s""t""("")""
-""
+if __name__ == "__main__":
+    BIT.test()
+

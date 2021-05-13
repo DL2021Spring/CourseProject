@@ -39,6 +39,6 @@ class Solution:
         return 1-F[-1][-1]
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""c""a""l""c""u""l""a""t""e""M""i""n""i""m""u""m""H""P""(""[""[""-""3"","" ""5""]""]"")"" ""=""="" ""4""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""c""a""l""c""u""l""a""t""e""M""i""n""i""m""u""m""H""P""(""[""[""2"","" ""1""]"","" ""[""1"","" ""-""1""]""]"")"" ""=""="" ""1""
+if __name__ == "__main__":
+    assert Solution().calculateMinimumHP([[-3, 5]]) == 4
+    assert Solution().calculateMinimumHP([[2, 1], [1, -1]]) == 1

@@ -23,5 +23,5 @@ class Solution(object):
 
         return gmax
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""l""e""n""g""t""h""L""o""n""g""e""s""t""P""a""t""h""(
+if __name__ == "__main__":
+    assert Solution().lengthLongestPath("dir\n    file.txt") == 12

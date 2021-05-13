@@ -135,9 +135,19 @@ class Solution(object):
         return mini
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""i""m""p""o""r""t"" ""s""y""s""
-""
-"" "" "" "" ""s""y""s"".""s""e""t""r""e""c""u""r""s""i""o""n""l""i""m""i""t""(""1""0""0""0""0""0"")"" "" ""#"" ""o""t""h""e""r""w""i""s""e"" ""n""o""t"" ""e""n""o""u""g""h"","" ""s""t""a""c""k"" ""p""r""o""b""l""e""m"" ""w""i""t""h"" ""p""y""t""h""o""n""
-"" "" "" "" ""#"" ""p""r""i""n""t"" ""s""y""s"".""g""e""t""r""e""c""u""r""s""i""o""n""l""i""m""i""t""("")""
-"" "" "" "" ""f"" ""="" ""o""p""e""n""(
+if __name__ == "__main__":
+    import sys
+
+    sys.setrecursionlimit(100000)  
+    
+    f = open("1.in", "r")
+    
+    N = int(f.readline().strip())
+    nodes = map(int, f.readline().strip().split(' '))
+    rls = []
+    for t in xrange(N - 1):
+        
+        rls.append(map(int, f.readline().strip().split(' ')))
+    cipher = N, nodes, rls
+    s = "%s\n" % (Solution().solve(cipher))
+    print s,

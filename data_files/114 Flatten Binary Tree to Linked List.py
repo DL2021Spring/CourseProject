@@ -71,9 +71,9 @@ class Solution:
         else:
             return self.get_last(root.left)
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""n""o""d""e""1"" ""="" ""T""r""e""e""N""o""d""e""(""1"")""
-"" "" "" "" ""n""o""d""e""2"" ""="" ""T""r""e""e""N""o""d""e""(""2"")""
-"" "" "" "" ""n""o""d""e""1"".""l""e""f""t"" ""="" ""n""o""d""e""2""
-"" "" "" "" ""S""o""l""u""t""i""o""n""("")"".""f""l""a""t""t""e""n""(""n""o""d""e""1"")""
-""
+if __name__=="__main__":
+    node1 = TreeNode(1)
+    node2 = TreeNode(2)
+    node1.left = node2
+    Solution().flatten(node1)
+

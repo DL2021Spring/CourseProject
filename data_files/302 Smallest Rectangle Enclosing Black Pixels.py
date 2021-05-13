@@ -8,8 +8,25 @@ class Solution(object):
         
         m, n = len(image), len(image[0])
         yaxis = [
-            1 if any(image[i][j] == "1"" ""f""o""r"" ""i"" ""i""n"" ""x""r""a""n""g""e""(""m"")"")"" ""e""l""s""e"" ""0""
-"" "" "" "" "" "" "" "" "" "" "" "" ""f""o""r"" ""j"" ""i""n"" ""x""r""a""n""g""e""(""n"")""
-"" "" "" "" "" "" "" "" ""]""
-"" "" "" "" "" "" "" "" ""x""a""x""i""s"" ""="" ""[""
-"" "" "" "" "" "" "" "" "" "" "" "" ""1"" ""i""f"" ""a""n""y""(""i""m""a""g""e""[""i""]""[""j""]"" ""=""="" 
+            1 if any(image[i][j] == "1" for i in xrange(m)) else 0
+            for j in xrange(n)
+        ]
+        xaxis = [
+            1 if any(image[i][j] == "1" for j in xrange(n)) else 0
+            for i in xrange(m)
+        ]
+
+        y_lo = bisect.bisect_left(yaxis, 1, 0, y)
+        y_hi = bisect.bisect_left(map(lambda e: 1^e, yaxis), 1, y)  
+        x_lo = bisect.bisect_left(xaxis, 1, 0, x)
+        x_hi = bisect.bisect_left(map(lambda e: 1^e, xaxis), 1, x)
+        return (y_hi-y_lo)*(x_hi-x_lo)
+
+
+if __name__ == "__main__":
+    image = [
+        "00",
+        "10",
+    ]
+
+    assert Solution().minArea(image, 1, 0) == 1

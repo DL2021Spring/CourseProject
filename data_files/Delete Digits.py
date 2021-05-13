@@ -21,13 +21,27 @@ class Solution:
         if k > 0:
             lst = lst[:len(lst)-k]
 
-        return "".""j""o""i""n""(""m""a""p""(""s""t""r"","" ""l""s""t"")"")"".""l""s""t""r""i""p""(
-        Remove and keep the n-k largest numbers
-        heap: O(n lg (n-k))
+        return "".join(map(str, lst)).lstrip("0")
 
-        error in case: 254193, 1
-
-        :param A: A positive integer which has N digits, A is a string.
-        :param k: Remove k digits.
-        :return: A string
+    def DeleteDigits_error(self, A, k):
         
+        lst = map(int, list(str(A)))
+        m = len(lst)-k
+
+        tuples = [(-lst[i], i) for i in xrange(m)]  
+        heapq.heapify(tuples)
+        for i in xrange(m, len(lst)):
+            if -tuples[0][0] > lst[i]:
+                heapq.heappop(tuples)
+                heapq.heappush(tuples, (-lst[i], i))
+
+        rets = [elt[1] for elt in tuples]
+        rets.sort()
+        rets = map(lambda x: str(lst[x]), rets)
+        return "".join(rets)
+
+
+if __name__ == "__main__":
+    assert Solution().DeleteDigits(10009876091, 4) == "6091"
+
+

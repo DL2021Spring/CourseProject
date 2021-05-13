@@ -11,6 +11,22 @@ class Solution(object):
         while fib(n) < num:
             n += 1
         if fib(n) == num:
-            return "I"s"F"i"b"o""
-"" "" "" "" "" "" "" "" ""e""l""s""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" 
+            return "IsFibo"
+        else:
+            return "IsNotFibo"
+
+
+if __name__ == "__main__":
+    import sys
+
+    f = open("1.in", "r")
+    
+    testcases = int(f.readline().strip())
+
+    for t in xrange(testcases):
+        
+        cipher = f.readline().strip()
+
+        
+        s = "%s\n" % (Solution().solve(cipher))
+        print s,

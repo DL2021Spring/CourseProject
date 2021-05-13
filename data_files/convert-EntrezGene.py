@@ -35,124 +35,176 @@ import sys
 import re
 import codecs
 
-INPUT_ENCODING = "U"T"F"-"8""
-""
-""#"" ""F""i""e""l""d"" ""l""a""b""e""l""s"" ""i""n"" ""o""u""t""p""u""t"" ""(""m""o""s""t""l""y"" ""f""o""l""l""o""w""i""n""g"" ""E""n""t""r""e""z"" ""G""e""n""e"" ""w""e""b"" ""i""n""t""e""r""f""a""c""e"" ""l""a""b""e""l""s"")""
-""T""A""X""_""I""D""_""L""A""B""E""L"" ""="" ""'""O""r""g""a""n""i""s""m""'""
-""G""E""N""E""_""I""D""_""L""A""B""E""L"" ""="" ""'""G""e""n""e"" ""I""D""'""
-""S""Y""M""B""O""L""_""L""A""B""E""L"" ""="" ""'""S""y""m""b""o""l""'""
-""L""O""C""U""S""_""L""A""B""E""L"" ""="" ""'""L""o""c""u""s""'""
-""S""Y""N""O""N""Y""M""_""L""A""B""E""L"" ""="" ""'""A""l""s""o"" ""k""n""o""w""n"" ""a""s""'""
-""C""H""R""O""M""O""S""O""M""E""_""L""A""B""E""L"" ""="" ""'""C""h""r""o""m""o""s""o""m""e""'""
-""D""E""S""C""R""I""P""T""I""O""N""_""L""A""B""E""L"" ""="" ""'""D""e""s""c""r""i""p""t""i""o""n""'""
-""G""E""N""E""_""T""Y""P""E""_""L""A""B""E""L"" ""="" ""'""G""e""n""e"" ""t""y""p""e""'""
-""S""Y""M""B""O""L""_""A""U""T""H""O""R""I""T""Y""_""L""A""B""E""L"" ""="" ""'""O""f""f""i""c""i""a""l"" ""s""y""m""b""o""l""'""
-""F""U""L""L""_""N""A""M""E""_""A""U""T""H""O""R""I""T""Y""_""L""A""B""E""L"" ""="" ""'""O""f""f""i""c""i""a""l"" ""f""u""l""l"" ""n""a""m""e""'""
-""O""T""H""E""R""_""D""E""S""I""G""N""A""T""I""O""N""_""L""A""B""E""L"" ""="" ""'""N""a""m""e""'""
-""
-""#"" ""O""r""d""e""r"" ""i""n"" ""o""u""t""p""u""t"" ""(""m""o""s""t""l""y"" ""f""o""l""l""o""w""i""n""g"" ""E""n""t""r""e""z"" ""G""e""n""e"" ""w""e""b"" ""i""n""t""e""r""f""a""c""e"" ""l""a""b""e""l""s"")""
-""O""U""T""P""U""T""_""L""A""B""E""L""_""O""R""D""E""R"" ""="" ""[""
-"" "" "" "" ""S""Y""M""B""O""L""_""A""U""T""H""O""R""I""T""Y""_""L""A""B""E""L"",""
-"" "" "" "" ""S""Y""M""B""O""L""_""L""A""B""E""L"",""
-"" "" "" "" ""F""U""L""L""_""N""A""M""E""_""A""U""T""H""O""R""I""T""Y""_""L""A""B""E""L"",""
-"" "" "" "" ""G""E""N""E""_""T""Y""P""E""_""L""A""B""E""L"",""
-"" "" "" "" ""T""A""X""_""I""D""_""L""A""B""E""L"",""
-"" "" "" "" ""S""Y""N""O""N""Y""M""_""L""A""B""E""L"",""
-"" "" "" "" ""O""T""H""E""R""_""D""E""S""I""G""N""A""T""I""O""N""_""L""A""B""E""L"",""
-"" "" "" "" ""L""O""C""U""S""_""L""A""B""E""L"",""
-"" "" "" "" ""C""H""R""O""M""O""S""O""M""E""_""L""A""B""E""L"",""
-"" "" "" "" ""D""E""S""C""R""I""P""T""I""O""N""_""L""A""B""E""L"",""
-""]""
-""
-""#"" ""V""a""l""u""e""s"" ""t""o"" ""f""i""l""t""e""r"" ""o""u""t""
-""F""I""L""T""E""R""_""L""I""S""T"" ""="" ""[""
-""#"" "" "" "" ""(""'""i""n""f""o""'"","" ""D""E""S""C""R""I""P""T""I""O""N""_""L""A""B""E""L"","" ""'""h""y""p""o""t""h""e""t""i""c""a""l"" ""p""r""o""t""e""i""n""'"")"",""
-""]""
-""
-""d""e""f"" ""p""r""o""c""e""s""s""_""t""a""x""_""i""d""(""v""a""l"","" ""r""e""c""o""r""d"")"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""r""e"".""m""a""t""c""h""(""r""'""^""[""0""-""9""]""+""$""'"","" ""v""a""l"")""
-"" "" "" "" ""r""e""c""o""r""d"".""a""p""p""e""n""d""(""(""'""i""n""f""o""'"","" ""T""A""X""_""I""D""_""L""A""B""E""L"","" ""v""a""l"")"")""
-""
-""d""e""f"" ""p""r""o""c""e""s""s""_""g""e""n""e""_""i""d""(""v""a""l"","" ""r""e""c""o""r""d"")"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""r""e"".""m""a""t""c""h""(""r""'""^""[""0""-""9""]""+""$""'"","" ""v""a""l"")""
-"" "" "" "" ""r""e""c""o""r""d"".""a""p""p""e""n""d""(""(""'""k""e""y""'"","" ""G""E""N""E""_""I""D""_""L""A""B""E""L"","" ""v""a""l"")"")""
-""
-""d""e""f"" ""p""r""o""c""e""s""s""_""s""y""m""b""o""l""(""v""a""l"","" ""r""e""c""o""r""d"")"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""v""a""l"" ""!""="" ""'""-""'""
-"" "" "" "" ""f""o""r"" ""v"" ""i""n"" ""v""a""l"".""s""p""l""i""t""(""'""|""'"")"":""
-"" "" "" "" "" "" "" "" ""a""s""s""e""r""t"" ""r""e"".""m""a""t""c""h""(""r""'""^""\""S""(""?"":"".""*""\""S"")""?""$""'"","" ""v"")""
-"" "" "" "" "" "" "" "" ""r""e""c""o""r""d"".""a""p""p""e""n""d""(""(""'""n""a""m""e""'"","" ""S""Y""M""B""O""L""_""L""A""B""E""L"","" ""v"")"")""
-""
-""d""e""f"" ""p""r""o""c""e""s""s""_""l""o""c""u""s""(""v""a""l"","" ""r""e""c""o""r""d"")"":""
-"" "" "" "" ""i""f"" ""v""a""l"" ""!""="" ""'""-""'"":""
-"" "" "" "" "" "" "" "" ""a""s""s""e""r""t"" ""r""e"".""m""a""t""c""h""(""r""'""^""[""^""\""s""|""]""+""$""'"","" ""v""a""l"")""
-"" "" "" "" "" "" "" "" ""r""e""c""o""r""d"".""a""p""p""e""n""d""(""(""'""n""a""m""e""'"","" ""L""O""C""U""S""_""L""A""B""E""L"","" ""v""a""l"")"")""
-""
-""d""e""f"" ""p""r""o""c""e""s""s""_""s""y""n""o""n""y""m""s""(""v""a""l"","" ""r""e""c""o""r""d"")"":""
-"" "" "" "" ""i""f"" ""v""a""l"" ""!""="" ""'""-""'"":""
-"" "" "" "" "" "" "" "" ""f""o""r"" ""v"" ""i""n"" ""v""a""l"".""s""p""l""i""t""(""'""|""'"")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""a""s""s""e""r""t"" ""r""e"".""m""a""t""c""h""(""r""'""^""\""S""(""?"":"".""*""\""S"")""?""$""'"","" ""v"")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""c""o""r""d"".""a""p""p""e""n""d""(""(""'""n""a""m""e""'"","" ""S""Y""N""O""N""Y""M""_""L""A""B""E""L"","" ""v"")"")""
-""
-""d""e""f"" ""p""r""o""c""e""s""s""_""c""h""r""o""m""o""s""o""m""e""(""v""a""l"","" ""r""e""c""o""r""d"")"":""
-"" "" "" "" ""i""f"" ""v""a""l"" ""!""="" ""'""-""'"":""
-"" "" "" "" "" "" "" "" ""a""s""s""e""r""t"" ""r""e"".""m""a""t""c""h""(""r""'""^""\""S""(""?"":"".""*""\""S"")""?""$""'"","" ""v""a""l"")""
-"" "" "" "" "" "" "" "" ""r""e""c""o""r""d"".""a""p""p""e""n""d""(""(""'""i""n""f""o""'"","" ""C""H""R""O""M""O""S""O""M""E""_""L""A""B""E""L"","" ""v""a""l"")"")""
-""
-""d""e""f"" ""p""r""o""c""e""s""s""_""d""e""s""c""r""i""p""t""i""o""n""(""v""a""l"","" ""r""e""c""o""r""d"")"":""
-"" "" "" "" ""i""f"" ""v""a""l"" ""!""="" ""'""-""'"":""
-"" "" "" "" "" "" "" "" ""r""e""c""o""r""d"".""a""p""p""e""n""d""(""(""'""i""n""f""o""'"","" ""D""E""S""C""R""I""P""T""I""O""N""_""L""A""B""E""L"","" ""v""a""l"")"")"" "" "" "" "" "" "" "" ""
-""
-""d""e""f"" ""p""r""o""c""e""s""s""_""g""e""n""e""_""t""y""p""e""(""v""a""l"","" ""r""e""c""o""r""d"")"":""
-"" "" "" "" ""i""f"" ""v""a""l"" ""!""="" ""'""-""'"":""
-"" "" "" "" "" "" "" "" ""r""e""c""o""r""d"".""a""p""p""e""n""d""(""(""'""i""n""f""o""'"","" ""G""E""N""E""_""T""Y""P""E""_""L""A""B""E""L"","" ""v""a""l"")"")"" "" "" "" "" "" "" "" ""
-""
-""d""e""f"" ""p""r""o""c""e""s""s""_""s""y""m""b""o""l""_""a""u""t""h""o""r""i""t""y""(""v""a""l"","" ""r""e""c""o""r""d"")"":""
-"" "" "" "" ""i""f"" ""v""a""l"" ""!""="" ""'""-""'"":""
-"" "" "" "" "" "" "" "" ""r""e""c""o""r""d"".""a""p""p""e""n""d""(""(""'""n""a""m""e""'"","" ""S""Y""M""B""O""L""_""A""U""T""H""O""R""I""T""Y""_""L""A""B""E""L"","" ""v""a""l"")"")""
-""
-""d""e""f"" ""p""r""o""c""e""s""s""_""f""u""l""l""_""n""a""m""e""_""a""u""t""h""o""r""i""t""y""(""v""a""l"","" ""r""e""c""o""r""d"")"":""
-"" "" "" "" ""i""f"" ""v""a""l"" ""!""="" ""'""-""'"":""
-"" "" "" "" "" "" "" "" ""r""e""c""o""r""d"".""a""p""p""e""n""d""(""(""'""n""a""m""e""'"","" ""F""U""L""L""_""N""A""M""E""_""A""U""T""H""O""R""I""T""Y""_""L""A""B""E""L"","" ""v""a""l"")"")""
-""
-""d""e""f"" ""p""r""o""c""e""s""s""_""o""t""h""e""r""_""d""e""s""i""g""n""a""t""i""o""n""s""(""v""a""l"","" ""r""e""c""o""r""d"")"":""
-"" "" "" "" ""i""f"" ""v""a""l"" ""!""="" ""'""-""'"":""
-"" "" "" "" "" "" "" "" ""f""o""r"" ""v"" ""i""n"" ""v""a""l"".""s""p""l""i""t""(""'""|""'"")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""a""s""s""e""r""t"" ""r""e"".""m""a""t""c""h""(""r""'""^""\""S""(""?"":"".""*""\""S"")""?""$""'"","" ""v"")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""c""o""r""d"".""a""p""p""e""n""d""(""(""'""n""a""m""e""'"","" ""O""T""H""E""R""_""D""E""S""I""G""N""A""T""I""O""N""_""L""A""B""E""L"","" ""v"")"")""
-""
-""f""i""e""l""d""_""p""r""o""c""e""s""s""o""r"" ""="" ""[""
-"" "" "" "" ""p""r""o""c""e""s""s""_""t""a""x""_""i""d"",""
-"" "" "" "" ""p""r""o""c""e""s""s""_""g""e""n""e""_""i""d"",""
-"" "" "" "" ""p""r""o""c""e""s""s""_""s""y""m""b""o""l"",""
-"" "" "" "" ""p""r""o""c""e""s""s""_""l""o""c""u""s"",""
-"" "" "" "" ""p""r""o""c""e""s""s""_""s""y""n""o""n""y""m""s"",""
-"" "" "" "" ""N""o""n""e"","" ""#"" ""d""b""X""r""e""f""s""
-"" "" "" "" ""p""r""o""c""e""s""s""_""c""h""r""o""m""o""s""o""m""e"",""
-"" "" "" "" ""N""o""n""e"","" ""#"" ""m""a""p""_""l""o""c""a""t""i""o""n""
-"" "" "" "" ""p""r""o""c""e""s""s""_""d""e""s""c""r""i""p""t""i""o""n"",""
-"" "" "" "" ""p""r""o""c""e""s""s""_""g""e""n""e""_""t""y""p""e"",""
-"" "" "" "" ""p""r""o""c""e""s""s""_""s""y""m""b""o""l""_""a""u""t""h""o""r""i""t""y"",""
-"" "" "" "" ""p""r""o""c""e""s""s""_""f""u""l""l""_""n""a""m""e""_""a""u""t""h""o""r""i""t""y"",""
-"" "" "" "" ""N""o""n""e"","" ""#"" ""N""o""m""e""n""c""l""a""t""u""r""e""_""s""t""a""t""u""s""
-"" "" "" "" ""p""r""o""c""e""s""s""_""o""t""h""e""r""_""d""e""s""i""g""n""a""t""i""o""n""s"",""
-"" "" "" "" ""N""o""n""e"","" ""#"" ""M""o""d""i""f""i""c""a""t""i""o""n""_""d""a""t""e""
-""]""
-""
-""o""u""t""p""u""t""_""p""r""i""o""r""i""t""y"" ""="" ""{""}""
-""f""o""r"" ""i"","" ""l"" ""i""n"" ""e""n""u""m""e""r""a""t""e""(""O""U""T""P""U""T""_""L""A""B""E""L""_""O""R""D""E""R"")"":""
-"" "" "" "" ""o""u""t""p""u""t""_""p""r""i""o""r""i""t""y""[""l""]"" ""="" ""o""u""t""p""u""t""_""p""r""i""o""r""i""t""y"".""g""e""t""(""l"","" ""i"")""
-""
-""f""i""l""t""e""r"" ""="" ""s""e""t""(""F""I""L""T""E""R""_""L""I""S""T"")""
-""
-""d""e""f"" ""p""r""o""c""e""s""s""_""l""i""n""e""(""l"")"":""
-"" "" "" "" ""f""i""e""l""d""s"" ""="" ""l"".""s""p""l""i""t""(""'""\""t""'"")""
-"" "" "" "" ""a""s""s""e""r""t"" ""l""e""n""(""f""i""e""l""d""s"")"" ""=""="" ""1""5""
-""
-"" "" "" "" ""r""e""c""o""r""d"" ""="" ""[""]""
-"" "" "" "" ""f""o""r"" ""i"","" ""f"" ""i""n"" ""e""n""u""m""e""r""a""t""e""(""f""i""e""l""d""s"")"":""
-"" "" "" "" "" "" "" "" ""i""f"" ""f""i""e""l""d""_""p""r""o""c""e""s""s""o""r""[""i""]"" ""i""s"" ""n""o""t"" ""N""o""n""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""t""r""y"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""f""i""e""l""d""_""p""r""o""c""e""s""s""o""r""[""i""]""(""f"","" ""r""e""c""o""r""d"")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""e""x""c""e""p""t"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""p""r""i""n""t"" "">"">"" ""s""y""s"".""s""t""d""e""r""r"","" 
+INPUT_ENCODING = "UTF-8"
+
+
+TAX_ID_LABEL = 'Organism'
+GENE_ID_LABEL = 'Gene ID'
+SYMBOL_LABEL = 'Symbol'
+LOCUS_LABEL = 'Locus'
+SYNONYM_LABEL = 'Also known as'
+CHROMOSOME_LABEL = 'Chromosome'
+DESCRIPTION_LABEL = 'Description'
+GENE_TYPE_LABEL = 'Gene type'
+SYMBOL_AUTHORITY_LABEL = 'Official symbol'
+FULL_NAME_AUTHORITY_LABEL = 'Official full name'
+OTHER_DESIGNATION_LABEL = 'Name'
+
+
+OUTPUT_LABEL_ORDER = [
+    SYMBOL_AUTHORITY_LABEL,
+    SYMBOL_LABEL,
+    FULL_NAME_AUTHORITY_LABEL,
+    GENE_TYPE_LABEL,
+    TAX_ID_LABEL,
+    SYNONYM_LABEL,
+    OTHER_DESIGNATION_LABEL,
+    LOCUS_LABEL,
+    CHROMOSOME_LABEL,
+    DESCRIPTION_LABEL,
+]
+
+
+FILTER_LIST = [
+
+]
+
+def process_tax_id(val, record):
+    assert re.match(r'^[0-9]+$', val)
+    record.append(('info', TAX_ID_LABEL, val))
+
+def process_gene_id(val, record):
+    assert re.match(r'^[0-9]+$', val)
+    record.append(('key', GENE_ID_LABEL, val))
+
+def process_symbol(val, record):
+    assert val != '-'
+    for v in val.split('|'):
+        assert re.match(r'^\S(?:.*\S)?$', v)
+        record.append(('name', SYMBOL_LABEL, v))
+
+def process_locus(val, record):
+    if val != '-':
+        assert re.match(r'^[^\s|]+$', val)
+        record.append(('name', LOCUS_LABEL, val))
+
+def process_synonyms(val, record):
+    if val != '-':
+        for v in val.split('|'):
+            assert re.match(r'^\S(?:.*\S)?$', v)
+            record.append(('name', SYNONYM_LABEL, v))
+
+def process_chromosome(val, record):
+    if val != '-':
+        assert re.match(r'^\S(?:.*\S)?$', val)
+        record.append(('info', CHROMOSOME_LABEL, val))
+
+def process_description(val, record):
+    if val != '-':
+        record.append(('info', DESCRIPTION_LABEL, val))        
+
+def process_gene_type(val, record):
+    if val != '-':
+        record.append(('info', GENE_TYPE_LABEL, val))        
+
+def process_symbol_authority(val, record):
+    if val != '-':
+        record.append(('name', SYMBOL_AUTHORITY_LABEL, val))
+
+def process_full_name_authority(val, record):
+    if val != '-':
+        record.append(('name', FULL_NAME_AUTHORITY_LABEL, val))
+
+def process_other_designations(val, record):
+    if val != '-':
+        for v in val.split('|'):
+            assert re.match(r'^\S(?:.*\S)?$', v)
+            record.append(('name', OTHER_DESIGNATION_LABEL, v))
+
+field_processor = [
+    process_tax_id,
+    process_gene_id,
+    process_symbol,
+    process_locus,
+    process_synonyms,
+    None, 
+    process_chromosome,
+    None, 
+    process_description,
+    process_gene_type,
+    process_symbol_authority,
+    process_full_name_authority,
+    None, 
+    process_other_designations,
+    None, 
+]
+
+output_priority = {}
+for i, l in enumerate(OUTPUT_LABEL_ORDER):
+    output_priority[l] = output_priority.get(l, i)
+
+filter = set(FILTER_LIST)
+
+def process_line(l):
+    fields = l.split('\t')
+    assert len(fields) == 15
+
+    record = []
+    for i, f in enumerate(fields):
+        if field_processor[i] is not None:
+            try:
+                field_processor[i](f, record)
+            except:
+                print >> sys.stderr, "Error processing field %d: '%s'" % (i+1,f)
+                raise
+
+    
+    keys = [r for r in record if r[0] == 'key']
+    assert len(keys) == 1
+    key = keys[0]
+    record = [r for r in record if r[0] != 'key']
+
+    record.sort(lambda a, b: cmp(output_priority[a[1]],
+                                 output_priority[b[1]]))
+
+    filtered = []
+    for r in record:
+        if r not in filter:
+            filtered.append(r)
+    record = filtered
+
+    seen = set()
+    uniqued = []
+    for r in record:
+        if (r[0],r[2]) not in seen:
+            seen.add((r[0],r[2]))
+            uniqued.append(r)
+    record = uniqued
+
+    print '\t'.join([key[2]]+[':'.join(r) for r in record])
+
+def process(fn):
+    with codecs.open(fn, encoding=INPUT_ENCODING) as f:
+        for ln, l in enumerate(f):
+            l = l.rstrip('\r\n')
+
+            
+            if l and l[0] == '#':
+                continue
+
+            try:
+                process_line(l)
+            except Exception, e:
+                print >> sys.stderr, "Error processing line %d: %s" % (ln, l)
+                raise
+            
+def main(argv):
+    if len(argv) < 2:
+        print >> sys.stderr, "Usage:", argv[0], "GENE-INFO-FILE"
+        return 1
+
+    fn = argv[1]
+    process(fn)
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))

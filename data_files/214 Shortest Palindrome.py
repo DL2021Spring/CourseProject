@@ -46,5 +46,7 @@ class Solution:
         return s_r+s[i:]
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""s""h""o""r""t""e""s""t""P""a""l""i""n""d""r""o""m""e""(
+if __name__ == "__main__":
+    assert Solution().shortestPalindrome("abcd") == "dcbabcd"
+
+

@@ -35,7 +35,7 @@ class Solution:
         return ret
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""c""a""n""I""W""i""n""(""1""0"","" ""1""1"")"" ""=""="" ""F""a""l""s""e""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""c""a""n""I""W""i""n""(""1""0"","" ""0"")"" ""=""="" ""T""r""u""e""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""c""a""n""I""W""i""n""(""1""3"","" ""1""1"")"" ""=""="" ""T""r""u""e""
+if __name__ == "__main__":
+    assert Solution().canIWin(10, 11) == False
+    assert Solution().canIWin(10, 0) == True
+    assert Solution().canIWin(13, 11) == True

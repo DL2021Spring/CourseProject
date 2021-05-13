@@ -32,9 +32,9 @@ class Solution:
         bottomRight = self._construct(grid, row + l_child, col + l_child, l_child)
         is_leaf = (
             topLeft.val == topRight.val == bottomLeft.val == bottomRight.val
-            != "*""
-"" "" "" "" "" "" "" "" "")""
-"" "" "" "" "" "" "" "" ""i""f"" ""i""s""_""l""e""a""f"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""N""o""d""e""(""g""r""i""d""[""r""o""w""]""[""c""o""l""]"","" ""T""r""u""e"","" ""N""o""n""e"","" ""N""o""n""e"","" ""N""o""n""e"","" ""N""o""n""e"")""
-""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""N""o""d""e""(
+            != "*"
+        )
+        if is_leaf:
+            return Node(grid[row][col], True, None, None, None, None)
+
+        return Node("*", False, topLeft, topRight, bottomLeft, bottomRight)

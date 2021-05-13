@@ -7,15 +7,50 @@ class Solution:
         
         stk = []
         for c in reversed(expression):
-            if stk and stk[-1] == "?"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""t""k"".""p""o""p""("")"" "" ""#"" ""?""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""f""i""r""s""t"" ""="" ""s""t""k"".""p""o""p""("")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""t""k"".""p""o""p""("")"" "" ""#"" "":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""e""c""o""n""d"" ""="" ""s""t""k"".""p""o""p""("")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""c"" ""=""="" 
-        tokenize + recursive (dfs)?
+            if stk and stk[-1] == "?":
+                stk.pop()  
+                first = stk.pop()
+                stk.pop()  
+                second = stk.pop()
+                if c == "T":
+                    stk.append(first)
+                else:
+                    stk.append(second)
+            else:
+                stk.append(c)
 
-        stk from right to left, only include the operand
+        return stk[0]
 
-        can handle multiple digit (not required)
+    def parseTernary_complex(self, expression: str) -> str:
         
+        n = len(expression)
+        stk = []
+        i = n - 1
+        while i >= 0:
+            j = i
+            while j >= 0 and expression[j] not in (":", "?"):
+                j -= 1
+
+            if j < i:
+                stk.append(expression[j+1:i+1])
+
+            if expression[j] == ":":
+                i = j - 1
+            else:  
+                i = j - 1
+                if expression[i] == "T":
+                    a = stk.pop()
+                    stk.pop()
+                    stk.append(a)
+                    i -= 1
+                else:
+                    stk.pop()
+                    i -= 1
+
+        return stk[0]
+
+
+
+if __name__ == "__main__":
+    assert Solution().parseTernary("F?1:T?4:5") == "4"
+    assert Solution().parseTernary("T?T?F:5:3") == "F"

@@ -35,4 +35,19 @@ class Solution(object):
             cur = []
             for _ in xrange(k):
                 if not h:
-                    return "".""j""o""i""n""(""r""e""t"")"" ""i""f"" ""l""e""n""(""r""e""t"")"" ""=""="" ""l""e""n""(""s"")"" ""e""l""s""e"" 
+                    return "".join(ret) if len(ret) == len(s) else ""
+
+                e = heapq.heappop(h)
+                ret.append(e.val)
+                e.cnt -= 1
+                if e.cnt > 0:
+                    cur.append(e)
+
+            for e in cur:
+                heapq.heappush(h, e)
+
+        return "".join(ret)
+
+
+if __name__ == "__main__":
+    assert Solution().rearrangeString("aabbccdd", 4) == "abcdabcd"

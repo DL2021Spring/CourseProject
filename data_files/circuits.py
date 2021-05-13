@@ -11,5 +11,9 @@ def full_sub(a, b, bin):
     return out, bout
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""r""i""n""t"" 
+if __name__ == "__main__":
+    print "a b c out borrow"
+    for a in (0, 1):
+        for b in (0, 1):
+            for bin in (0, 1):
+                print a, b, bin, full_sub(a, b, bin)

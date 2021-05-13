@@ -25,9 +25,42 @@ class Solution(object):
 
             
             if j != start + 1 and j + 1 == N:  
-                return "n"o""
-"" "" "" "" "" "" "" "" "" "" "" "" ""#"" ""t""e""s""t"" ""t""a""i""l""i""n""g""
-"" "" "" "" "" "" "" "" "" "" "" "" ""i"" ""="" ""j"" ""+"" ""1""
-"" "" "" "" "" "" "" "" "" "" "" "" ""w""h""i""l""e"" ""i"" ""+"" ""1"" ""<"" ""N"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""n""o""t"" ""A""[""i""]"" ""<"" ""A""[""i"" ""+"" ""1""]"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" 
+                return "no"
+            
+            i = j + 1
+            while i + 1 < N:
+                if not A[i] < A[i + 1]:
+                    return "no"
+                i += 1
+
+            if j != start + 1:
+                j += 1
+            return "yes\nswap %d %d" % (start + 1, j + 1)
+        else:  
+            
+            i = end + 1
+            while i + 1 < N:
+                if not A[i] < A[i + 1]:
+                    return "no"
+                i += 1
+
+            if end + 1 < N and A[start] > A[end + 1]:  
+                return "no"
+
+            return "yes\nreverse %d %d" % (start + 1, end + 1)
+
+
+if __name__ == "__main__":
+    import sys
+
+    f = open("1.in", "r")
+    
+    testcases = int(f.readline().strip())
+
+
+    
+    cipher = map(int, f.readline().strip().split(' '))
+
+    
+    s = "%s\n" % (Solution().solve(cipher))
+    print s,

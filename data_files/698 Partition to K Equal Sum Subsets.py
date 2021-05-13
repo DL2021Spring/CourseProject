@@ -70,6 +70,6 @@ class Solution_TLE:
         return False
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""c""a""n""P""a""r""t""i""t""i""o""n""K""S""u""b""s""e""t""s""(""[""5"","" ""3"","" ""2"","" ""3"","" ""1"","" ""2"","" ""4""]"","" ""4"")"" ""=""="" ""T""r""u""e""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""c""a""n""P""a""r""t""i""t""i""o""n""K""S""u""b""s""e""t""s""(""[""4"","" ""3"","" ""2"","" ""3"","" ""5"","" ""2"","" ""1""]"","" ""4"")"" ""=""="" ""T""r""u""e""
+if __name__ == "__main__":
+    assert Solution().canPartitionKSubsets([5, 3, 2, 3, 1, 2, 4], 4) == True
+    assert Solution().canPartitionKSubsets([4, 3, 2, 3, 5, 2, 1], 4) == True

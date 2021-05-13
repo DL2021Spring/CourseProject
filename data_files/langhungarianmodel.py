@@ -213,12 +213,15 @@ Latin2HungarianModel = {
   'precedenceMatrix': HungarianLangModel,
   'mTypicalPositiveRatio': 0.947368,
   'keepEnglishLetter': True,
-  'charsetName': "I"S"O"-"8"8"5"9"-"2""
-""}""
-""
-""W""i""n""1""2""5""0""H""u""n""g""a""r""i""a""n""M""o""d""e""l"" ""="" ""{""
-"" "" ""'""c""h""a""r""T""o""O""r""d""e""r""M""a""p""'"":"" ""w""i""n""1""2""5""0""H""u""n""g""a""r""i""a""n""C""h""a""r""T""o""O""r""d""e""r""M""a""p"",""
-"" "" ""'""p""r""e""c""e""d""e""n""c""e""M""a""t""r""i""x""'"":"" ""H""u""n""g""a""r""i""a""n""L""a""n""g""M""o""d""e""l"",""
-"" "" ""'""m""T""y""p""i""c""a""l""P""o""s""i""t""i""v""e""R""a""t""i""o""'"":"" ""0"".""9""4""7""3""6""8"",""
-"" "" ""'""k""e""e""p""E""n""g""l""i""s""h""L""e""t""t""e""r""'"":"" ""T""r""u""e"",""
-"" "" ""'""c""h""a""r""s""e""t""N""a""m""e""'"":"" 
+  'charsetName': "ISO-8859-2"
+}
+
+Win1250HungarianModel = {
+  'charToOrderMap': win1250HungarianCharToOrderMap,
+  'precedenceMatrix': HungarianLangModel,
+  'mTypicalPositiveRatio': 0.947368,
+  'keepEnglishLetter': True,
+  'charsetName': "windows-1250"
+}
+
+

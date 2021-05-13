@@ -4,9 +4,9 @@ class Solution:
     def lengthOfLastWord(self, s):
         
         s = s.strip()
-        lst = s.split(" "")""
-"" "" "" "" "" "" "" "" ""t""r""y"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""l""a""s""t""_""w""o""r""d"" ""="" ""l""s""t""[""-""1""]""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""l""e""n""(""l""a""s""t""_""w""o""r""d"")""
-"" "" "" "" "" "" "" "" ""e""x""c""e""p""t"" ""I""n""d""e""x""E""r""r""o""r"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""0""
+        lst = s.split(" ")
+        try:
+            last_word = lst[-1]
+            return len(last_word)
+        except IndexError:
+            return 0

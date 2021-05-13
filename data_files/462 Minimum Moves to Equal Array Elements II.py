@@ -43,6 +43,6 @@ class Solution:
         return sum(map(lambda x: abs(x - avg), nums))
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""m""i""n""M""o""v""e""s""2""(""[""1"",""2"",""3""]"")"" ""=""="" ""2""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""m""i""n""M""o""v""e""s""2""(""[""1"",""0"",""0"",""8"",""6""]"")"" ""=""="" ""1""4""
+if __name__ == "__main__":
+    assert Solution().minMoves2([1,2,3]) == 2
+    assert Solution().minMoves2([1,0,0,8,6]) == 14

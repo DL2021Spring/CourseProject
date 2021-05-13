@@ -19,6 +19,6 @@ class Solution:
         return True
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""r""e""o""r""d""e""r"" ""="" ""[""3"","" ""5"","" ""2"","" ""1"","" ""4"","" ""7"","" ""6"","" ""9"","" ""8"","" ""1""0""]""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""v""e""r""i""f""y""P""r""e""o""r""d""e""r""(""p""r""e""o""r""d""e""r"")"" ""=""="" ""F""a""l""s""e""
+if __name__ == "__main__":
+    preorder = [3, 5, 2, 1, 4, 7, 6, 9, 8, 10]
+    assert Solution().verifyPreorder(preorder) == False

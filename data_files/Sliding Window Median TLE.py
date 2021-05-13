@@ -26,30 +26,30 @@ class PriorityQueue(object):
     def remove(self, t):
         pos = self.bisect(t)
         if self.lst[pos] != t:
-            raise ValueError("%"s" "n"o"t" "f"o"u"n"d" "i"n" "t"h"e" "q"u"e"u"e""%""s""t""r""(""t"")"")""
-"" "" "" "" "" "" "" "" ""d""e""l"" ""s""e""l""f"".""l""s""t""[""p""o""s""]""
-""
-"" "" "" "" ""d""e""f"" ""_""_""g""e""t""i""t""e""m""_""_""(""s""e""l""f"","" ""i""t""e""m"")"":""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""s""e""l""f"".""l""s""t""[""i""t""e""m""]""
-""
-""
-""i""m""p""o""r""t"" ""h""e""a""p""q""
-""f""r""o""m"" ""c""o""l""l""e""c""t""i""o""n""s"" ""i""m""p""o""r""t"" ""d""e""f""a""u""l""t""d""i""c""t""
-""
-""
-""c""l""a""s""s"" ""H""e""a""p""(""o""b""j""e""c""t"")"":""
-"" "" "" "" ""d""e""f"" ""_""_""i""n""i""t""_""_""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""h"" ""="" ""[""]""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""e""x""i""s""t""i""n""g"" ""="" ""d""e""f""a""u""l""t""d""i""c""t""(""i""n""t"")""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""l""e""n"" ""="" ""0""
-""
-"" "" "" "" ""d""e""f"" ""p""u""s""h""(""s""e""l""f"","" ""t"")"":""
-"" "" "" "" "" "" "" "" ""h""e""a""p""q"".""h""e""a""p""p""u""s""h""(""s""e""l""f"".""h"","" ""t"")""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""e""x""i""s""t""i""n""g""[""t""]"" ""+""="" ""1""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""l""e""n"" ""+""="" ""1""
-""
-"" "" "" "" ""d""e""f"" ""p""o""p""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" 
+            raise ValueError("%s not found in the queue"%str(t))
+        del self.lst[pos]
+
+    def __getitem__(self, item):
+        return self.lst[item]
+
+
+import heapq
+from collections import defaultdict
+
+
+class Heap(object):
+    def __init__(self):
+        self.h = []
+        self.existing = defaultdict(int)
+        self.len = 0
+
+    def push(self, t):
+        heapq.heappush(self.h, t)
+        self.existing[t] += 1
+        self.len += 1
+
+    def pop(self):
+        
         while True:
             a = heapq.heappop(self.h)
             if self.existing[a] == 0:
@@ -61,76 +61,76 @@ class PriorityQueue(object):
     def remove(self, t):
         
         if self.existing[t] < 1:
-            raise ValueError("%"s" "d"o"e"s" "n"o"t" "e"x"i"s"t" "i"n" "t"h"e" "h"e"a"p""%""s""t""r""(""t"")"")""
-""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""e""x""i""s""t""i""n""g""[""t""]"" ""-""="" ""1""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""l""e""n"" ""-""="" ""1""
-""
-"" "" "" "" ""d""e""f"" ""_""_""l""e""n""_""_""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""s""e""l""f"".""l""e""n""
-""
-"" "" "" "" ""d""e""f"" ""p""e""e""k""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" ""a"" ""="" ""s""e""l""f"".""h""[""0""]""
-"" "" "" "" "" "" "" "" ""i""f"" ""s""e""l""f"".""e""x""i""s""t""i""n""g""[""a""]"" "">"" ""0"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""a""
-""
-"" "" "" "" "" "" "" "" ""a"" ""="" ""s""e""l""f"".""p""o""p""("")""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""p""u""s""h""(""a"")""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""a""
-""
-"" "" "" "" ""d""e""f"" ""_""_""r""e""p""r""_""_""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""r""e""p""r""(""s""e""l""f"".""e""x""i""s""t""i""n""g"")""
-""
-""
-""c""l""a""s""s"" ""D""u""a""l""H""e""a""p""(""o""b""j""e""c""t"")"":""
-"" "" "" "" ""d""e""f"" ""_""_""i""n""i""t""_""_""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""m""i""n""_""h"" ""="" ""H""e""a""p""("")"" "" ""#"" ""r""e""p""r""e""s""e""n""t"" ""r""i""g""h""t"" ""s""i""d""e""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""m""a""x""_""h"" ""="" ""H""e""a""p""("")"" "" ""#"" ""r""e""p""r""e""s""e""n""t"" ""l""e""f""t"" ""s""i""d""e""
-""
-"" "" "" "" ""d""e""f"" ""_""r""e""b""a""l""a""n""c""e""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" ""r"" ""="" ""l""e""n""(""s""e""l""f"".""m""i""n""_""h"")""
-"" "" "" "" "" "" "" "" ""l"" ""="" ""l""e""n""(""s""e""l""f"".""m""a""x""_""h"")""
-"" "" "" "" "" "" "" "" ""i""f"" ""a""b""s""(""l""-""r"")"" ""<""="" ""1"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n""
-""
-"" "" "" "" "" "" "" "" ""i""f"" ""r"" "">"" ""l"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""m""a""x""_""h"".""p""u""s""h""(""-""s""e""l""f"".""m""i""n""_""h"".""p""o""p""("")"")""
-"" "" "" "" "" "" "" "" ""e""l""s""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""m""i""n""_""h"".""p""u""s""h""(""-""s""e""l""f"".""m""a""x""_""h"".""p""o""p""("")"")""
-""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""_""r""e""b""a""l""a""n""c""e""("")""
-""
-"" "" "" "" ""d""e""f"" ""a""d""d""(""s""e""l""f"","" ""t"")"":""
-"" "" "" "" "" "" "" "" ""i""f"" ""l""e""n""(""s""e""l""f"".""m""i""n""_""h"")"" "">"" ""0"" ""a""n""d"" ""t"" "">"" ""s""e""l""f"".""m""i""n""_""h"".""p""e""e""k""("")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""m""i""n""_""h"".""p""u""s""h""(""t"")""
-"" "" "" "" "" "" "" "" ""e""l""s""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""m""a""x""_""h"".""p""u""s""h""(""-""t"")""
-""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""_""r""e""b""a""l""a""n""c""e""("")""
-""
-"" "" "" "" ""d""e""f"" ""r""e""m""o""v""e""(""s""e""l""f"","" ""t"")"":""
-"" "" "" "" "" "" "" "" ""i""f"" ""l""e""n""(""s""e""l""f"".""m""i""n""_""h"")"" "">"" ""0"" ""a""n""d"" ""t"" "">""="" ""s""e""l""f"".""m""i""n""_""h"".""p""e""e""k""("")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""m""i""n""_""h"".""r""e""m""o""v""e""(""t"")""
-"" "" "" "" "" "" "" "" ""e""l""s""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""m""a""x""_""h"".""r""e""m""o""v""e""(""-""t"")""
-""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""_""r""e""b""a""l""a""n""c""e""("")""
-""
-"" "" "" "" ""d""e""f"" ""m""e""d""i""a""n""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" ""r"" ""="" ""l""e""n""(""s""e""l""f"".""m""i""n""_""h"")""
-"" "" "" "" "" "" "" "" ""l"" ""="" ""l""e""n""(""s""e""l""f"".""m""a""x""_""h"")""
-"" "" "" "" "" "" "" "" ""i""f"" ""r"" "">"" ""l"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""s""e""l""f"".""m""i""n""_""h"".""p""e""e""k""("")""
-"" "" "" "" "" "" "" "" ""e""l""s""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""-""s""e""l""f"".""m""a""x""_""h"".""p""e""e""k""("")""
-""
-"" "" "" "" ""d""e""f"" ""_""_""r""e""p""r""_""_""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""r""e""p""r""(""s""e""l""f"".""m""a""x""_""h"")""+""r""e""p""r""(""s""e""l""f"".""m""i""n""_""h"")""
-""
-""
-""c""l""a""s""s"" ""S""o""l""u""t""i""o""n"":""
-"" "" "" "" ""d""e""f"" ""m""e""d""i""a""n""S""l""i""d""i""n""g""W""i""n""d""o""w""(""s""e""l""f"","" ""n""u""m""s"","" ""k"")"":""
-"" "" "" "" "" "" "" "" 
+            raise ValueError("%s does not exist in the heap"%str(t))
+
+        self.existing[t] -= 1
+        self.len -= 1
+
+    def __len__(self):
+        return self.len
+
+    def peek(self):
+        a = self.h[0]
+        if self.existing[a] > 0:
+            return a
+
+        a = self.pop()
+        self.push(a)
+        return a
+
+    def __repr__(self):
+        return repr(self.existing)
+
+
+class DualHeap(object):
+    def __init__(self):
+        self.min_h = Heap()  
+        self.max_h = Heap()  
+
+    def _rebalance(self):
+        r = len(self.min_h)
+        l = len(self.max_h)
+        if abs(l-r) <= 1:
+            return
+
+        if r > l:
+            self.max_h.push(-self.min_h.pop())
+        else:
+            self.min_h.push(-self.max_h.pop())
+
+        self._rebalance()
+
+    def add(self, t):
+        if len(self.min_h) > 0 and t > self.min_h.peek():
+            self.min_h.push(t)
+        else:
+            self.max_h.push(-t)
+
+        self._rebalance()
+
+    def remove(self, t):
+        if len(self.min_h) > 0 and t >= self.min_h.peek():
+            self.min_h.remove(t)
+        else:
+            self.max_h.remove(-t)
+
+        self._rebalance()
+
+    def median(self):
+        r = len(self.min_h)
+        l = len(self.max_h)
+        if r > l:
+            return self.min_h.peek()
+        else:
+            return -self.max_h.peek()
+
+    def __repr__(self):
+        return repr(self.max_h)+repr(self.min_h)
+
+
+class Solution:
+    def medianSlidingWindow(self, nums, k):
+        
         if len(nums) < 1:
             return []
 
@@ -170,5 +170,5 @@ class PriorityQueue(object):
         return ret
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""m""e""d""i""a""n""S""l""i""d""i""n""g""W""i""n""d""o""w""(""[""1"","" ""2"","" ""7"","" ""8"","" ""5""]"","" ""3"")"" ""=""="" ""[""2"","" ""7"","" ""7""]
+if __name__ == "__main__":
+    assert Solution().medianSlidingWindow([1, 2, 7, 8, 5], 3) == [2, 7, 7]

@@ -3,8 +3,8 @@ import numpy as np
 __author__ = 'Daniel'
 
 
-def imshow(mat, img_name="I"m"a"g"e" "N"a"m"e"")"":""
-"" "" "" "" 
+def imshow(mat, img_name="Image Name"):
+    
     cv2.imshow(img_name, mat)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
@@ -26,6 +26,6 @@ def blurred_img(size=(400, 400)):
     return mat
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""i""m""s""h""o""w""(""r""a""n""d""o""m""_""i""m""g""("")"")""
-"" "" "" "" ""i""m""s""h""o""w""(""b""l""u""r""r""e""d""_""i""m""g""("")"")
+if __name__ == "__main__":
+    imshow(random_img())
+    imshow(blurred_img())

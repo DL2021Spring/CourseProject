@@ -17,5 +17,5 @@ class Solution:
             self.get_subset(S[ind+1:], current+[val], result)
 
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""s""u""b""s""e""t""s""W""i""t""h""D""u""p""(""[""1"","" ""2"","" ""3""]"")
+if __name__=="__main__":
+    print Solution().subsetsWithDup([1, 2, 3])

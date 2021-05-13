@@ -38,6 +38,6 @@ class Solution(object):
         return digits
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""d""i""g""i""t""s"" ""="" ""[""9""]""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""p""l""u""s""O""n""e""(""d""i""g""i""t""s"")"" ""=""="" ""[""1"","" ""0""]
+if __name__ == "__main__":
+    digits = [9]
+    assert Solution().plusOne(digits) == [1, 0]

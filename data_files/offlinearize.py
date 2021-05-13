@@ -14,31 +14,50 @@ try:
     url = urlparse(base_url)
 except:
     print sys.argv[1]
-    print "S"y"n"t"a"x":" "%"s" "<"u"r"l">"" ""%"" ""s""y""s"".""a""r""g""v""[""0""]""
-"" "" "" "" ""s""y""s"".""e""x""i""t""(""1"")""
-""
-""t""h""i""s""_""d""i""r"" ""="" ""d""i""r""n""a""m""e""(""s""y""s"".""a""r""g""v""[""0""]"")""
-""d""a""t""a""d""i""r"" ""="" ""j""o""i""n""p""a""t""h""(""t""h""i""s""_""d""i""r"","" ""'""."".""/""o""f""f""l""i""n""e""_""d""a""t""a""'"")""
-""
-""c""o""l""l""_""a""n""d""_""d""o""c"" ""="" ""u""r""l"".""f""r""a""g""m""e""n""t""
-""c""o""l""l"" ""="" ""d""i""r""n""a""m""e""(""c""o""l""l""_""a""n""d""_""d""o""c"")""[""1"":""]""
-""
-""d""e""f"" ""c""o""n""v""e""r""t""_""c""o""l""l""(""c""o""l""l"")"":""
-"" "" "" "" ""i""f"" ""c""o""l""l"" ""=""="" ""'""'"":""
-"" "" "" "" "" "" "" "" ""a""j""a""x""_""c""o""l""l"" ""="" ""'""/""'""
-"" "" "" "" ""e""l""s""e"":""
-"" "" "" "" "" "" "" "" ""a""j""a""x""_""c""o""l""l"" ""="" ""'""/""%""s""/""'"" ""%"" ""c""o""l""l""
-""
-"" "" "" "" ""c""o""l""l""_""q""u""e""r""y""_""u""r""l"" ""="" ""u""r""l""j""o""i""n""(""b""a""s""e""_""u""r""l"","" ""'""a""j""a""x"".""c""g""i""?""a""c""t""i""o""n""=""g""e""t""C""o""l""l""e""c""t""i""o""n""I""n""f""o""r""m""a""t""i""o""n""&""c""o""l""l""e""c""t""i""o""n""=""%""s""'"" ""%"" ""a""j""a""x""_""c""o""l""l"")""
-"" "" "" "" ""c""o""l""l""_""d""i""r"" ""="" ""j""o""i""n""p""a""t""h""(""d""a""t""a""d""i""r"","" ""c""o""l""l"")""
-"" "" "" "" ""t""r""y"":""
-"" "" "" "" "" "" "" "" ""m""a""k""e""d""i""r""s""(""c""o""l""l""_""d""i""r"")""
-"" "" "" "" ""e""x""c""e""p""t"":""
-"" "" "" "" "" "" "" "" ""p""a""s""s"" ""#"" ""h""o""p""e""f""u""l""l""y"" ""b""e""c""a""u""s""e"" ""i""t"" ""e""x""i""s""t""s"";"" ""T""O""D""O"":"" ""c""h""e""c""k"" ""t""h""e"" ""e""r""r""o""r"" ""v""a""l""u""e""?""
-""
-"" "" "" "" ""p""r""i""n""t"" ""a""j""a""x""_""c""o""l""l""
-"" "" "" "" ""c""o""n""n"" ""="" ""u""r""l""o""p""e""n""(""c""o""l""l""_""q""u""e""r""y""_""u""r""l"")""
-"" "" "" "" ""j""s""o""n""p"" ""="" ""c""o""n""n"".""r""e""a""d""("")""
-"" "" "" "" ""c""o""n""n"".""c""l""o""s""e""
-"" "" "" "" ""w""i""t""h"" ""o""p""e""n""(""j""o""i""n""p""a""t""h""(""c""o""l""l""_""d""i""r"","" ""'""c""o""l""l""e""c""t""i""o""n"".""j""s""'"")"","" ""'""w""'"")"" ""a""s"" ""f"":""
-"" "" "" "" "" "" "" "" ""f"".""w""r""i""t""e""(
+    print "Syntax: %s <url>" % sys.argv[0]
+    sys.exit(1)
+
+this_dir = dirname(sys.argv[0])
+datadir = joinpath(this_dir, '../offline_data')
+
+coll_and_doc = url.fragment
+coll = dirname(coll_and_doc)[1:]
+
+def convert_coll(coll):
+    if coll == '':
+        ajax_coll = '/'
+    else:
+        ajax_coll = '/%s/' % coll
+
+    coll_query_url = urljoin(base_url, 'ajax.cgi?action=getCollectionInformation&collection=%s' % ajax_coll)
+    coll_dir = joinpath(datadir, coll)
+    try:
+        makedirs(coll_dir)
+    except:
+        pass 
+
+    print ajax_coll
+    conn = urlopen(coll_query_url)
+    jsonp = conn.read()
+    conn.close
+    with open(joinpath(coll_dir, 'collection.js'), 'w') as f:
+        f.write("jsonp=")
+        f.write(jsonp)
+
+    coll_data = loads(jsonp)
+    for item in coll_data['items']:
+        if item[0] == 'd':
+            doc = item[2]
+            print "  %s" % doc
+            doc_query_url = urljoin(base_url, 'ajax.cgi?action=getDocument&collection=%s&document=%s' % (ajax_coll, doc))
+
+            conn = urlopen(doc_query_url)
+            jsonp = conn.read()
+            conn.close
+            with open(joinpath(coll_dir, '%s.data.js' % doc), 'w') as f:
+                f.write("jsonp=")
+                f.write(jsonp)
+        elif item[0] == 'c' and item[2] != '..':
+            convert_coll(item[2])
+
+convert_coll(coll)

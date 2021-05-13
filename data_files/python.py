@@ -55,41 +55,41 @@ def install_pyfile(self, node, install_from=None):
 	path = tsk.get_install_path()
 
 	if self.bld.is_install < 0:
-		info("+" "r"e"m"o"v"i"n"g" "b"y"t"e" "c"o"m"p"i"l"e"d" "p"y"t"h"o"n" "f"i"l"e"s"")""
-""	""	""f""o""r"" ""x"" ""i""n"" ""'""c""o""'"":""
-""	""	""	""t""r""y"":""
-""	""	""	""	""o""s"".""r""e""m""o""v""e""(""p""a""t""h"" ""+"" ""x"")""
-""	""	""	""e""x""c""e""p""t"" ""O""S""E""r""r""o""r"":""
-""	""	""	""	""p""a""s""s""
-""
-""	""i""f"" ""s""e""l""f"".""b""l""d"".""i""s""_""i""n""s""t""a""l""l"" "">"" ""0"":""
-""	""	""t""r""y"":""
-""	""	""	""s""t""1"" ""="" ""o""s"".""s""t""a""t""(""p""a""t""h"")""
-""	""	""e""x""c""e""p""t"":""
-""	""	""	""e""r""r""o""r""(""'""T""h""e"" ""p""y""t""h""o""n"" ""f""i""l""e"" ""i""s"" ""m""i""s""s""i""n""g"","" ""t""h""i""s"" ""s""h""o""u""l""d"" ""n""o""t"" ""h""a""p""p""e""n""'"")""
-""
-""	""	""f""o""r"" ""x"" ""i""n"" ""[""'""c""'"","" ""'""o""'""]"":""
-""	""	""	""d""o""_""i""n""s""t"" ""="" ""s""e""l""f"".""e""n""v""[""'""P""Y""'"" ""+"" ""x"".""u""p""p""e""r""("")""]""
-""	""	""	""t""r""y"":""
-""	""	""	""	""s""t""2"" ""="" ""o""s"".""s""t""a""t""(""p""a""t""h"" ""+"" ""x"")""
-""	""	""	""e""x""c""e""p""t"" ""O""S""E""r""r""o""r"":""
-""	""	""	""	""p""a""s""s""
-""	""	""	""e""l""s""e"":""
-""	""	""	""	""i""f"" ""s""t""1"".""s""t""_""m""t""i""m""e"" ""<""="" ""s""t""2"".""s""t""_""m""t""i""m""e"":""
-""	""	""	""	""	""d""o""_""i""n""s""t"" ""="" ""F""a""l""s""e""
-""
-""	""	""	""i""f"" ""d""o""_""i""n""s""t"":""
-""	""	""	""	""l""s""t"" ""="" ""(""x"" ""=""="" ""'""o""'"")"" ""a""n""d"" ""[""s""e""l""f"".""e""n""v""[""'""P""Y""F""L""A""G""S""_""O""P""T""'""]""]"" ""o""r"" ""[""]""
-""	""	""	""	""(""a"","" ""b"","" ""c"")"" ""="" ""(""p""a""t""h"","" ""p""a""t""h"" ""+"" ""x"","" ""t""s""k"".""g""e""t""_""i""n""s""t""a""l""l""_""p""a""t""h""(""d""e""s""t""d""i""r""=""F""a""l""s""e"")"" ""+"" ""x"")""
-""	""	""	""	""a""r""g""v"" ""="" ""s""e""l""f"".""e""n""v""[""'""P""Y""T""H""O""N""'""]"" ""+"" ""l""s""t"" ""+"" ""[""'""-""c""'"","" ""I""N""S""T"","" ""a"","" ""b"","" ""c""]""
-""	""	""	""	""i""n""f""o""(""'""+"" ""b""y""t""e"" ""c""o""m""p""i""l""i""n""g"" ""%""r""'"" ""%"" ""(""p""a""t""h"" ""+"" ""x"")"")""
-""	""	""	""	""r""e""t"" ""="" ""U""t""i""l""s"".""s""u""b""p""r""o""c""e""s""s"".""P""o""p""e""n""(""a""r""g""v"")"".""w""a""i""t""("")""
-""	""	""	""	""i""f"" ""r""e""t"":""
-""	""	""	""	""	""r""a""i""s""e"" ""E""r""r""o""r""s"".""W""a""f""E""r""r""o""r""(""'""p""y""%""s"" ""c""o""m""p""i""l""a""t""i""o""n"" ""f""a""i""l""e""d"" ""%""r""'"" ""%"" ""(""x"","" ""p""a""t""h"")"")""
-""
-""@""f""e""a""t""u""r""e""(""'""p""y""'"")""
-""d""e""f"" ""f""e""a""t""u""r""e""_""p""y""(""s""e""l""f"")"":""
-""	
+		info("+ removing byte compiled python files")
+		for x in 'co':
+			try:
+				os.remove(path + x)
+			except OSError:
+				pass
+
+	if self.bld.is_install > 0:
+		try:
+			st1 = os.stat(path)
+		except:
+			error('The python file is missing, this should not happen')
+
+		for x in ['c', 'o']:
+			do_inst = self.env['PY' + x.upper()]
+			try:
+				st2 = os.stat(path + x)
+			except OSError:
+				pass
+			else:
+				if st1.st_mtime <= st2.st_mtime:
+					do_inst = False
+
+			if do_inst:
+				lst = (x == 'o') and [self.env['PYFLAGS_OPT']] or []
+				(a, b, c) = (path, path + x, tsk.get_install_path(destdir=False) + x)
+				argv = self.env['PYTHON'] + lst + ['-c', INST, a, b, c]
+				info('+ byte compiling %r' % (path + x))
+				ret = Utils.subprocess.Popen(argv).wait()
+				if ret:
+					raise Errors.WafError('py%s compilation failed %r' % (x, path))
+
+@feature('py')
+def feature_py(self):
+	
 	pass
 
 @feature('pyext')
@@ -128,44 +128,283 @@ def get_python_variables(conf, variables, imports=['import sys']):
 	program = list(imports)
 	program.append('')
 	for v in variables:
-		program.append("p"r"i"n"t"("r"e"p"r"("%"s")")"" ""%"" ""v"")""
-""	""o""s""_""e""n""v"" ""="" ""d""i""c""t""(""o""s"".""e""n""v""i""r""o""n"")""
-""	""t""r""y"":""
-""	""	""d""e""l"" ""o""s""_""e""n""v""[""'""M""A""C""O""S""X""_""D""E""P""L""O""Y""M""E""N""T""_""T""A""R""G""E""T""'""]"" ""#"" ""s""e""e"" ""c""o""m""m""e""n""t""s"" ""i""n"" ""t""h""e"" ""O""S""X"" ""t""o""o""l""
-""	""e""x""c""e""p""t"" ""K""e""y""E""r""r""o""r"":""
-""	""	""p""a""s""s""
-""
-""	""t""r""y"":""
-""	""	""o""u""t"" ""="" ""c""o""n""f"".""c""m""d""_""a""n""d""_""l""o""g""(""c""o""n""f"".""e""n""v"".""P""Y""T""H""O""N"" ""+"" ""[""'""-""c""'"","" ""'""\""n""'"".""j""o""i""n""(""p""r""o""g""r""a""m"")""]"","" ""e""n""v""=""o""s""_""e""n""v"")""
-""	""e""x""c""e""p""t"" ""E""r""r""o""r""s"".""W""a""f""E""r""r""o""r"":""
-""	""	""c""o""n""f"".""f""a""t""a""l""(""'""T""h""e"" ""d""i""s""t""u""t""i""l""s"" ""m""o""d""u""l""e"" ""i""s"" ""u""n""u""s""a""b""l""e"":"" ""i""n""s""t""a""l""l"" 
-	Check for headers and libraries necessary to extend or embed python by using the module *distutils*.
-	On success the environment variables xxx_PYEXT and xxx_PYEMBED are added:
+		program.append("print(repr(%s))" % v)
+	os_env = dict(os.environ)
+	try:
+		del os_env['MACOSX_DEPLOYMENT_TARGET'] 
+	except KeyError:
+		pass
 
-	* PYEXT: for compiling python extensions
-	* PYEMBED: for embedding a python interpreter
-	
-	Check if the python interpreter is found matching a given minimum version.
-	minver should be a tuple, eg. to check for python >= 2.4.2 pass (2,4,2) as minver.
+	try:
+		out = conf.cmd_and_log(conf.env.PYTHON + ['-c', '\n'.join(program)], env=os_env)
+	except Errors.WafError:
+		conf.fatal('The distutils module is unusable: install "python-devel"?')
+	return_values = []
+	for s in out.split('\n'):
+		s = s.strip()
+		if not s:
+			continue
+		if s == 'None':
+			return_values.append(None)
+		elif s[0] == "'" and s[-1] == "'":
+			return_values.append(s[1:-1])
+		elif s[0].isdigit():
+			return_values.append(int(s))
+		else: break
+	return return_values
 
-	If successful, PYTHON_VERSION is defined as 'MAJOR.MINOR'
-	(eg. '2.4') of the actual python version found, and PYTHONDIR is
-	defined, pointing to the site-packages directory appropriate for
-	this python version, where modules/packages/extensions should be
-	installed.
+@conf
+def check_python_headers(conf):
+	
 
-	:param minver: minimum version
-	:type minver: tuple of int
 	
-	Check if the selected python interpreter can import the given python module::
 
-		def configure(conf):
-			conf.check_python_module('pygccxml')
+	if not conf.env['CC_NAME'] and not conf.env['CXX_NAME']:
+		conf.fatal('load a compiler first (gcc, g++, ..)')
 
-	:param module_name: module
-	:type module_name: string
+	if not conf.env['PYTHON_VERSION']:
+		conf.check_python_version()
+
+	env = conf.env
+	pybin = conf.env.PYTHON
+	if not pybin:
+		conf.fatal('could not find the python executable')
+
+	v = 'prefix SO LDFLAGS LIBDIR LIBPL INCLUDEPY Py_ENABLE_SHARED MACOSX_DEPLOYMENT_TARGET LDSHARED CFLAGS'.split()
+	try:
+		lst = conf.get_python_variables(["get_config_var('%s') or ''" % x for x in v],
+			['from distutils.sysconfig import get_config_var'])
+	except RuntimeError:
+		conf.fatal("Python development headers not found (-v for details).")
+
+	vals = ['%s = %r' % (x, y) for (x, y) in zip(v, lst)]
+	conf.to_log("Configuration returned from %r:\n%r\n" % (pybin, '\n'.join(vals)))
+
+	dct = dict(zip(v, lst))
+	x = 'MACOSX_DEPLOYMENT_TARGET'
+	if dct[x]:
+		conf.env[x] = conf.environ[x] = dct[x]
+
+	env['pyext_PATTERN'] = '%s' + dct['SO'] 
+
 	
-	Detect the python interpreter
+
+	all_flags = dct['LDFLAGS'] + ' ' + dct['CFLAGS']
+	conf.parse_flags(all_flags, 'PYEMBED')
+
+	all_flags = dct['LDFLAGS'] + ' ' + dct['LDSHARED'] + ' ' + dct['CFLAGS']
+	conf.parse_flags(all_flags, 'PYEXT')
+
+	result = None
 	
-	Add the options ``--nopyc`` and ``--nopyo``
+
 	
+	for name in ('python' + env['PYTHON_VERSION'], 'python' + env['PYTHON_VERSION'].replace('.', '')):
+
+		
+		if not result and env['LIBPATH_PYEMBED']:
+			path = env['LIBPATH_PYEMBED']
+			conf.to_log("\n\n
+			result = conf.check(lib=name, uselib='PYEMBED', libpath=path, mandatory=False, msg='Checking for library %s in LIBPATH_PYEMBED' % name)
+
+		if not result and dct['LIBDIR']:
+			path = [dct['LIBDIR']]
+			conf.to_log("\n\n
+			result = conf.check(lib=name, uselib='PYEMBED', libpath=path, mandatory=False, msg='Checking for library %s in LIBDIR' % name)
+
+		if not result and dct['LIBPL']:
+			path = [dct['LIBPL']]
+			conf.to_log("\n\n
+			result = conf.check(lib=name, uselib='PYEMBED', libpath=path, mandatory=False, msg='Checking for library %s in python_LIBPL' % name)
+
+		if not result:
+			path = [os.path.join(dct['prefix'], "libs")]
+			conf.to_log("\n\n
+			result = conf.check(lib=name, uselib='PYEMBED', libpath=path, mandatory=False, msg='Checking for library %s in $prefix/libs' % name)
+
+		if result:
+			break 
+
+	if result:
+		env['LIBPATH_PYEMBED'] = path
+		env.append_value('LIB_PYEMBED', [name])
+	else:
+		conf.to_log("\n\n
+
+	
+	
+	if (Utils.is_win32 or sys.platform.startswith('os2')
+		or dct['Py_ENABLE_SHARED']):
+		env['LIBPATH_PYEXT'] = env['LIBPATH_PYEMBED']
+		env['LIB_PYEXT'] = env['LIB_PYEMBED']
+
+	
+	
+	num = '.'.join(env['PYTHON_VERSION'].split('.')[:2])
+	conf.find_program(['python%s-config' % num, 'python-config-%s' % num, 'python%sm-config' % num], var='PYTHON_CONFIG', mandatory=False)
+
+	includes = []
+	if conf.env.PYTHON_CONFIG:
+		for incstr in conf.cmd_and_log([ conf.env.PYTHON_CONFIG, '--includes']).strip().split():
+			
+			if (incstr.startswith('-I') or incstr.startswith('/I')):
+				incstr = incstr[2:]
+			
+			if incstr not in includes:
+				includes.append(incstr)
+		conf.to_log("Include path for Python extensions "
+			       "(found via python-config --includes): %r\n" % (includes,))
+		env['INCLUDES_PYEXT'] = includes
+		env['INCLUDES_PYEMBED'] = includes
+	else:
+		conf.to_log("Include path for Python extensions "
+			       "(found via distutils module): %r\n" % (dct['INCLUDEPY'],))
+		env['INCLUDES_PYEXT'] = [dct['INCLUDEPY']]
+		env['INCLUDES_PYEMBED'] = [dct['INCLUDEPY']]
+
+	
+	if env['CC_NAME'] == 'gcc':
+		env.append_value('CFLAGS_PYEMBED', ['-fno-strict-aliasing'])
+		env.append_value('CFLAGS_PYEXT', ['-fno-strict-aliasing'])
+	if env['CXX_NAME'] == 'gcc':
+		env.append_value('CXXFLAGS_PYEMBED', ['-fno-strict-aliasing'])
+		env.append_value('CXXFLAGS_PYEXT', ['-fno-strict-aliasing'])
+
+	if env.CC_NAME == "msvc":
+		from distutils.msvccompiler import MSVCCompiler
+		dist_compiler = MSVCCompiler()
+		dist_compiler.initialize()
+		env.append_value('CFLAGS_PYEXT', dist_compiler.compile_options)
+		env.append_value('CXXFLAGS_PYEXT', dist_compiler.compile_options)
+		env.append_value('LINKFLAGS_PYEXT', dist_compiler.ldflags_shared)
+
+	
+	try:
+		conf.check(header_name='Python.h', define_name='HAVE_PYTHON_H',
+		   uselib='PYEMBED', fragment=FRAG,
+		   errmsg='Could not find the python development headers')
+	except conf.errors.ConfigurationError:
+		
+		conf.check_cfg(path=conf.env.PYTHON_CONFIG, package='', uselib_store='PYEMBED', args=['--cflags', '--libs'])
+		conf.check(header_name='Python.h', define_name='HAVE_PYTHON_H', msg='Getting the python flags from python-config',
+			uselib='PYEMBED', fragment=FRAG,
+				errmsg='Could not find the python development headers elsewhere')
+
+@conf
+def check_python_version(conf, minver=None):
+	
+	assert minver is None or isinstance(minver, tuple)
+	pybin = conf.env['PYTHON']
+	if not pybin:
+		conf.fatal('could not find the python executable')
+
+	
+	cmd = pybin + ['-c', 'import sys\nfor x in sys.version_info: print(str(x))']
+	debug('python: Running python command %r' % cmd)
+	lines = conf.cmd_and_log(cmd).split()
+	assert len(lines) == 5, "found %i lines, expected 5: %r" % (len(lines), lines)
+	pyver_tuple = (int(lines[0]), int(lines[1]), int(lines[2]), lines[3], int(lines[4]))
+
+	
+	result = (minver is None) or (pyver_tuple >= minver)
+
+	if result:
+		
+		pyver = '.'.join([str(x) for x in pyver_tuple[:2]])
+		conf.env['PYTHON_VERSION'] = pyver
+
+		if 'PYTHONDIR' in conf.environ:
+			pydir = conf.environ['PYTHONDIR']
+		else:
+			if Utils.is_win32:
+				(python_LIBDEST, pydir) = \
+						conf.get_python_variables(
+											  ["get_config_var('LIBDEST') or ''",
+											   "get_python_lib(standard_lib=0, prefix=%r) or ''" % conf.env['PREFIX']],
+											  ['from distutils.sysconfig import get_config_var, get_python_lib'])
+			else:
+				python_LIBDEST = None
+				(pydir,) = \
+						conf.get_python_variables(
+											  ["get_python_lib(standard_lib=0, prefix=%r) or ''" % conf.env['PREFIX']],
+											  ['from distutils.sysconfig import get_python_lib'])
+			if python_LIBDEST is None:
+				if conf.env['LIBDIR']:
+					python_LIBDEST = os.path.join(conf.env['LIBDIR'], "python" + pyver)
+				else:
+					python_LIBDEST = os.path.join(conf.env['PREFIX'], "lib", "python" + pyver)
+
+
+		if 'PYTHONARCHDIR' in conf.environ:
+			pyarchdir = conf.environ['PYTHONARCHDIR']
+		else:
+			(pyarchdir, ) = conf.get_python_variables(
+											["get_python_lib(plat_specific=1, standard_lib=0, prefix=%r) or ''" % conf.env['PREFIX']],
+											['from distutils.sysconfig import get_python_lib'])
+			if not pyarchdir:
+				pyarchdir = pydir
+
+		if hasattr(conf, 'define'): 
+			conf.define('PYTHONDIR', pydir)
+			conf.define('PYTHONARCHDIR', pyarchdir)
+
+		conf.env['PYTHONDIR'] = pydir
+		conf.env['PYTHONARCHDIR'] = pyarchdir
+
+	
+	pyver_full = '.'.join(map(str, pyver_tuple[:3]))
+	if minver is None:
+		conf.msg('Checking for python version', pyver_full)
+	else:
+		minver_str = '.'.join(map(str, minver))
+		conf.msg('Checking for python version', pyver_tuple, ">= %s" % (minver_str,) and 'GREEN' or 'YELLOW')
+
+	if not result:
+		conf.fatal('The python version is too old, expecting %r' % (minver,))
+
+PYTHON_MODULE_TEMPLATE = 
+
+@conf
+def check_python_module(conf, module_name):
+	
+	conf.start_msg('Python module %s' % module_name)
+	try:
+		conf.cmd_and_log(conf.env['PYTHON'] + ['-c', PYTHON_MODULE_TEMPLATE % module_name])
+	except:
+		conf.end_msg(False)
+		conf.fatal('Could not find the python module %r' % module_name)
+	conf.end_msg(True)
+
+def configure(conf):
+	
+	try:
+		conf.find_program('python', var='PYTHON')
+	except conf.errors.ConfigurationError:
+		warn("could not find a python executable, setting to sys.executable '%s'" % sys.executable)
+		conf.env.PYTHON = sys.executable
+
+	if conf.env.PYTHON != sys.executable:
+		warn("python executable '%s' different from sys.executable '%s'" % (conf.env.PYTHON, sys.executable))
+	conf.env.PYTHON = conf.cmd_to_list(conf.env.PYTHON)
+
+	v = conf.env
+	v['PYCMD'] = '"import sys, py_compile;py_compile.compile(sys.argv[1], sys.argv[2])"'
+	v['PYFLAGS'] = ''
+	v['PYFLAGS_OPT'] = '-O'
+
+	v['PYC'] = getattr(Options.options, 'pyc', 1)
+	v['PYO'] = getattr(Options.options, 'pyo', 1)
+
+def options(opt):
+	
+	opt.add_option('--nopyc',
+			action='store_false',
+			default=1,
+			help = 'Do not install bytecode compiled .pyc files (configuration) [Default:install]',
+			dest = 'pyc')
+	opt.add_option('--nopyo',
+			action='store_false',
+			default=1,
+			help='Do not install optimised compiled .pyo files (configuration) [Default:install]',
+			dest='pyo')
+

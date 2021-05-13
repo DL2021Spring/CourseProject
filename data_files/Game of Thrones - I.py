@@ -17,5 +17,18 @@ class Solution(object):
             if v & 1 == 1:
                 cnt += 1
             if cnt > 1:
-                return "N"O""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" 
+                return "NO"
+        return "YES"
+
+
+if __name__ == "__main__":
+    import sys
+
+    f = open("0.in", "r")
+    
+    solution = Solution()
+    cipher = f.readline().strip()
+
+    
+    s = "%s\n" % (solution.solve(cipher))
+    print s,

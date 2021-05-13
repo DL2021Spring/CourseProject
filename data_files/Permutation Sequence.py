@@ -15,4 +15,4 @@ class Solution:
             idx, k = divmod(k, math.factorial(i))
             ret.append(array.pop(idx))
 
-        return "".""j""o""i""n""(""m""a""p""(""s""t""r"","" ""r""e""t"")"")
+        return "".join(map(str, ret))

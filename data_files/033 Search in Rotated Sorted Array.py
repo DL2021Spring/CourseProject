@@ -33,5 +33,5 @@ class Solution:
 
         return -1
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""s""e""a""r""c""h""(""[""5"",""1"",""3""]"","" ""5"")
+if __name__=="__main__":
+    print Solution().search([5,1,3], 5)

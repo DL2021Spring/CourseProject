@@ -28,15 +28,15 @@ class LazyDataStore2(object):
 
     def __setattr__(self, name, value):
         
-        print "A"s"p"e"c"t":" "S"a"v"e" "s"o"m"e" "d"a"t"a" "t"o" "t"h"e" "D"B" "l"o"g""
-"" "" "" "" "" "" "" "" ""s""u""p""e""r""(""L""a""z""y""D""a""t""a""S""t""o""r""e""2"","" ""s""e""l""f"")"".""_""_""s""e""t""a""t""t""r""_""_""(""n""a""m""e"","" ""v""a""l""u""e"")""
-""
-""
-""c""l""a""s""s"" ""D""i""c""t""i""o""n""a""r""y""D""B""(""o""b""j""e""c""t"")"":""
-"" "" "" "" ""d""e""f"" ""_""_""i""n""i""t""_""_""(""s""e""l""f"","" ""d""a""t""a"")"":""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""_""d""a""t""a"" ""="" ""d""a""t""a""
-""
-"" "" "" "" ""d""e""f"" ""_""_""g""e""t""a""t""t""r""i""b""u""t""e""_""_""(""s""e""l""f"","" ""n""a""m""e"")"":""
-"" "" "" "" "" "" "" "" 
+        print "Aspect: Save some data to the DB log"
+        super(LazyDataStore2, self).__setattr__(name, value)
+
+
+class DictionaryDB(object):
+    def __init__(self, data):
+        self._data = data
+
+    def __getattribute__(self, name):
+        
         _data = super(DictionaryDB, self).__getattribute__('_data')
         return _data[name]

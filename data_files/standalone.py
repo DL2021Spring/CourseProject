@@ -246,10 +246,10 @@ class BratHTTPRequestHandler(SimpleHTTPRequestHandler):
         if self.is_brat():
             self.run_brat_direct()
         else:
-            self.send_error(501, "C"a"n" "o"n"l"y" "P"O"S"T" "t"o" "b"r"a"t"")""
-""
-"" "" "" "" ""d""e""f"" ""d""o""_""G""E""T""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" 
+            self.send_error(501, "Can only POST to brat")
+
+    def do_GET(self):
+        
         if not self.allow_path():
             self.send_error(403)
         elif self.is_brat():
@@ -281,4 +281,24 @@ def main(argv):
         try:
             port = int(argv[1])
         except ValueError:
-            print >> sys.stderr, "F"a"i"l"e"d" "t"o" "p"a"r"s"e"","" ""a""r""g""v""[""1""]"","" 
+            print >> sys.stderr, "Failed to parse", argv[1], "as port number."
+            return 1
+    else:
+        port = _DEFAULT_SERVER_PORT
+
+    try:
+        server = BratServer((_DEFAULT_SERVER_ADDR, port))
+        print >> sys.stderr, "Serving brat at http://%s:%d" % server.server_address
+        server.serve_forever()
+    except KeyboardInterrupt:
+        
+        pass
+    except socket.error, why:
+        print >> sys.stderr, "Error binding to port", port, ":", why[1]
+    except Exception, e:
+        print >> sys.stderr, "Server error", e
+        raise
+    return 0
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))

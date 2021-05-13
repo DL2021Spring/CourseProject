@@ -57,7 +57,18 @@ class Solution(object):
             return r1 - r2
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""i""m""p""o""r""t"" ""s""y""s""
-""
-"" "" "" "" ""f"" ""="" ""o""p""e""n""(
+if __name__ == "__main__":
+    import sys
+
+    f = open("1.in", "r")
+    
+    N = int(f.readline().strip())
+
+    cipher = []
+    for t in xrange(N):
+        
+        cipher.append(map(int, f.readline().strip().split(' ')))
+        
+    Solution().solve(cipher)
+    for point in cipher:
+        print "%d %d" % (point[0], point[1])

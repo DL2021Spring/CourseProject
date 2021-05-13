@@ -27,5 +27,5 @@ class Solution:
         )
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""c""o""u""n""t""S""u""b""s""t""r""i""n""g""s""(
+if __name__ == "__main__":
+    assert Solution().countSubstrings("aaa") == 6

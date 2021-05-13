@@ -29,4 +29,17 @@ class Solution:
         while i < len(p):
             cur = [p[i]]
             j = i + 1
-            while j < len(p) and (ord(p[j]) - ord(cur[-1]) == 1 or p[j] == "a"" ""a""n""d"" ""c""u""r""[""-""1""]"" ""=""="" 
+            while j < len(p) and (ord(p[j]) - ord(cur[-1]) == 1 or p[j] == "a" and cur[-1] == "z"):
+                cur.append(p[j])
+                j += 1
+            ret.add("".join(cur))
+            i = j
+
+        return sum(map(lambda x: (len(x) + 1) * len(x) // 2, ret))
+
+
+if __name__ == "__main__":
+    assert Solution().findSubstringInWraproundString("a") == 1
+    assert Solution().findSubstringInWraproundString("cac") == 2
+    assert Solution().findSubstringInWraproundString("zab") == 6
+    assert Solution().findSubstringInWraproundString("zaba") == 6

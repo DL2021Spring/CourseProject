@@ -48,5 +48,28 @@ def encode_multipart_formdata(fields, boundary=None):
             else:
                 filename, data = value
                 content_type = get_content_type(filename)
-            writer(body).write('Content-Disposition: form-data; name="%"s"";"" ""'""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""'""f""i""l""e""n""a""m""e""=
+            writer(body).write('Content-Disposition: form-data; name="%s"; '
+                               'filename="%s"\r\n' % (fieldname, filename))
+            body.write(b('Content-Type: %s\r\n\r\n' %
+                       (content_type,)))
+        else:
+            data = value
+            writer(body).write('Content-Disposition: form-data; name="%s"\r\n'
+                               % (fieldname))
+            body.write(b'\r\n')
+
+        if isinstance(data, int):
+            data = str(data)  
+
+        if isinstance(data, six.text_type):
+            writer(body).write(data)
+        else:
+            body.write(data)
+
+        body.write(b'\r\n')
+
+    body.write(b('--%s--\r\n' % (boundary)))
+
+    content_type = b('multipart/form-data; boundary=%s' % boundary)
+
+    return body.getvalue(), content_type

@@ -20,7 +20,8 @@ class Solution(object):
                 for c in bucket[count]:
                     ret.append(c * count)
 
-        return "".""j""o""i""n""(""r""e""t"")""
-""
-""
-""i""f"" ""_""_""n""a""m""e""_""_"" ""=""="" 
+        return "".join(ret)
+
+
+if __name__ == "__main__":
+    assert Solution().frequencySort("tree") == "eetr"

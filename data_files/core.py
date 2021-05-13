@@ -6,16 +6,73 @@ from typing import get_type_hints, Callable, Iterable
 from collections import MutableMapping, defaultdict
 
 
-OVERLOAD = "_"_"o"v"e"r"l"o"a"d"_"_""
-""
-""
-""d""e""f"" ""g""e""t""_""k""e""y""(""i""t""r"":"" ""I""t""e""r""a""b""l""e"")"" ""-"">"" ""t""u""p""l""e"":""
-"" "" "" "" ""r""e""t""u""r""n"" ""t""u""p""l""e""(""i""t""r"")""
-""
-""
-""d""e""f"" ""d""i""s""p""a""t""c""h""(""s""e""l""f"","" ""k""e""y"","" ""*""a""r""g""s"","" ""*""*""k""w""a""r""g""s"")"" ""-"">"" ""C""a""l""l""a""b""l""e"":""
-"" "" "" "" ""k""e""y""_""n""e""w"" ""="" ""g""e""t""_""k""e""y""(""m""a""p""(""t""y""p""e"","" ""a""r""g""s"")"")""
-"" "" "" "" ""t""r""y"":""
-"" "" "" "" "" "" "" "" ""m""e""t""h""o""d"" ""="" ""s""e""l""f"".""_""_""c""l""a""s""s""_""_"".""_""_""o""v""e""r""l""o""a""d""_""_""[""k""e""y""]""[""k""e""y""_""n""e""w""]""
-"" "" "" "" ""e""x""c""e""p""t"" ""K""e""y""E""r""r""o""r"":""
-"" "" "" "" "" "" "" "" ""r""a""i""s""e"" ""A""t""t""r""i""b""u""t""e""E""r""r""o""r""(access the method definition
+OVERLOAD = "__overload__"
+
+
+def get_key(itr: Iterable) -> tuple:
+    return tuple(itr)
+
+
+def dispatch(self, key, *args, **kwargs) -> Callable:
+    key_new = get_key(map(type, args))
+    try:
+        method = self.__class__.__overload__[key][key_new]
+    except KeyError:
+        raise AttributeError("{} has no overloaded method '{} with args {}'".format(self, key, key_new))
+    return method(self, *args, **kwargs)
+
+
+class OverloadDict(MutableMapping):
+    def __init__(self, *args, **kwargs):
+        self._d = dict(*args, **kwargs)
+        
+        self._d[OVERLOAD] = defaultdict(dict)
+
+    def __getitem__(self, key):
+        return self._d[key]
+
+    def _overload(self, key, method):
+        typehints = get_type_hints(method)
+        arg_types = (
+            v for k, v in typehints.items()
+            if k != "return"
+        )
+        key_new = get_key(arg_types)
+        self._d[OVERLOAD][key][key_new] = method
+
+    def __setitem__(self, key, value):
+        
+        if key in self._d and inspect.isfunction(value):
+            
+            method = value
+            if key not in self._d[OVERLOAD]:
+                
+                self._overload(key, self._d[key])
+                self._d[key] = functools.partialmethod(dispatch, key)
+
+            self._overload(key, method)
+        else:
+            self._d[key] = value
+
+    def __delitem__(self, key):
+        del self._d[key]
+
+    def __iter__(self):
+        return iter(self._d)
+
+    def __len__(self):
+        return len(self._d)
+
+    def __contains__(self, key):
+        return key in self._d
+
+    def __repr__(self):
+        return "{}:{}".format(type(self).__name__, self._d)
+
+
+class  OverloadMeta(type):
+    def __prepare__(cls, *args, **kwargs):
+        return OverloadDict()
+
+    def __new__(cls, name, bases, overload_dict: OverloadDict):
+        return super().__new__(cls, name, bases, dict(overload_dict))

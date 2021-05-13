@@ -60,52 +60,52 @@ class HTTPAdapter(BaseAdapter):
                 cert_loc = DEFAULT_CA_BUNDLE_PATH
 
             if not cert_loc:
-                raise Exception("C"o"u"l"d" "n"o"t" "f"i"n"d" "a" "s"u"i"t"a"b"l"e" "S"S"L" "C"A" "c"e"r"t"i"f"i"c"a"t"e" "b"u"n"d"l"e"."")""
-""
-"" "" "" "" "" "" "" "" "" "" "" "" ""c""o""n""n"".""c""e""r""t""_""r""e""q""s"" ""="" ""'""C""E""R""T""_""R""E""Q""U""I""R""E""D""'""
-"" "" "" "" "" "" "" "" "" "" "" "" ""c""o""n""n"".""c""a""_""c""e""r""t""s"" ""="" ""c""e""r""t""_""l""o""c""
-"" "" "" "" "" "" "" "" ""e""l""s""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""c""o""n""n"".""c""e""r""t""_""r""e""q""s"" ""="" ""'""C""E""R""T""_""N""O""N""E""'""
-"" "" "" "" "" "" "" "" "" "" "" "" ""c""o""n""n"".""c""a""_""c""e""r""t""s"" ""="" ""N""o""n""e""
-""
-"" "" "" "" "" "" "" "" ""i""f"" ""c""e""r""t"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""l""e""n""(""c""e""r""t"")"" ""=""="" ""2"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""c""o""n""n"".""c""e""r""t""_""f""i""l""e"" ""="" ""c""e""r""t""[""0""]""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""c""o""n""n"".""k""e""y""_""f""i""l""e"" ""="" ""c""e""r""t""[""1""]""
-"" "" "" "" "" "" "" "" "" "" "" "" ""e""l""s""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""c""o""n""n"".""c""e""r""t""_""f""i""l""e"" ""="" ""c""e""r""t""
-""
-"" "" "" "" ""d""e""f"" ""b""u""i""l""d""_""r""e""s""p""o""n""s""e""(""s""e""l""f"","" ""r""e""q"","" ""r""e""s""p"")"":""
-"" "" "" "" "" "" "" "" ""r""e""s""p""o""n""s""e"" ""="" ""R""e""s""p""o""n""s""e""("")""
-""
-"" "" "" "" "" "" "" "" ""#"" ""F""a""l""l""b""a""c""k"" ""t""o"" ""N""o""n""e"" ""i""f"" ""t""h""e""r""e""'""s"" ""n""o"" ""s""t""a""t""u""s""_""c""o""d""e"","" ""f""o""r"" ""w""h""a""t""e""v""e""r"" ""r""e""a""s""o""n"".""
-"" "" "" "" "" "" "" "" ""r""e""s""p""o""n""s""e"".""s""t""a""t""u""s""_""c""o""d""e"" ""="" ""g""e""t""a""t""t""r""(""r""e""s""p"","" ""'""s""t""a""t""u""s""'"","" ""N""o""n""e"")""
-""
-"" "" "" "" "" "" "" "" ""#"" ""M""a""k""e"" ""h""e""a""d""e""r""s"" ""c""a""s""e""-""i""n""s""e""n""s""i""t""i""v""e"".""
-"" "" "" "" "" "" "" "" ""r""e""s""p""o""n""s""e"".""h""e""a""d""e""r""s"" ""="" ""C""a""s""e""I""n""s""e""n""s""i""t""i""v""e""D""i""c""t""(""g""e""t""a""t""t""r""(""r""e""s""p"","" ""'""h""e""a""d""e""r""s""'"","" ""{""}"")"")""
-""
-"" "" "" "" "" "" "" "" ""#"" ""S""e""t"" ""e""n""c""o""d""i""n""g"".""
-"" "" "" "" "" "" "" "" ""r""e""s""p""o""n""s""e"".""e""n""c""o""d""i""n""g"" ""="" ""g""e""t""_""e""n""c""o""d""i""n""g""_""f""r""o""m""_""h""e""a""d""e""r""s""(""r""e""s""p""o""n""s""e"".""h""e""a""d""e""r""s"")""
-"" "" "" "" "" "" "" "" ""r""e""s""p""o""n""s""e"".""r""a""w"" ""="" ""r""e""s""p""
-""
-"" "" "" "" "" "" "" "" ""i""f"" ""i""s""i""n""s""t""a""n""c""e""(""r""e""q"".""u""r""l"","" ""b""y""t""e""s"")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""s""p""o""n""s""e"".""u""r""l"" ""="" ""r""e""q"".""u""r""l"".""d""e""c""o""d""e""(""'""u""t""f""-""8""'"")""
-"" "" "" "" "" "" "" "" ""e""l""s""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""s""p""o""n""s""e"".""u""r""l"" ""="" ""r""e""q"".""u""r""l""
-""
-"" "" "" "" "" "" "" "" ""#"" ""A""d""d"" ""n""e""w"" ""c""o""o""k""i""e""s"" ""f""r""o""m"" ""t""h""e"" ""s""e""r""v""e""r"".""
-"" "" "" "" "" "" "" "" ""e""x""t""r""a""c""t""_""c""o""o""k""i""e""s""_""t""o""_""j""a""r""(""r""e""s""p""o""n""s""e"".""c""o""o""k""i""e""s"","" ""r""e""q"","" ""r""e""s""p"")""
-""
-"" "" "" "" "" "" "" "" ""#"" ""G""i""v""e"" ""t""h""e"" ""R""e""s""p""o""n""s""e"" ""s""o""m""e"" ""c""o""n""t""e""x""t"".""
-"" "" "" "" "" "" "" "" ""r""e""s""p""o""n""s""e"".""r""e""q""u""e""s""t"" ""="" ""r""e""q""
-"" "" "" "" "" "" "" "" ""r""e""s""p""o""n""s""e"".""c""o""n""n""e""c""t""i""o""n"" ""="" ""s""e""l""f""
-""
-"" "" "" "" "" "" "" "" ""#"" ""R""u""n"" ""t""h""e"" ""R""e""s""p""o""n""s""e"" ""h""o""o""k"".""
-"" "" "" "" "" "" "" "" ""r""e""s""p""o""n""s""e"" ""="" ""d""i""s""p""a""t""c""h""_""h""o""o""k""(""'""r""e""s""p""o""n""s""e""'"","" ""r""e""q"".""h""o""o""k""s"","" ""r""e""s""p""o""n""s""e"")""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""r""e""s""p""o""n""s""e""
-""
-"" "" "" "" ""d""e""f"" ""g""e""t""_""c""o""n""n""e""c""t""i""o""n""(""s""e""l""f"","" ""u""r""l"","" ""p""r""o""x""i""e""s""=""N""o""n""e"")"":""
-"" "" "" "" "" "" "" "" 
+                raise Exception("Could not find a suitable SSL CA certificate bundle.")
+
+            conn.cert_reqs = 'CERT_REQUIRED'
+            conn.ca_certs = cert_loc
+        else:
+            conn.cert_reqs = 'CERT_NONE'
+            conn.ca_certs = None
+
+        if cert:
+            if len(cert) == 2:
+                conn.cert_file = cert[0]
+                conn.key_file = cert[1]
+            else:
+                conn.cert_file = cert
+
+    def build_response(self, req, resp):
+        response = Response()
+
+        
+        response.status_code = getattr(resp, 'status', None)
+
+        
+        response.headers = CaseInsensitiveDict(getattr(resp, 'headers', {}))
+
+        
+        response.encoding = get_encoding_from_headers(response.headers)
+        response.raw = resp
+
+        if isinstance(req.url, bytes):
+            response.url = req.url.decode('utf-8')
+        else:
+            response.url = req.url
+
+        
+        extract_cookies_to_jar(response.cookies, req, resp)
+
+        
+        response.request = req
+        response.connection = self
+
+        
+        response = dispatch_hook('response', req.hooks, response)
+        return response
+
+    def get_connection(self, url, proxies=None):
+        
         proxies = proxies or {}
         proxy = proxies.get(urlparse(url).scheme)
 

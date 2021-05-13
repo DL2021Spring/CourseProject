@@ -29,5 +29,5 @@ class Solution:
         return i == len(q) and j == len(p)
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""c""a""m""e""l""M""a""t""c""h""(""[
+if __name__ == "__main__":
+    assert Solution().camelMatch(["FooBar","FooBarTest","FootBall","FrameBuffer","ForceFeedBack"], "FoBa") == [True, False, True, False, False]

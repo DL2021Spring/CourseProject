@@ -28,10 +28,10 @@ class Solution:
             q = q[length:]  
         return result
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""n""o""d""e""s"" ""="" ""[""T""r""e""e""N""o""d""e""(""i"")"" ""f""o""r"" ""i"" ""i""n"" ""r""a""n""g""e""(""3"")""]""
-"" "" "" "" ""n""o""d""e""s""[""0""]"".""l""e""f""t"" ""="" ""n""o""d""e""s""[""1""]""
-"" "" "" "" ""n""o""d""e""s""[""1""]"".""l""e""f""t"" ""="" ""n""o""d""e""s""[""2""]""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""l""e""v""e""l""O""r""d""e""r""(""n""o""d""e""s""[""0""]"")""
-""
-""
+if __name__=="__main__":
+    nodes = [TreeNode(i) for i in range(3)]
+    nodes[0].left = nodes[1]
+    nodes[1].left = nodes[2]
+    print Solution().levelOrder(nodes[0])
+
+

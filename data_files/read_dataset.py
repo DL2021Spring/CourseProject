@@ -17,6 +17,21 @@ def read_images(path, sz=None):
             subject_path = os.path.join(dirname, subdirname)
             for filename in os.listdir(subject_path):
                 try:
-                    if not re.search(r"\"."p"g"m"$"|"\"."j"p"g"$"","" ""f""i""l""e""n""a""m""e"")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""c""o""n""t""i""n""u""e""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""r""e"".""s""e""a""r""c""h""(""r
+                    if not re.search(r"\.pgm$|\.jpg$", filename):
+                        continue
+                    if re.search(r"P00_Ambient\.pgm", filename):  
+                        continue
+                    im = Image.open(os.path.join(subject_path, filename))
+                    im = im.convert("L")
+                    
+                    if sz is not None:
+                        im = im.resize(sz, Image.ANTIALIAS)
+                    X.append(np.asarray(im, dtype=np.uint8))
+                    y.append(c)
+                except IOError, (errno, strerror):
+                    print "I/O error({0}): {1}".format(errno, strerror)
+                except:
+                    print "Unexpected error:", sys.exc_info()[0]
+                    raise
+            c += 1
+    return [X, y]

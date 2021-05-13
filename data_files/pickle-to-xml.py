@@ -17,7 +17,26 @@ def dump_pickles(out, dirname, filename, path):
     fragment_file = codecs.open(data['current_page_name'] + '.frag', mode='w', encoding='utf-8')
     fragment_file.write(data['body'])
     fragment_file.close()
-    out.write('  <page url="%"s"">""\""n""'"" ""%"" ""p""a""t""h"")""
-"" "" "" "" ""o""u""t"".""w""r""i""t""e""(""'"" "" "" "" ""<""f""r""a""g""m""e""n""t"">""%""s"".""f""r""a""g""<""/""f""r""a""g""m""e""n""t"">""\""n""'"" ""%"" ""d""a""t""a""[""'""c""u""r""r""e""n""t""_""p""a""g""e""_""n""a""m""e""'""]"")""
-"" "" "" "" ""i""f"" ""d""a""t""a""[""'""p""r""e""v""'""]"" ""i""s"" ""n""o""t"" ""N""o""n""e"":""
-"" "" "" "" "" "" "" "" ""o""u""t"".""w""r""i""t""e""(""'"" "" "" "" ""<""p""r""e""v"" ""u""r""l""=
+    out.write('  <page url="%s">\n' % path)
+    out.write('    <fragment>%s.frag</fragment>\n' % data['current_page_name'])
+    if data['prev'] is not None:
+        out.write('    <prev url="%s">%s</prev>\n' % 
+                  (os.path.normpath(os.path.join(path, data['prev']['link'])), 
+                   data['prev']['title']))
+    if data['next'] is not None:
+        out.write('    <next url="%s">%s</next>\n' % 
+                  (os.path.normpath(os.path.join(path, data['next']['link'])), 
+                   data['next']['title']))
+    out.write('  </page>\n')
+    f.close()
+    if data['next'] is not None:
+        next_path = os.path.normpath(os.path.join(path, data['next']['link']))
+        next_filename = os.path.basename(next_path) + '.fpickle'
+        dump_pickles(out, dirname, next_filename, next_path)
+    return
+
+import sys
+
+sys.stdout.write('<pages>\n')
+dump_pickles(sys.stdout, os.path.dirname(sys.argv[1]), os.path.basename(sys.argv[1]), '/')
+sys.stdout.write('</pages>')

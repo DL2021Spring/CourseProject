@@ -10,11 +10,11 @@ class ListNode:
         return repr(self.val)
 
     def __str__(self):
-        return "%"d"," "%"s""%""(""s""e""l""f"".""v""a""l"","" ""s""e""l""f"".""n""e""x""t"")""
-""
-""c""l""a""s""s"" ""S""o""l""u""t""i""o""n"":""
-"" "" "" "" ""d""e""f"" ""m""e""r""g""e""T""w""o""L""i""s""t""s""(""s""e""l""f"","" ""l""1"","" ""l""2"")"":""
-"" "" "" "" "" "" "" "" 
+        return "%d, %s"%(self.val, self.next)
+
+class Solution:
+    def mergeTwoLists(self, l1, l2):
+        
         dummy = ListNode(0)
         dummy.next = l1
 
@@ -37,13 +37,13 @@ class ListNode:
 
         return dummy.next
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""l""e""n""g""t""h"" ""="" ""1""0""
-"" "" "" "" ""l""i""s""t""1"" ""="" ""[""L""i""s""t""N""o""d""e""(""2""*""i"")"" ""f""o""r"" ""i"" ""i""n"" ""x""r""a""n""g""e""(""l""e""n""g""t""h"")""]""
-"" "" "" "" ""l""i""s""t""2"" ""="" ""[""L""i""s""t""N""o""d""e""(""2""*""i""+""1"")"" ""f""o""r"" ""i"" ""i""n"" ""x""r""a""n""g""e""(""l""e""n""g""t""h"")""]""
-"" "" "" "" ""f""o""r"" ""i"" ""i""n"" ""x""r""a""n""g""e""(""l""e""n""g""t""h""-""1"")"":""
-"" "" "" "" "" "" "" "" ""l""i""s""t""1""[""i""]"".""n""e""x""t"" ""="" ""l""i""s""t""1""[""i""+""1""]""
-"" "" "" "" "" "" "" "" ""l""i""s""t""2""[""i""]"".""n""e""x""t"" ""="" ""l""i""s""t""2""[""i""+""1""]""
-""
-"" "" "" "" ""l""s""t"" ""="" ""S""o""l""u""t""i""o""n""("")"".""m""e""r""g""e""T""w""o""L""i""s""t""s""(""l""i""s""t""1""[""0""]"","" ""l""i""s""t""2""[""0""]"")""
-"" "" "" "" ""p""r""i""n""t"" ""l""s""t""
+if __name__=="__main__":
+    length = 10
+    list1 = [ListNode(2*i) for i in xrange(length)]
+    list2 = [ListNode(2*i+1) for i in xrange(length)]
+    for i in xrange(length-1):
+        list1[i].next = list1[i+1]
+        list2[i].next = list2[i+1]
+
+    lst = Solution().mergeTwoLists(list1[0], list2[0])
+    print lst

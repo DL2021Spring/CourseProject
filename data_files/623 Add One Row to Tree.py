@@ -12,14 +12,42 @@ class TreeNode:
 
 class Solution:
     def addOneRow(self, root: TreeNode, v: int, d: int) -> TreeNode:
-        return self.add(root, v, d, 1, "l"e"f"t"")""
-""
-"" "" "" "" ""d""e""f"" ""a""d""d""(""s""e""l""f"","" ""n""o""d""e"","" ""v"","" ""d"","" ""c""u""r""_""d"","" ""c""h""i""l""d"")"" ""-"">"" ""T""r""e""e""N""o""d""e"":""
-"" "" "" "" "" "" "" "" ""#"" ""u""s""e"" ""t""h""e"" ""r""e""t""u""r""n"" ""v""a""l""u""e"" ""f""o""r"" ""p""a""r""e""n""t""'""s"" ""r""e""f""e""r""e""n""c""e"" ""
-"" "" "" "" "" "" "" "" ""i""f"" ""c""u""r""_""d"" ""=""="" ""d"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""n""e""w"" ""="" ""T""r""e""e""N""o""d""e""(""v"")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""s""e""t""a""t""t""r""(""n""e""w"","" ""c""h""i""l""d"","" ""n""o""d""e"")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""n""e""w""
-""
-"" "" "" "" "" "" "" "" ""i""f"" ""n""o""d""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""n""o""d""e"".""l""e""f""t"" ""="" ""s""e""l""f"".""a""d""d""(""n""o""d""e"".""l""e""f""t"","" ""v"","" ""d"","" ""c""u""r""_""d"" ""+"" ""1"","" 
+        return self.add(root, v, d, 1, "left")
+
+    def add(self, node, v, d, cur_d, child) -> TreeNode:
+        
+        if cur_d == d:
+            new = TreeNode(v)
+            setattr(new, child, node)
+            return new
+
+        if node:
+            node.left = self.add(node.left, v, d, cur_d + 1, "left")
+            node.right = self.add(node.right, v, d, cur_d + 1, "right")
+            return node
+
+
+class Solution2:
+    def addOneRow(self, root: TreeNode, v: int, d: int) -> TreeNode:
+        if d == 1:
+            node = TreeNode(v)
+            node.left = root
+            return node
+
+        self.add(self, root, v, d, 1)
+        return root
+
+    def add(self, node, v, d, cur_d) -> None:
+        if not node:
+            return
+
+        if cur_d + 1 == d:
+            left = node.left
+            right = node.right
+            node.left = TreeNode(v)
+            node.left.left = left
+            node.right = TreeNode(v)
+            node.right.right = right
+
+        self.add(node.left, v, d, cur_d + 1)
+        self.add(node.right, v, d, cur_d + 1)

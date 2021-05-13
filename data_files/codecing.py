@@ -10,4 +10,5 @@ class Codec(object):
         return json.dumps(jsn, ensure_ascii=False, encoding='utf-8')
 
     def write(self, jsn, filename):
-        with codecs.open(filename, "w"","" ""e""n""c""o""d""i""n""g""=
+        with codecs.open(filename, "w", encoding="utf-8") as file:
+            file.write(jsn)

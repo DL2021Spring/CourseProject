@@ -10,18 +10,18 @@ class Solution:
         n = len(pairs)
 
         ret = 0
-        cur_end = -float("i"n"f"")""
-"" "" "" "" "" "" "" "" ""f""o""r"" ""i"" ""i""n"" ""r""a""n""g""e""(""n"")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""p""a""i""r""s""[""i""]""[""0""]"" ""<""="" ""c""u""r""_""e""n""d"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""c""o""n""t""i""n""u""e""
-""
-"" "" "" "" "" "" "" "" "" "" "" "" ""c""u""r""_""e""n""d"" ""="" ""p""a""i""r""s""[""i""]""[""1""]""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t"" ""+""="" ""1""
-""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""r""e""t""
-""
-"" "" "" "" ""d""e""f"" ""f""i""n""d""L""o""n""g""e""s""t""C""h""a""i""n""2""(""s""e""l""f"","" ""p""a""i""r""s"":"" ""L""i""s""t""[""L""i""s""t""[""i""n""t""]""]"")"" ""-"">"" ""i""n""t"":""
-"" "" "" "" "" "" "" "" 
+        cur_end = -float("inf")
+        for i in range(n):
+            if pairs[i][0] <= cur_end:
+                continue
+
+            cur_end = pairs[i][1]
+            ret += 1
+
+        return ret
+
+    def findLongestChain2(self, pairs: List[List[int]]) -> int:
+        
         pairs.sort(key=lambda x: x[1])
         n = len(pairs)
 
@@ -52,5 +52,5 @@ class Solution2:
         return max(F)
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""f""i""n""d""L""o""n""g""e""s""t""C""h""a""i""n""(""[""[""1"",""2""]"","" ""[""2"",""3""]"","" ""[""3"",""4""]""]"")"" ""=""="" ""2""
+if __name__ == "__main__":
+    assert Solution().findLongestChain([[1,2], [2,3], [3,4]]) == 2

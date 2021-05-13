@@ -32,5 +32,5 @@ class Solution:
             if ind-1>=0 and val==nums[ind-1]: continue  
             self.get_permute(nums[:ind]+nums[ind+1:], current+[val], result)
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""p""e""r""m""u""t""e""U""n""i""q""u""e""(""[""1"","" ""1"","" ""2""]"")
+if __name__=="__main__":
+    print Solution().permuteUnique([1, 1, 2])

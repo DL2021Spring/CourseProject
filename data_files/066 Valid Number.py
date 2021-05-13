@@ -32,6 +32,31 @@ class Solution:
         for char in s:
             if state==-1:
                 return False
-            if char==" "":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""t""o""k""e""n"" ""="" ""S""P""A""C""E""
-"" "" "" "" "" "" "" "" "" "" "" "" ""e""l""i""f"" ""c""h""a""r"" ""i""n"" ""(
+            if char==" ":
+                token = SPACE
+            elif char in ("-", "+"):
+                token = SIGN
+            elif char in map(str, range(10)):
+                token = DIGIT
+            elif char==".":
+                token = DOT
+            elif char in ("e", "E"):
+                token = E
+            else:
+                token = INVALID
+
+            state = T[state][token]
+        if state in (1, 4, 7, 8):  
+            return True
+        else:
+            return False
+
+if __name__=="__main__":
+    assert Solution().isNumber(".2e81")==True
+    assert Solution().isNumber("6+1")==False
+    assert Solution().isNumber("1 a")==False
+    assert Solution().isNumber("1e10")==True
+    assert Solution().isNumber(" 0.1")==True
+    assert Solution().isNumber("abc")==False
+
+

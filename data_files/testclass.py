@@ -9,8 +9,8 @@ def _add_tests(generator):
             
             test = lambda self, args=args, f=f: f(self, *args)
 
-            test.__name__ = "t"e"s"t"_"%"s"_"%"s"" ""%"" ""(""f"".""_""_""n""a""m""e""_""_"","" ""a""r""g""s""[""0""]"")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""s""e""t""a""t""t""r""(""c""l""s"","" ""t""e""s""t"".""_""_""n""a""m""e""_""_"","" ""t""e""s""t"")""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""c""l""s""
-""
-"" "" "" "" ""r""e""t""u""r""n"" ""c""l""a""s""s""_""d""e""c""o""r""a""t""o""r
+            test.__name__ = "test_%s_%s" % (f.__name__, args[0])
+            setattr(cls, test.__name__, test)
+        return cls
+
+    return class_decorator

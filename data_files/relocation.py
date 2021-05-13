@@ -22,19 +22,54 @@ old2 = Build.BuildContext.init_dirs
 def init_dirs(self):
 
 	if not (os.path.isabs(self.top_dir) and os.path.isabs(self.out_dir)):
-		raise Errors.WafError('The project was not configured: run "w"a"f" "c"o"n"f"i"g"u"r"e"" ""f""i""r""s""t""!""'"")""
-""
-""	""s""r""c""d""i""r"" ""="" ""N""o""n""e""
-""	""d""b"" ""="" ""o""s"".""p""a""t""h"".""j""o""i""n""(""s""e""l""f"".""v""a""r""i""a""n""t""_""d""i""r"","" ""E""X""T""R""A""_""L""O""C""K"")""
-""	""e""n""v"" ""="" ""C""o""n""f""i""g""S""e""t"".""C""o""n""f""i""g""S""e""t""("")""
-""	""t""r""y"":""
-""	""	""e""n""v"".""l""o""a""d""(""d""b"")""
-""	""	""s""r""c""d""i""r"" ""="" ""e""n""v"".""S""R""C""D""I""R""
-""	""e""x""c""e""p""t"":""
-""	""	""p""a""s""s""
-""
-""	""i""f"" ""s""r""c""d""i""r"":""
-""	""	""d"" ""="" ""s""e""l""f"".""r""o""o""t"".""f""i""n""d""_""n""o""d""e""(""s""r""c""d""i""r"")""
-""	""	""i""f"" ""d"" ""a""n""d"" ""s""r""c""d""i""r"" ""!""="" ""s""e""l""f"".""t""o""p""_""d""i""r"" ""a""n""d"" ""g""e""t""a""t""t""r""(""d"","" ""'""c""h""i""l""d""r""e""n""'"","" ""'""'"")"":""
-""	""	""	""s""r""c""n""o""d""e"" ""="" ""s""e""l""f"".""r""o""o""t"".""m""a""k""e""_""n""o""d""e""(""s""e""l""f"".""t""o""p""_""d""i""r"")""
-""	""	""	""p""r""i""n""t""(
+		raise Errors.WafError('The project was not configured: run "waf configure" first!')
+
+	srcdir = None
+	db = os.path.join(self.variant_dir, EXTRA_LOCK)
+	env = ConfigSet.ConfigSet()
+	try:
+		env.load(db)
+		srcdir = env.SRCDIR
+	except:
+		pass
+
+	if srcdir:
+		d = self.root.find_node(srcdir)
+		if d and srcdir != self.top_dir and getattr(d, 'children', ''):
+			srcnode = self.root.make_node(self.top_dir)
+			print("relocating the source directory %r -> %r" % (srcdir, self.top_dir))
+			srcnode.children = {}
+
+			for (k, v) in d.children.items():
+				srcnode.children[k] = v
+				v.parent = srcnode
+			d.children = {}
+
+	old2(self)
+
+Build.BuildContext.init_dirs = init_dirs
+
+
+def uid(self):
+	try:
+		return self.uid_
+	except AttributeError:
+		
+		m = Utils.md5()
+		up = m.update
+		up(self.__class__.__name__.encode())
+		for x in self.inputs + self.outputs:
+			up(x.path_from(x.ctx.srcnode).encode())
+		self.uid_ = m.digest()
+		return self.uid_
+Task.Task.uid = uid
+
+@feature('c', 'cxx', 'd', 'go', 'asm', 'fc', 'includes')
+@after_method('propagate_uselib_vars', 'process_source')
+def apply_incpaths(self):
+	lst = self.to_incnodes(self.to_list(getattr(self, 'includes', [])) + self.env['INCLUDES'])
+	self.includes_nodes = lst
+	bld = self.bld
+	self.env['INCPATHS'] = [x.is_child_of(bld.srcnode) and x.path_from(bld.srcnode) or x.abspath() for x in lst]
+
+

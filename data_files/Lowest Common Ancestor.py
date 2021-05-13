@@ -50,13 +50,13 @@ class Solution:
         return False
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""n""o""d""e"" ""="" ""T""r""e""e""N""o""d""e""(""1"")""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""l""o""w""e""s""t""C""o""m""m""o""n""A""n""c""e""s""t""o""r""(""n""o""d""e"","" ""n""o""d""e"","" ""n""o""d""e"")""
-""
-"" "" "" "" ""n""o""d""e""s"" ""="" ""d""i""c""t""(""z""i""p""(""r""a""n""g""e""(""3"","" ""8"")"","" ""[""T""r""e""e""N""o""d""e""(""i"")"" ""f""o""r"" ""i"" ""i""n"" ""r""a""n""g""e""(""3"","" ""8"")""]"")"")""
-"" "" "" "" ""n""o""d""e""s""[""4""]"".""l""e""f""t"" ""="" ""n""o""d""e""s""[""3""]""
-"" "" "" "" ""n""o""d""e""s""[""4""]"".""r""i""g""h""t"" ""="" ""n""o""d""e""s""[""7""]""
-"" "" "" "" ""n""o""d""e""s""[""7""]"".""l""e""f""t"" ""="" ""n""o""d""e""s""[""5""]""
-"" "" "" "" ""n""o""d""e""s""[""7""]"".""r""i""g""h""t"" ""="" ""n""o""d""e""s""[""6""]""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""l""o""w""e""s""t""C""o""m""m""o""n""A""n""c""e""s""t""o""r""(""n""o""d""e""s""[""4""]"","" ""n""o""d""e""s""[""3""]"","" ""n""o""d""e""s""[""5""]"")""
+if __name__ == "__main__":
+    node = TreeNode(1)
+    print Solution().lowestCommonAncestor(node, node, node)
+
+    nodes = dict(zip(range(3, 8), [TreeNode(i) for i in range(3, 8)]))
+    nodes[4].left = nodes[3]
+    nodes[4].right = nodes[7]
+    nodes[7].left = nodes[5]
+    nodes[7].right = nodes[6]
+    print Solution().lowestCommonAncestor(nodes[4], nodes[3], nodes[5])

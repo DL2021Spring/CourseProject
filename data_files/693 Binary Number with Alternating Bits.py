@@ -16,6 +16,6 @@ class Solution:
         return True
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""h""a""s""A""l""t""e""r""n""a""t""i""n""g""B""i""t""s""(""5"")"" ""=""="" ""T""r""u""e""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""h""a""s""A""l""t""e""r""n""a""t""i""n""g""B""i""t""s""(""7"")"" ""=""="" ""F""a""l""s""e""
+if __name__ == "__main__":
+    assert Solution().hasAlternatingBits(5) == True
+    assert Solution().hasAlternatingBits(7) == False

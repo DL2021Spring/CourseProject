@@ -14,5 +14,7 @@ class Solution:
                 chars[ind], chars[closed] = chars[closed], chars[ind]
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""c""h""a""r""s"" ""="" ""l""i""s""t""(
+if __name__ == "__main__":
+    chars = list("abAcD")
+    Solution().sortLetters(chars)
+    assert "".join(chars) == "abcAD

@@ -6,16 +6,16 @@ from typing import List
 class Solution:
     def maxScoreSightseeingPair(self, A: List[int]) -> int:
         
-        ret = -float("i"n"f"")""
-"" "" "" "" "" "" "" "" ""p""r""e""v""_""m""a""x"" ""="" ""A""[""0""]""
-"" "" "" "" "" "" "" "" ""f""o""r"" ""a"" ""i""n"" ""A""[""1"":""]"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t"" ""="" ""m""a""x""(""r""e""t"","" ""p""r""e""v""_""m""a""x"" ""-"" ""1"" ""+"" ""a"")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""p""r""e""v""_""m""a""x"" ""="" ""m""a""x""(""p""r""e""v""_""m""a""x"" ""-"" ""1"","" ""a"")""
-""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""r""e""t""
-""
-"" "" "" "" ""d""e""f"" ""m""a""x""S""c""o""r""e""S""i""g""h""t""s""e""e""i""n""g""P""a""i""r""_""e""r""r""o""r""(""s""e""l""f"","" ""A"":"" ""L""i""s""t""[""i""n""t""]"")"" ""-"">"" ""i""n""t"":""
-"" "" "" "" "" "" "" "" 
+        ret = -float("inf")
+        prev_max = A[0]
+        for a in A[1:]:
+            ret = max(ret, prev_max - 1 + a)
+            prev_max = max(prev_max - 1, a)
+
+        return ret
+
+    def maxScoreSightseeingPair_error(self, A: List[int]) -> int:
+        
         n = len(A)
         B = []
         for i in range(n):
@@ -35,5 +35,5 @@ class Solution:
         return A[m2] + A[m1] - abs(m2 - m1)
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""m""a""x""S""c""o""r""e""S""i""g""h""t""s""e""e""i""n""g""P""a""i""r""(""[""8"",""1"",""5"",""2"",""6""]"")"" ""=""="" ""1""1""
+if __name__ == "__main__":
+    assert Solution().maxScoreSightseeingPair([8,1,5,2,6]) == 11

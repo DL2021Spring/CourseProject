@@ -30,5 +30,5 @@ class Solution(object):
             return self.predicate(s, i, j, J)
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""i""s""A""d""d""i""t""i""v""e""N""u""m""b""e""r""(
+if __name__ == "__main__":
+    assert Solution().isAdditiveNumber("12012122436")

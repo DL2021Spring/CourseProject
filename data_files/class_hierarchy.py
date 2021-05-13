@@ -51,5 +51,5 @@ class GradeDescriptor(object):
     def __set__(self, instance, value):
         
         if not (0 <= value <= 100):
-            raise ValueError("G"r"a"d"e" "m"u"s"t" "b"e" "b"e"t"w"e"e"n" "0" "a"n"d" "1"0"0"")""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""_""v""a""l""u""e""s""[""i""n""s""t""a""n""c""e""]"" ""="" ""v""a""l""u""e""
+            raise ValueError("Grade must be between 0 and 100")
+        self._values[instance] = value

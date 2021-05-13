@@ -68,5 +68,5 @@ class Solution:
 
         return False
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""s""e""a""r""c""h""(""[""1"",""1"",""3"",""1""]"","" ""3"")""=""=""T""r""u""e
+if __name__=="__main__":
+    assert Solution().search([1,1,3,1], 3)==True

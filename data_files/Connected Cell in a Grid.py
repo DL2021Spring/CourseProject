@@ -33,7 +33,20 @@ class Solution(object):
                 self.dfs(visited, mat, i1, j1, m, n)
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""i""m""p""o""r""t"" ""s""y""s""
-""
-"" "" "" "" ""f"" ""="" ""o""p""e""n""(
+if __name__ == "__main__":
+    import sys
+
+    f = open("0.in", "r")
+    
+    solution = Solution()
+    m = int(f.readline().strip())
+    n = int(f.readline().strip())
+
+    mat = []
+    for i in xrange(m):
+        mat.append(map(int, f.readline().strip().split(' ')))
+
+    cipher = m, n, mat
+    
+    s = "%s\n" % (solution.solve(cipher))
+    print s,

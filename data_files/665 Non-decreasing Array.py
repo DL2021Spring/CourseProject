@@ -39,7 +39,7 @@ class Solution:
         return True
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""c""h""e""c""k""P""o""s""s""i""b""i""l""i""t""y""(""[""4"",""2"",""3""]"")"" ""=""="" ""T""r""u""e""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""c""h""e""c""k""P""o""s""s""i""b""i""l""i""t""y""(""[""3"",""4"",""2"",""3""]"")"" ""=""="" ""F""a""l""s""e""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""c""h""e""c""k""P""o""s""s""i""b""i""l""i""t""y""(""[""2"",""3"",""3"",""2"",""4""]"")"" ""=""="" ""T""r""u""e""
+if __name__ == "__main__":
+    assert Solution().checkPossibility([4,2,3]) == True
+    assert Solution().checkPossibility([3,4,2,3]) == False
+    assert Solution().checkPossibility([2,3,3,2,4]) == True

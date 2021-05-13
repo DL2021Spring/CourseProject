@@ -17,5 +17,5 @@ class Solution:
         B = [dp[i][0]*dp[i][1] for i in xrange(n)]
         return B
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""p""r""o""d""u""c""t""E""x""c""l""u""d""e""I""t""s""e""l""f""(""[""1"","" ""2"","" ""3""]"")"" ""=""="" ""[""6"","" ""3"","" ""2""]
+if __name__=="__main__":
+    assert Solution().productExcludeItself([1, 2, 3]) == [6, 3, 2]

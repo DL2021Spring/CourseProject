@@ -37,5 +37,6 @@ class Solution:
         return -1
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""o""p""e""n""L""o""c""k""(""[
+if __name__ == "__main__":
+    assert Solution().openLock(["8888"], "0009") == 1
+    assert Solution().openLock(["8887","8889","8878","8898","8788","8988","7888","9888"], "8888") == -1

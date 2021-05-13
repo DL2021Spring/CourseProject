@@ -39,61 +39,227 @@ from scipy import ndimage
 import os
 import sys
 
-sys.path.append("."."/"."."")""
-""
-""#"" ""t""r""y"" ""t""o"" ""i""m""p""o""r""t"" ""t""h""e"" ""P""I""L"" ""I""m""a""g""e""
-""t""r""y"":""
-"" "" "" "" ""f""r""o""m"" ""P""I""L"" ""i""m""p""o""r""t"" ""I""m""a""g""e""
-""e""x""c""e""p""t"" ""I""m""p""o""r""t""E""r""r""o""r"":""
-"" "" "" "" ""i""m""p""o""r""t"" ""I""m""a""g""e""
-""
-""i""m""p""o""r""t"" ""m""a""t""p""l""o""t""l""i""b"".""p""y""p""l""o""t"" ""a""s"" ""p""l""t""
-""i""m""p""o""r""t"" ""t""e""x""t""w""r""a""p""
-""
-""i""m""p""o""r""t"" ""l""o""g""g""i""n""g""
-""
-""f""r""o""m"" ""f""a""c""e""r""e""c"".""f""e""a""t""u""r""e"" ""i""m""p""o""r""t"" ""S""p""a""t""i""a""l""H""i""s""t""o""g""r""a""m""
-""f""r""o""m"" ""f""a""c""e""r""e""c"".""d""i""s""t""a""n""c""e"" ""i""m""p""o""r""t"" ""C""h""i""S""q""u""a""r""e""D""i""s""t""a""n""c""e""
-""f""r""o""m"" ""f""a""c""e""r""e""c"".""c""l""a""s""s""i""f""i""e""r"" ""i""m""p""o""r""t"" ""N""e""a""r""e""s""t""N""e""i""g""h""b""o""r""
-""f""r""o""m"" ""f""a""c""e""r""e""c"".""m""o""d""e""l"" ""i""m""p""o""r""t"" ""P""r""e""d""i""c""t""a""b""l""e""M""o""d""e""l""
-""f""r""o""m"" ""f""a""c""e""r""e""c"".""l""b""p"" ""i""m""p""o""r""t"" ""L""P""Q"","" ""E""x""t""e""n""d""e""d""L""B""P""
-""f""r""o""m"" ""f""a""c""e""r""e""c"".""v""a""l""i""d""a""t""i""o""n"" ""i""m""p""o""r""t"" ""S""i""m""p""l""e""V""a""l""i""d""a""t""i""o""n"","" ""p""r""e""c""i""s""i""o""n""
-""f""r""o""m"" ""f""a""c""e""r""e""c"".""u""t""i""l"" ""i""m""p""o""r""t"" ""s""h""u""f""f""l""e""_""a""r""r""a""y""
-""
-""E""X""P""E""R""I""M""E""N""T""_""N""A""M""E"" ""="" 
-    Base class used for filtering files.
-    
-    This Filter filters files, based on their filetype ending (.pgm) and
-    their azimuth and elevation. The higher the angle, the more shadows in
-    the face. This is useful for experiments with illumination and 
-    preprocessing. 
-    
-    Reads the images in a given folder, resizes images on the fly if size is given.
+sys.path.append("../..")
 
-    Args:
-        path: Path to a folder with subfolders representing the subjects (persons).
-        sz: A tuple with the size Resizes 
 
-    Returns:
-        A list [X,y]
+try:
+    from PIL import Image
+except ImportError:
+    import Image
 
-            X: The images, which is a Python list of numpy arrays.
-            y: The corresponding labels (the unique number of the subject, person) in a Python list.
-    A simple function to apply a Gaussian Blur on each image in X.
+import matplotlib.pyplot as plt
+import textwrap
+
+import logging
+
+from facerec.feature import SpatialHistogram
+from facerec.distance import ChiSquareDistance
+from facerec.classifier import NearestNeighbor
+from facerec.model import PredictableModel
+from facerec.lbp import LPQ, ExtendedLBP
+from facerec.validation import SimpleValidation, precision
+from facerec.util import shuffle_array
+
+EXPERIMENT_NAME = "LocalPhaseQuantizationExperiment"
+
+
+
+
+
+ITER_MAX = 1
+
+class FileNameFilter:
     
-    Args:
-        X: A list of images.
-        sigma: sigma to apply
+    def __init__(self, name):
+        self._name = name
+
+    def __call__(self, filename):
+        return True
         
-    Returns:
-        Y: The processed images
+    def __repr__(self):
+        return "FileNameFilter (name=%s)" % (self._name) 
+
+
+class YaleBaseFilter(FileNameFilter):
     
-    Shuffles the input data and splits it into a new set of images. This resembles the experimental setup
-    used in the paper on the Local Phase Quantization descriptor in:
+    def __init__(self, min_azimuth, max_azimuth, min_elevation, max_elevation):
+        FileNameFilter.__init__(self, "Filter YaleFDB Subset1")
+        self._min_azimuth = min_azimuth
+        self._max_azimuth = max_azimuth
+        self._min_elevation = min_elevation
+        self._max_elevation = max_elevation
+
+    def __call__(self, filename):
+        
+        
+        filetype = filename[-4:]
+        if filetype != ".pgm":
+            return False
+
+        
+        if "Ambient" in filename:
+            return False
+        
+        azimuth = abs(int(filename[12:16]))
+        elevation = abs(int(filename[17:20]))
+
+        
+        if azimuth < self._min_azimuth or azimuth > self._max_azimuth:
+            return False
+        if elevation < self._min_elevation or elevation > self._max_elevation:
+            return False
+            
+        return True
+
+    def __repr__(self):
+        return "Yale FDB Filter (min_azimuth=%s, max_azimuth=%s, min_elevation=%s, max_elevation=%s)" % (min_azimuth, max_azimuth, min_elevation, max_elevation)
+
+
+def read_images(path, fileNameFilter=FileNameFilter("None"), sz=None):
     
-        "R"e"c"o"g"n"i"t"i"o"n" "o"f" "B"l"u"r"r"e"d" "F"a"c"e"s" "U"s"i"n"g" "L"o"c"a"l" "P"h"a"s"e" "Q"u"a"n"t"i"z"a"t"i"o"n"","" ""T""i""m""o"" ""A""h""o""n""e""n"","" ""E""s""a"" ""R""a""h""t""u"","" ""V""i""l""l""e"" ""O""j""a""n""s""i""v""u"","" ""J""a""n""n""e"" ""H""e""i""k""k""i""l""a""
-""
-"" "" "" "" ""W""h""a""t"" ""i""t"" ""d""o""e""s"" ""i""s"" ""t""o"" ""b""u""i""l""d"" ""a"" ""s""u""b""s""e""t"" ""f""o""r"" ""e""a""c""h"" ""c""l""a""s""s"","" ""s""o"" ""i""t"" ""h""a""s"" ""1"" ""i""m""a""g""e"" ""f""o""r"" ""t""r""a""i""n""i""n""g"" ""a""n""d"" ""t""h""e"" ""r""e""s""t"" ""f""o""r"" ""t""e""s""t""i""n""g""."" ""
-"" "" "" "" ""T""h""e"" ""o""r""i""g""i""n""a""l"" ""d""a""t""a""s""e""t"" ""i""s"" ""s""h""u""f""f""l""e""d"" ""f""o""r"" ""e""a""c""h"" ""c""a""l""l"","" ""h""e""n""c""e"" ""y""o""u"" ""a""l""w""a""y""s"" ""g""e""t"" ""a"" ""n""e""w"" ""p""a""r""t""i""t""i""o""n""i""n""g"".""
-""
-"" "" "" "" 
+    c = 0
+    X,y = [], []
+    for dirname, dirnames, filenames in os.walk(path):
+        for subdirname in dirnames:
+            subject_path = os.path.join(dirname, subdirname)
+            for filename in os.listdir(subject_path):
+                if fileNameFilter(filename):
+                    try:
+                        im = Image.open(os.path.join(subject_path, filename))
+                        im = im.convert("L")
+                        
+                        if (sz is not None):
+                            im = im.resize(sz, Image.ANTIALIAS)
+                        X.append(np.asarray(im, dtype=np.uint8))
+                        y.append(c)
+                    except IOError, (errno, strerror):
+                        print "I/O error({0}): {1}".format(errno, strerror)
+                    except:
+                        print "Unexpected error:", sys.exc_info()[0]
+                        raise         
+            c = c+1
+    return [X,y]
+    
+def apply_gaussian(X, sigma):
+    
+    return np.array([ndimage.gaussian_filter(x, sigma) for x in X])
+
+
+def results_to_list(validation_results):
+    return [precision(result.true_positives,result.false_positives) for result in validation_results]
+    
+def partition_data(X, y):
+    
+    Xs,ys = shuffle_array(X,y)
+    
+    mapping = {}
+    for i in xrange(len(y)):
+        yi = ys[i]
+        try:
+            mapping[yi].append(i)
+        except KeyError:
+            mapping[yi] = [i]
+    
+    Xtrain, ytrain = [], []
+    Xtest, ytest = [], []
+    
+    for key, indices in mapping.iteritems():
+        
+        Xtrain.extend([ Xs[i] for i in indices[:1] ])
+        ytrain.extend([ ys[i] for i in indices[:1] ])
+        Xtest.extend([ Xs[i] for i in indices[1:20]])
+        ytest.extend([ ys[i] for i in indices[1:20]])
+    
+    return Xtrain, ytrain, Xtest, ytest
+
+class ModelWrapper:
+    def __init__(model):
+        self.model = model
+        self.result = []
+
+if __name__ == "__main__":
+    
+    
+    out_dir = None
+    
+    
+    
+    if len(sys.argv) < 2:
+
+        print "USAGE: lpq_experiment.py </path/to/images>"
+        sys.exit()
+    
+    yale_subset_0_40 = YaleBaseFilter(0, 40, 0, 40)
+    
+    [X,y] = read_images(sys.argv[1], yale_subset_0_40, sz=(64,64))
+    
+    handler = logging.StreamHandler(sys.stdout)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    handler.setFormatter(formatter)
+    
+    logger = logging.getLogger("facerec")
+    logger.addHandler(handler)
+    logger.setLevel(logging.INFO)
+    
+    model0 = PredictableModel(feature=SpatialHistogram(lbp_operator=ExtendedLBP()), classifier=NearestNeighbor(dist_metric=ChiSquareDistance(), k=1))
+    model1 = PredictableModel(feature=SpatialHistogram(lbp_operator=LPQ()), classifier=NearestNeighbor(dist_metric=ChiSquareDistance(), k=1))
+    
+    sigmas = [0]
+    print 'The experiment will be run %s times!' % ITER_MAX
+    
+    experiments = {}
+    experiments['lbp_model'] = { 'model': model0, 'results' : {}, 'color' : 'r', 'linestyle' : '--', 'marker' : '*'} 
+    experiments['lpq_model'] = { 'model': model1, 'results' : {}, 'color' : 'b', 'linestyle' : '--', 'marker' : 's'}
+    
+    for sigma in sigmas:
+        print "Setting sigma=%s" % sigma
+        for key, value in experiments.iteritems():
+            print 'Running experiment for model=%s' % key
+            
+            cv0 = SimpleValidation(value['model'])
+            for iteration in xrange(ITER_MAX):
+                print "Repeating experiment %s/%s." % (iteration + 1, ITER_MAX)
+                
+                Xtrain, ytrain, Xtest, ytest = partition_data(X,y)
+                
+                Xs = apply_gaussian(Xtest, sigma)
+                
+                experiment_description = "%s (iteration=%s, sigma=%.2f)" % (EXPERIMENT_NAME, iteration, sigma)
+                cv0.validate(Xtrain, ytrain, Xs, ytest, experiment_description)
+            
+            true_positives = sum([validation_result.true_positives for validation_result in cv0.validation_results])
+            false_positives = sum([validation_result.false_positives for validation_result in cv0.validation_results])
+            
+            prec = precision(true_positives,false_positives)
+            
+            print key
+            experiments[key]['results'][sigma] = prec
+
+    
+    fig = plt.figure()
+    
+    plot_legend = []
+    
+    for experiment_name, experiment_definition in experiments.iteritems():
+        print key, experiment_definition
+        results = experiment_definition['results']
+        (xvalues, yvalues) = zip(*[(k,v) for k,v in results.iteritems()])
+        
+        plot_legend.append(experiment_name)
+        
+        plot_color = experiment_definition['color']
+        plot_linestyle = experiment_definition['linestyle']
+        plot_marker = experiment_definition['marker']
+        plt.plot(sigmas, yvalues, linestyle=plot_linestyle, marker=plot_marker, color=plot_color)
+    
+    plt.legend(plot_legend, prop={'size':6}, numpoints=1, loc='upper center', bbox_to_anchor=(0.5, -0.2),  fancybox=True, shadow=True, ncol=1)
+    
+    plt.ylim(0,1)
+    plt.xlim(-0.2, max(sigmas) + 1)
+    
+    plt.title(EXPERIMENT_NAME)
+    plt.ylabel('Precision')
+    plt.xlabel('Sigma')
+    fig.subplots_adjust(bottom=0.5)
+    
+    plt.savefig("lpq_experiment.png", bbox_inches='tight',dpi=100)

@@ -72,7 +72,100 @@ class UniversalDetector:
             
             if aBuf[:3] == '\xEF\xBB\xBF':
                 
-                self.result = {'encoding': "U"T"F"-"8"","" ""'""c""o""n""f""i""d""e""n""c""e""'"":"" ""1"".""0""}""
-"" "" "" "" "" "" "" "" "" "" "" "" ""e""l""i""f"" ""a""B""u""f""["":""4""]"" ""=""="" ""'""\""x""F""F""\""x""F""E""\""x""0""0""\""x""0""0""'"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""#"" ""F""F"" ""F""E"" ""0""0"" ""0""0"" "" ""U""T""F""-""3""2"","" ""l""i""t""t""l""e""-""e""n""d""i""a""n"" ""B""O""M""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""r""e""s""u""l""t"" ""="" ""{""'""e""n""c""o""d""i""n""g""'"":"" 
+                self.result = {'encoding': "UTF-8", 'confidence': 1.0}
+            elif aBuf[:4] == '\xFF\xFE\x00\x00':
+                
+                self.result = {'encoding': "UTF-32LE", 'confidence': 1.0}
+            elif aBuf[:4] == '\x00\x00\xFE\xFF':
+                
+                self.result = {'encoding': "UTF-32BE", 'confidence': 1.0}
+            elif aBuf[:4] == '\xFE\xFF\x00\x00':
+                
+                self.result = {
+                    'encoding': "X-ISO-10646-UCS-4-3412",
+                    'confidence': 1.0
+                }
+            elif aBuf[:4] == '\x00\x00\xFF\xFE':
+                
+                self.result = {
+                    'encoding': "X-ISO-10646-UCS-4-2143",
+                    'confidence': 1.0
+                }
+            elif aBuf[:2] == '\xFF\xFE':
+                
+                self.result = {'encoding': "UTF-16LE", 'confidence': 1.0}
+            elif aBuf[:2] == '\xFE\xFF':
+                
+                self.result = {'encoding': "UTF-16BE", 'confidence': 1.0}
+
+        self._mGotData = True
+        if self.result['encoding'] and (self.result['confidence'] > 0.0):
+            self.done = True
+            return
+
+        if self._mInputState == ePureAscii:
+            if self._highBitDetector.search(aBuf):
+                self._mInputState = eHighbyte
+            elif ((self._mInputState == ePureAscii) and
+                    self._escDetector.search(self._mLastChar + aBuf)):
+                self._mInputState = eEscAscii
+
+        self._mLastChar = aBuf[-1:]
+
+        if self._mInputState == eEscAscii:
+            if not self._mEscCharSetProber:
+                self._mEscCharSetProber = EscCharSetProber()
+            if self._mEscCharSetProber.feed(aBuf) == constants.eFoundIt:
+                self.result = {
+                    'encoding': self._mEscCharSetProber.get_charset_name(),
+                    'confidence': self._mEscCharSetProber.get_confidence()
+                }
+                self.done = True
+        elif self._mInputState == eHighbyte:
+            if not self._mCharSetProbers:
+                self._mCharSetProbers = [MBCSGroupProber(), SBCSGroupProber(),
+                                         Latin1Prober()]
+            for prober in self._mCharSetProbers:
+                if prober.feed(aBuf) == constants.eFoundIt:
+                    self.result = {'encoding': prober.get_charset_name(),
+                                   'confidence': prober.get_confidence()}
+                    self.done = True
+                    break
+
+    def close(self):
+        if self.done:
+            return
+        if not self._mGotData:
+            if constants._debug:
+                sys.stderr.write('no data received!\n')
+            return
+        self.done = True
+
+        if self._mInputState == ePureAscii:
+            self.result = {'encoding': 'ascii', 'confidence': 1.0}
+            return self.result
+
+        if self._mInputState == eHighbyte:
+            proberConfidence = None
+            maxProberConfidence = 0.0
+            maxProber = None
+            for prober in self._mCharSetProbers:
+                if not prober:
+                    continue
+                proberConfidence = prober.get_confidence()
+                if proberConfidence > maxProberConfidence:
+                    maxProberConfidence = proberConfidence
+                    maxProber = prober
+            if maxProber and (maxProberConfidence > MINIMUM_THRESHOLD):
+                self.result = {'encoding': maxProber.get_charset_name(),
+                               'confidence': maxProber.get_confidence()}
+                return self.result
+
+        if constants._debug:
+            sys.stderr.write('no probers hit minimum threshhold\n')
+            for prober in self._mCharSetProbers[0].mProbers:
+                if not prober:
+                    continue
+                sys.stderr.write('%s confidence = %s\n' %
+                                 (prober.get_charset_name(),
+                                  prober.get_confidence()))

@@ -13,4 +13,9 @@ class Solution:
             N -= r
             N //= -2
 
-        return "".""j""o""i""n""(""m""a""p""(""s""t""r"","" ""r""e""t"")"")"" ""o""r"" 
+        return "".join(map(str, ret)) or "0"
+
+
+if __name__ == "__main__":
+    assert Solution().baseNeg2(3) == "111"
+    assert Solution().baseNeg2(4) == "100"

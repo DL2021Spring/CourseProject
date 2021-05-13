@@ -55,7 +55,14 @@ class Solution(object):
         return result
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""i""m""p""o""r""t"" ""s""y""s""
-""
-"" "" "" "" ""f"" ""="" ""o""p""e""n""(
+if __name__ == "__main__":
+    import sys
+
+    f = open("1.in", "r")
+    
+    a = f.readline().strip()
+    b = f.readline().strip()
+    cipher = (a, b)
+    
+    s = "%s\n" % (Solution().solve(cipher))
+    print s,

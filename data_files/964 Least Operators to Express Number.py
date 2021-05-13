@@ -34,7 +34,7 @@ class Solution:
             return power
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""l""e""a""s""t""O""p""s""E""x""p""r""e""s""s""T""a""r""g""e""t""(""3"","" ""1""9"")"" ""=""="" ""5""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""l""e""a""s""t""O""p""s""E""x""p""r""e""s""s""T""a""r""g""e""t""(""5"","" ""5""0""1"")"" ""=""="" ""8""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""l""e""a""s""t""O""p""s""E""x""p""r""e""s""s""T""a""r""g""e""t""(""2"","" ""1""2""5""0""4""6"")"" ""=""="" ""5""0""
+if __name__ == "__main__":
+    assert Solution().leastOpsExpressTarget(3, 19) == 5
+    assert Solution().leastOpsExpressTarget(5, 501) == 8
+    assert Solution().leastOpsExpressTarget(2, 125046) == 50

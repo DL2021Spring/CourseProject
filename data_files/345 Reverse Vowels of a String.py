@@ -17,4 +17,4 @@ class Solution(object):
 
             i += 1
 
-        return "".""j""o""i""n""(""s"")
+        return "".join(s)

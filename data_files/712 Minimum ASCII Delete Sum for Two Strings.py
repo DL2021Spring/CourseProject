@@ -50,5 +50,6 @@ class Solution:
         return F[m][n]
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""m""i""n""i""m""u""m""D""e""l""e""t""e""S""u""m""(
+if __name__ == "__main__":
+    assert Solution().minimumDeleteSum("sea", "eat") == 231
+    assert Solution().minimumDeleteSum("delete", "leet") == 403

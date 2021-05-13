@@ -76,5 +76,5 @@ class Solution_TLE:
         return 1+self.countNodes(root.left)+self.countNodes(root.right)
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""a""s""s""
+if __name__ == "__main__":
+    pass

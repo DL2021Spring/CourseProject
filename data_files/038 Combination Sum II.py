@@ -27,5 +27,5 @@ class Solution:
             while ind+1<len(candidates) and candidates[ind]==candidates[ind+1]: ind+= 1  
             ind += 1
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""c""o""m""b""i""n""a""t""i""o""n""S""u""m""2""(""[""1""0"","" ""1"","" ""2"","" ""7"","" ""6"","" ""1"","" ""5""]"","" ""8"")""
+if __name__=="__main__":
+    print Solution().combinationSum2([10, 1, 2, 7, 6, 1, 5], 8)

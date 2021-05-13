@@ -49,25 +49,115 @@ def run_tagger(cmd):
         tagger_process = Popen(cmd, stdin=PIPE, stdout=PIPE, bufsize=1)
         return tagger_process
     except Exception, e:
-        print >> stderr, "E"r"r"o"r" "r"u"n"n"i"n"g" "'"%"s"'":"" ""%"" ""c""m""d"","" ""e""
-"" "" "" "" "" "" "" "" ""r""a""i""s""e"" "" "" "" ""
-""
-""d""e""f"" ""_""a""p""p""l""y""_""t""a""g""g""e""r""_""t""o""_""s""e""n""t""e""n""c""e""(""t""e""x""t"")"":""
-"" "" "" "" ""#"" ""c""a""n"" ""a""f""f""o""r""d"" ""t""o"" ""r""e""s""t""a""r""t"" ""t""h""i""s"" ""o""n"" ""e""a""c""h"" ""i""n""v""o""c""a""t""i""o""n""
-"" "" "" "" ""t""a""g""g""e""r""_""p""r""o""c""e""s""s"" ""="" ""r""u""n""_""t""a""g""g""e""r""(""M""E""T""A""M""A""P""_""C""O""M""M""A""N""D"")""
-""
-"" "" "" "" ""p""r""i""n""t"" "">"">"" ""t""a""g""g""e""r""_""p""r""o""c""e""s""s"".""s""t""d""i""n"","" ""t""e""x""t""
-"" "" "" "" ""t""a""g""g""e""r""_""p""r""o""c""e""s""s"".""s""t""d""i""n"".""c""l""o""s""e""("")""
-"" "" "" "" ""t""a""g""g""e""r""_""p""r""o""c""e""s""s"".""w""a""i""t""("")""
-""
-"" "" "" "" ""r""e""s""p""o""n""s""e""_""l""i""n""e""s"" ""="" ""[""]""
-""
-"" "" "" "" ""f""o""r"" ""l"" ""i""n"" ""t""a""g""g""e""r""_""p""r""o""c""e""s""s"".""s""t""d""o""u""t"":""
-"" "" "" "" "" "" "" "" ""l"" ""="" ""l"".""r""s""t""r""i""p""(""'""\""n""'"")""
-"" "" "" "" "" "" "" "" ""r""e""s""p""o""n""s""e""_""l""i""n""e""s"".""a""p""p""e""n""d""(""l"")""
-"" "" "" "" "" "" "" "" ""
-"" "" "" "" ""t""r""y"":""
-"" "" "" "" "" "" "" "" ""t""a""g""g""e""d""_""e""n""t""i""t""i""e""s"" ""="" ""M""e""t""a""M""a""p""_""l""i""n""e""s""_""t""o""_""s""t""a""n""d""o""f""f""(""r""e""s""p""o""n""s""e""_""l""i""n""e""s"","" ""t""e""x""t"")""
-"" "" "" "" ""e""x""c""e""p""t"":""
-"" "" "" "" "" "" "" "" ""#"" ""i""f"" ""a""n""y""t""h""i""n""g"" ""g""o""e""s"" ""w""r""o""n""g"","" ""b""a""i""l"" ""o""u""t""
-"" "" "" "" "" "" "" "" ""p""r""i""n""t"" "">"">"" ""s""t""d""e""r""r"","" 
+        print >> stderr, "Error running '%s':" % cmd, e
+        raise    
+
+def _apply_tagger_to_sentence(text):
+    
+    tagger_process = run_tagger(METAMAP_COMMAND)
+
+    print >> tagger_process.stdin, text
+    tagger_process.stdin.close()
+    tagger_process.wait()
+
+    response_lines = []
+
+    for l in tagger_process.stdout:
+        l = l.rstrip('\n')
+        response_lines.append(l)
+        
+    try:
+        tagged_entities = MetaMap_lines_to_standoff(response_lines, text)
+    except:
+        
+        print >> stderr, "Warning: MetaMap-to-standoff conversion failed for output:\n'%s'" % '\n'.join(response_lines)
+        raise
+        
+
+    
+    for t in tagged_entities:
+        t.eText = text[t.startOff:t.endOff]
+
+    return tagged_entities
+
+def _apply_tagger(text):
+    
+    
+
+    try:
+        splittext = sentencebreaks_to_newlines(text)
+    except:
+        
+        
+        print >> stderr, "Warning: sentence splitting failed for input:\n'%s'" % text
+        splittext = text
+
+    sentences = splittext.split('\n')
+    all_tagged = []
+    baseoffset = 0
+    for s in sentences:
+        tagged = _apply_tagger_to_sentence(s)
+
+        
+        for t in tagged:
+            t.startOff += baseoffset
+            t.endOff += baseoffset
+
+        all_tagged.extend(tagged)
+        baseoffset += len(s)+1
+
+    anns = {}
+
+    idseq = 1
+    for t in all_tagged:
+        anns["T%d" % idseq] = {
+            'type': t.eType,
+            'offsets': ((t.startOff, t.endOff), ),
+            'texts': (t.eText, ),
+            }
+        idseq += 1
+
+    return anns
+        
+
+class MetaMapTaggerHandler(BaseHTTPRequestHandler):
+    def do_POST(self):
+        
+        query = parse_qs(urlparse(self.path).query)
+
+        try:
+            json_dic = _apply_tagger(query['text'][0])
+        except KeyError:
+            
+            json_dic = {}
+
+        
+        self.send_response(200)
+        self.send_header('Content-type', 'application/json; charset=utf-8')
+        self.end_headers()
+
+        self.wfile.write(dumps(json_dic))
+        print >> stderr, ('Generated %d annotations' % len(json_dic))
+
+    def log_message(self, format, *args):
+        return 
+
+def main(args):
+    argp = ARGPARSER.parse_args(args[1:])
+
+    print >> stderr, 'Starting MetaMap ...'
+
+    server_class = HTTPServer
+    httpd = server_class(('localhost', argp.port), MetaMapTaggerHandler)
+
+    print >> stderr, 'MetaMap tagger service started'
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        pass
+    httpd.server_close()
+    print >> stderr, 'MetaMap tagger service stopped'
+
+if __name__ == '__main__':
+    from sys import argv
+    exit(main(argv))

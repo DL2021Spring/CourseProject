@@ -45,6 +45,6 @@ class Solution(object):
         return ret
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""n""u""m""b""e""r""O""f""P""a""t""t""e""r""n""s""(""1"","" ""2"")"" ""=""="" ""6""5""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""n""u""m""b""e""r""O""f""P""a""t""t""e""r""n""s""(""1"","" ""3"")"" ""=""="" ""3""8""5""
+if __name__ == "__main__":
+    assert Solution().numberOfPatterns(1, 2) == 65
+    assert Solution().numberOfPatterns(1, 3) == 385

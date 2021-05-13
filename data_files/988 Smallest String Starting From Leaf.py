@@ -23,4 +23,22 @@ class Solution:
         self.dfs(root, deque())
         if not self.mn:
             return ""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" 
+        return "".join(
+            chr(e + ord("a"))
+            for e in self.mn
+        )
+
+    def dfs(self, node, cur_deque):
+        if not node:
+            return
+
+        cur_deque.appendleft(node.val)
+        if not node.left and not node.right:
+            t = tuple(cur_deque)
+            if not self.mn or t < self.mn:
+                self.mn = t
+        else:
+            self.dfs(node.left, cur_deque)
+            self.dfs(node.right, cur_deque)
+        
+        cur_deque.popleft()

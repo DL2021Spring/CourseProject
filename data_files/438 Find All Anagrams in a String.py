@@ -26,5 +26,5 @@ class Solution:
         return ret
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""f""i""n""d""A""n""a""g""r""a""m""s""(
+if __name__ == "__main__":
+    assert Solution().findAnagrams("cbaebabacd", "abc") == [0, 6]

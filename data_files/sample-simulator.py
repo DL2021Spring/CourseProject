@@ -28,5 +28,35 @@ class MyModel(object):
         ns.core.Simulator.Schedule(ns.core.Seconds(10.0), self.HandleEvent, ns.core.Simulator.Now().GetSeconds())
 
     def HandleEvent(self, value):
-        print "M"e"m"b"e"r" "m"e"t"h"o"d" "r"e"c"e"i"v"e"d" "e"v"e"n"t" "a"t"","" ""n""s"".""c""o""r""e"".""S""i""m""u""l""a""t""o""r"".""N""o""w""("")"".""G""e""t""S""e""c""o""n""d""s""("")"","" ""\""
-"" "" "" "" "" "" "" "" "" "" "" "" 
+        print "Member method received event at", ns.core.Simulator.Now().GetSeconds(), \
+            "s started at", value, "s"
+
+def ExampleFunction(model):
+    print "ExampleFunction received event at", ns.core.Simulator.Now().GetSeconds(), "s"
+    model.Start()
+
+def RandomFunction(model):
+    print "RandomFunction received event at", ns.core.Simulator.Now().GetSeconds(), "s"
+
+def CancelledEvent():
+    print "I should never be called... "
+
+def main(dummy_argv):
+
+    model = MyModel()
+    v = ns.core.UniformVariable(10,20)
+
+    ns.core.Simulator.Schedule(ns.core.Seconds(10.0), ExampleFunction, model)
+
+    ns.core.Simulator.Schedule(ns.core.Seconds(v.GetValue()), RandomFunction, model)
+
+    id = ns.core.Simulator.Schedule(ns.core.Seconds(30.0), CancelledEvent)
+    ns.core.Simulator.Cancel(id)
+
+    ns.core.Simulator.Run()
+
+    ns.core.Simulator.Destroy()
+
+if __name__ == '__main__':
+    import sys
+    main(sys.argv)

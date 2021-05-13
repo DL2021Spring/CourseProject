@@ -9,11 +9,26 @@ class Solution:
         mini, maxa = 0, len(S)
         ret = []
         for c in S:
-            if c == "I"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t"".""a""p""p""e""n""d""(""m""i""n""i"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""m""i""n""i"" ""+""="" ""1""
-"" "" "" "" "" "" "" "" "" "" "" "" ""e""l""s""e"":"" "" ""#"" 
-        start with 0, then add the min up to 0
+            if c == "I":
+                ret.append(mini)
+                mini += 1
+            else:  
+                ret.append(maxa)
+                maxa -= 1
 
-        errror since cannot repeat
+        ret.append(mini)
+        return ret
+
+    def diStringMatchErrror(self, S: str) -> List[int]:
         
+        ret = [0]
+        for c in S:
+            if c == "I":
+                ret.append(ret[-1] + 1)
+            else:
+                ret.append(ret[-1] -1)
+        mn = min(ret)
+        return [
+            e - mn
+            for e in ret
+        ]

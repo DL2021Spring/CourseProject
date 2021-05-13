@@ -15,6 +15,21 @@ class Solution:
         for i in xrange(1, n):
             if nums[i] != pre+1:
                 if pre != bgn:
-                    ret.append("%"d"-">"%"d""%""(""b""g""n"","" ""p""r""e"")"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""e""l""s""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t"".""a""p""p""e""n""d""(
+                    ret.append("%d->%d"%(bgn, pre))
+                else:
+                    ret.append("%d"%bgn)
+                bgn = nums[i]
+
+            pre = nums[i]
+
+        
+        if pre != bgn:
+            ret.append("%d->%d"%(bgn, pre))
+        else:
+            ret.append("%d"%bgn)
+
+        return ret
+
+
+if __name__ == "__main__":
+    assert Solution().summaryRanges([0, 1, 2, 4, 5, 7]) == ['0->2', '4->5', '7']

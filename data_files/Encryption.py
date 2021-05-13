@@ -25,6 +25,18 @@ class Solution(object):
             for i in xrange(h):
                 if rect[i][j] == None: break
                 sb.append(rect[i][j])
-            result.append("".""j""o""i""n""(""s""b"")"")""
-""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" 
+            result.append("".join(sb))
+
+        return " ".join(result)
+
+
+if __name__ == "__main__":
+    import sys
+
+    f = open("1.in", "r")
+    
+    cipher = f.readline().strip()
+
+    
+    s = "%s\n" % (Solution().solve(cipher))
+    print s,

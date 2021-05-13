@@ -16,6 +16,22 @@ class Solution(object):
 
         is_pangram = all(bucket)
         if is_pangram:
-            return "p"a"n"g"r"a"m""
-"" "" "" "" "" "" "" "" ""e""l""s""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" 
+            return "pangram"
+        else:
+            return "not pangram"
+
+
+if __name__ == "__main__":
+    import sys
+
+    f = open("1.in", "r")
+    
+    testcases = 1
+
+    for t in xrange(testcases):
+        
+        cipher = f.readline().strip()
+
+        
+        s = "%s\n" % (Solution().solve(cipher))
+        print s,

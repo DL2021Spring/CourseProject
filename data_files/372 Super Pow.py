@@ -18,9 +18,9 @@ class Solution(object):
         s %= C
         return s
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""s""u""p""e""r""P""o""w""(""2"","" ""[""1"","" ""0""]"")""
-""
-""
-""
-""
+if __name__ == "__main__":
+    print Solution().superPow(2, [1, 0])
+
+
+
+

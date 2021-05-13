@@ -57,5 +57,13 @@ class Solution(object):
         return stk.pop()
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""S""o""l""u""t""i""o""n""("")"".""d""e""s""e""r""i""a""l""i""z""e""(
+if __name__ == "__main__":
+    Solution().deserialize("[123,[456,[789]]]")
+
+
+
+
+
+
+
+

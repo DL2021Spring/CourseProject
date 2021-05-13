@@ -12,11 +12,11 @@ class Node(object):
         self.right = None
 
     def __repr__(self):
-        return repr("["%"d","%"d")"" ""%"" ""(""s""e""l""f"".""l""o"","" ""s""e""l""f"".""h""i"")"")""
-""
-""
-""c""l""a""s""s"" ""S""e""g""m""e""n""t""T""r""e""e""(""o""b""j""e""c""t"")"":""
-"" "" "" "" 
+        return repr("[%d,%d)" % (self.lo, self.hi))
+
+
+class SegmentTree(object):
+    
     def __init__(self):
         self.root = None
 
@@ -56,6 +56,6 @@ class Solution(object):
         return ret
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""A"" ""="" ""[""(""5"","" ""0"")"","" ""(""2"","" ""1"")"","" ""(""3"","" ""1"")"","" ""(""4"","" ""1"","")"","" ""(""1"","" ""4"")""]""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""r""e""c""o""n""s""t""r""u""c""t""(""A"")"" ""=""="" ""[""5"","" ""2"","" ""3"","" ""4"","" ""1""]
+if __name__ == "__main__":
+    A = [(5, 0), (2, 1), (3, 1), (4, 1,), (1, 4)]
+    assert Solution().reconstruct(A) == [5, 2, 3, 4, 1]

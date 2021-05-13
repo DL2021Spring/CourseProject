@@ -25,6 +25,6 @@ class Solution:
         return min(F[n][i] for i in xrange(m))
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""c""o""s""t""s"" ""="" ""[""[""7"","" ""6"","" ""2""]""]""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""m""i""n""C""o""s""t""(""c""o""s""t""s"")"" ""=""="" ""2
+if __name__ == "__main__":
+    costs = [[7, 6, 2]]
+    assert Solution().minCost(costs) == 2

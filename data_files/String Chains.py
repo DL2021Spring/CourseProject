@@ -22,5 +22,8 @@ def longestChain(words):
     return gmax
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""w""o""r""d""s"" ""="" ""[
+if __name__ == "__main__":
+    words = ["a", "b", "ba", "bca", "bda", "bdca"]
+    assert longestChain(words) == 4
+
+

@@ -9,25 +9,25 @@ class Interval(object):
         self.end = e
 
     def __str__(self):
-        return "["%"d"," "%"d"]"" ""%"" ""(""s""e""l""f"".""s""t""a""r""t"","" ""s""e""l""f"".""e""n""d"")""
-""
-"" "" "" "" ""d""e""f"" ""_""_""r""e""p""r""_""_""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""r""e""p""r""(""s""e""l""f"".""_""_""s""t""r""_""_""("")"")""
-""
-""
-""c""l""a""s""s"" ""S""o""l""u""t""i""o""n""(""o""b""j""e""c""t"")"":""
-"" "" "" "" ""d""e""f"" ""i""n""s""e""r""t""(""s""e""l""f"","" ""i""t""v""l""s"","" ""n""e""w""I""t""v""l"")"":""
-"" "" "" "" "" "" "" "" ""s"","" ""e"" ""="" ""n""e""w""I""t""v""l"".""s""t""a""r""t"","" ""n""e""w""I""t""v""l"".""e""n""d""
-"" "" "" "" "" "" "" "" ""l""e""f""t"" ""="" ""f""i""l""t""e""r""(""l""a""m""b""d""a"" ""x"":"" ""x"".""e""n""d"" ""<"" ""s"","" ""i""t""v""l""s"")""
-"" "" "" "" "" "" "" "" ""r""i""g""h""t"" ""="" ""f""i""l""t""e""r""(""l""a""m""b""d""a"" ""x"":"" ""x"".""s""t""a""r""t"" "">"" ""e"","" ""i""t""v""l""s"")""
-"" "" "" "" "" "" "" "" ""i""f"" ""l""e""n""(""l""e""f""t"")""+""l""e""n""(""r""i""g""h""t"")"" ""!""="" ""l""e""n""(""i""t""v""l""s"")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""s"" ""="" ""m""i""n""(""s"","" ""i""t""v""l""s""[""l""e""n""(""l""e""f""t"")""]"".""s""t""a""r""t"")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""e"" ""="" ""m""a""x""(""e"","" ""i""t""v""l""s""[""-""l""e""n""(""r""i""g""h""t"")""-""1""]"".""e""n""d"")""
-""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""l""e""f""t"" ""+"" ""[""I""n""t""e""r""v""a""l""(""s"","" ""e"")""]"" ""+"" ""r""i""g""h""t""
-""
-"" "" "" "" ""d""e""f"" ""i""n""s""e""r""t""_""i""t""r""(""s""e""l""f"","" ""i""t""v""l""s"","" ""n""e""w""I""t""v""l"")"":""
-"" "" "" "" "" "" "" "" 
+        return "[%d, %d]" % (self.start, self.end)
+
+    def __repr__(self):
+        return repr(self.__str__())
+
+
+class Solution(object):
+    def insert(self, itvls, newItvl):
+        s, e = newItvl.start, newItvl.end
+        left = filter(lambda x: x.end < s, itvls)
+        right = filter(lambda x: x.start > e, itvls)
+        if len(left)+len(right) != len(itvls):
+            s = min(s, itvls[len(left)].start)
+            e = max(e, itvls[-len(right)-1].end)
+
+        return left + [Interval(s, e)] + right
+
+    def insert_itr(self, itvls, newItvl):
+        
 
 
 class SolutionSlow(object):
@@ -50,10 +50,10 @@ class SolutionSlow(object):
         return ret
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""l""s""t"" ""="" ""[""[""1"","" ""2""]"","" ""[""3"","" ""5""]"","" ""[""6"","" ""7""]"","" ""[""8"","" ""1""0""]"","" ""[""1""2"","" ""1""6""]""]""
-"" "" "" "" ""i""n""s""e""r""t"" ""="" ""[""4"","" ""9""]""
-"" "" "" "" ""l""s""t""_""i""n""t""e""r""v""a""l"" ""="" ""[""]""
-"" "" "" "" ""f""o""r"" ""i""t""e""m"" ""i""n"" ""l""s""t"":""
-"" "" "" "" "" "" "" "" ""l""s""t""_""i""n""t""e""r""v""a""l"".""a""p""p""e""n""d""(""I""n""t""e""r""v""a""l""(""i""t""e""m""[""0""]"","" ""i""t""e""m""[""1""]"")"")""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""i""n""s""e""r""t""(""l""s""t""_""i""n""t""e""r""v""a""l"","" ""I""n""t""e""r""v""a""l""(""i""n""s""e""r""t""[""0""]"","" ""i""n""s""e""r""t""[""1""]"")"")""
+if __name__ == "__main__":
+    lst = [[1, 2], [3, 5], [6, 7], [8, 10], [12, 16]]
+    insert = [4, 9]
+    lst_interval = []
+    for item in lst:
+        lst_interval.append(Interval(item[0], item[1]))
+    print Solution().insert(lst_interval, Interval(insert[0], insert[1]))

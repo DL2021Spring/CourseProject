@@ -38,4 +38,4 @@ class GB2312Prober(MultiByteCharSetProber):
         self.reset()
 
     def get_charset_name(self):
-        return "G"B"2"3"1"2""
+        return "GB2312"

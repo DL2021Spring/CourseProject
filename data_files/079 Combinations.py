@@ -23,5 +23,5 @@ class Solution:
             
 
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""c""o""m""b""i""n""e""(""4"","" ""2"")
+if __name__=="__main__":
+    print Solution().combine(4, 2)

@@ -35,8 +35,9 @@ class Solution(object):
 
         if min_win[1] == sys.maxint:
             return ""
-"" "" "" "" "" "" "" "" ""e""l""s""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""S""[""m""i""n""_""w""i""n""[""0""]"":""m""i""n""_""w""i""n""[""1""]""]""
-""
-""
-""i""f"" ""_""_""n""a""m""e""_""_"" ""=""="" 
+        else:
+            return S[min_win[0]:min_win[1]]
+
+
+if __name__ == "__main__":
+    assert Solution().minWindow("ADOBECODEBANC", "ABC") == "BANC

@@ -21,5 +21,5 @@ class Solution:
 
 
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""c""o""m""b""i""n""a""t""i""o""n""S""u""m""(""[""2"",""3"",""6"",""7""]"","" ""7"")
+if __name__=="__main__":
+    print Solution().combinationSum([2,3,6,7], 7)

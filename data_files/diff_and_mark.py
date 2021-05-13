@@ -83,139 +83,458 @@ class AnnotationDiff:
                 target,
                 self.result.get_new_id('#'),
                 type,
-                "\"t"" ""+"" ""r""e""a""s""o""n"")""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""r""e""s""u""l""t"".""a""d""d""_""a""n""n""o""t""a""t""i""o""n""(""c""o""m""m""e""n""t"")""
-""
-"" "" "" "" ""d""e""f"" ""a""d""d""_""m""i""s""s""i""n""g""(""s""e""l""f"","" ""t""a""r""g""e""t"","" ""r""e""a""s""o""n"")"":""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""a""d""d""_""m""a""r""k""(""'""M""i""s""s""i""n""g""A""n""n""o""t""a""t""i""o""n""'"","" ""t""a""r""g""e""t"","" ""r""e""a""s""o""n"")""
-""
-"" "" "" "" ""d""e""f"" ""a""d""d""_""a""d""d""e""d""(""s""e""l""f"","" ""t""a""r""g""e""t"","" ""r""e""a""s""o""n"")"":""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""a""d""d""_""m""a""r""k""(""'""A""d""d""e""d""A""n""n""o""t""a""t""i""o""n""'"","" ""t""a""r""g""e""t"","" ""r""e""a""s""o""n"")""
-""
-"" "" "" "" ""d""e""f"" ""a""d""d""_""c""h""a""n""g""e""d""(""s""e""l""f"","" ""t""a""r""g""e""t"","" ""r""e""a""s""o""n"")"":""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""a""d""d""_""m""a""r""k""(""'""C""h""a""n""g""e""d""A""n""n""o""t""a""t""i""o""n""'"","" ""t""a""r""g""e""t"","" ""r""e""a""s""o""n"")""
-"" "" "" "" ""#"" ""}""}""}""
-""
-""
-"" "" "" "" ""#"" ""E""n""t""i""t""i""e""s"" ""{""{""{""
-"" "" "" "" ""d""e""f"" ""f""i""n""d""_""e""n""t""i""t""y""(""s""e""l""f"","" ""h""a""y""s""t""a""c""k"","" ""n""e""e""d""l""e"")"":""
-"" "" "" "" "" "" "" "" ""f""o""r"" ""e""n""t""i""t""y"" ""i""n"" ""h""a""y""s""t""a""c""k"".""g""e""t""_""e""n""t""i""t""i""e""s""("")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""e""n""t""i""t""y"".""s""a""m""e""_""s""p""a""n""(""n""e""e""d""l""e"")"" ""a""n""d"" ""e""n""t""i""t""y"".""t""y""p""e"" ""=""="" ""n""e""e""d""l""e"".""t""y""p""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""e""n""t""i""t""y""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""N""o""n""e""
-""
-"" "" "" "" ""d""e""f"" ""d""i""f""f""_""e""n""t""i""t""i""e""s""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" ""f""o""u""n""d""_""f""i""r""s""t""_""i""d""s"" ""="" ""s""e""t""("")""
-""
-"" "" "" "" "" "" "" "" ""f""o""r"" ""e""n""t""i""t""y"" ""i""n"" ""s""e""l""f"".""s""e""c""o""n""d"".""g""e""t""_""e""n""t""i""t""i""e""s""("")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""f""o""u""n""d""_""f""i""r""s""t"" ""="" ""s""e""l""f"".""f""i""n""d""_""e""n""t""i""t""y""(""s""e""l""f"".""f""i""r""s""t"","" ""e""n""t""i""t""y"")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""f""o""u""n""d""_""f""i""r""s""t"" ""i""s"" ""N""o""n""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""a""d""d""_""a""d""d""e""d""(""e""n""t""i""t""y"".""i""d"","" ""'""A""d""d""e""d"" ""e""n""t""i""t""y""'"")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""e""l""s""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""f""o""u""n""d""_""f""i""r""s""t""_""i""d""s"".""a""d""d""(""f""o""u""n""d""_""f""i""r""s""t"".""i""d"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""m""a""p""p""i""n""g"".""a""d""d""(""f""o""u""n""d""_""f""i""r""s""t"".""i""d"","" ""e""n""t""i""t""y"".""i""d"")""
-"" "" "" "" "" "" "" "" ""i""m""p""o""r""t"" ""c""o""p""y""
-"" "" "" "" "" "" "" "" ""f""o""r"" ""e""n""t""i""t""y"" ""i""n"" ""s""e""l""f"".""f""i""r""s""t"".""g""e""t""_""e""n""t""i""t""i""e""s""("")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""n""o""t"" ""e""n""t""i""t""y"".""i""d"" ""i""n"" ""f""o""u""n""d""_""f""i""r""s""t""_""i""d""s"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""c""l""o""n""e"" ""="" ""c""o""p""y"".""c""o""p""y""(""e""n""t""i""t""y"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""c""l""o""n""e"".""i""d"" ""="" ""s""e""l""f"".""r""e""s""u""l""t"".""g""e""t""_""n""e""w""_""i""d""(""'""T""'"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""r""e""s""u""l""t"".""a""d""d""_""a""n""n""o""t""a""t""i""o""n""(""c""l""o""n""e"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""m""a""p""p""i""n""g"".""a""d""d""(""e""n""t""i""t""y"".""i""d"","" ""c""l""o""n""e"".""i""d"","" ""T""r""u""e"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""a""d""d""_""m""i""s""s""i""n""g""(""c""l""o""n""e"".""i""d"","" ""'""M""i""s""s""i""n""g"" ""e""n""t""i""t""y""'"")""
-"" "" "" "" ""#"" ""}""}""}""
-""
-""
-"" "" "" "" ""#"" ""T""r""i""g""g""e""r""s"" ""{""{""{""
-"" "" "" "" ""d""e""f"" ""f""i""n""d""_""t""r""i""g""g""e""r""(""s""e""l""f"","" ""h""a""y""s""t""a""c""k"","" ""n""e""e""d""l""e"")"":""
-"" "" "" "" "" "" "" "" ""f""o""r"" ""t""r""i""g""g""e""r"" ""i""n"" ""h""a""y""s""t""a""c""k"".""g""e""t""_""t""r""i""g""g""e""r""s""("")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""t""r""i""g""g""e""r"".""s""a""m""e""_""s""p""a""n""(""n""e""e""d""l""e"")"" ""a""n""d"" ""t""r""i""g""g""e""r"".""t""y""p""e"" ""=""="" ""n""e""e""d""l""e"".""t""y""p""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""t""r""i""g""g""e""r""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""N""o""n""e""
-""
-"" "" "" "" ""d""e""f"" ""d""i""f""f""_""t""r""i""g""g""e""r""s""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" ""f""o""u""n""d""_""f""i""r""s""t""_""i""d""s"" ""="" ""s""e""t""("")""
-""
-"" "" "" "" "" "" "" "" ""f""o""r"" ""t""r""i""g""g""e""r"" ""i""n"" ""s""e""l""f"".""s""e""c""o""n""d"".""g""e""t""_""t""r""i""g""g""e""r""s""("")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""f""o""u""n""d""_""f""i""r""s""t"" ""="" ""s""e""l""f"".""f""i""n""d""_""t""r""i""g""g""e""r""(""s""e""l""f"".""f""i""r""s""t"","" ""t""r""i""g""g""e""r"")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""f""o""u""n""d""_""f""i""r""s""t"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""f""o""u""n""d""_""f""i""r""s""t""_""i""d""s"".""a""d""d""(""f""o""u""n""d""_""f""i""r""s""t"".""i""d"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""m""a""p""p""i""n""g"".""a""d""d""(""f""o""u""n""d""_""f""i""r""s""t"".""i""d"","" ""t""r""i""g""g""e""r"".""i""d"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""#"" ""n""o"" ""`""e""l""s""e""`"";"" ""t""h""e"" ""c""o""m""m""e""n""t""s"" ""a""r""e"" ""h""a""n""d""l""e""d"" ""b""y"" ""d""i""f""f""_""e""v""e""n""t""s""("")"";""
-"" "" "" "" "" "" "" "" ""i""m""p""o""r""t"" ""c""o""p""y""
-"" "" "" "" "" "" "" "" ""f""o""r"" ""t""r""i""g""g""e""r"" ""i""n"" ""s""e""l""f"".""f""i""r""s""t"".""g""e""t""_""t""r""i""g""g""e""r""s""("")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""n""o""t"" ""t""r""i""g""g""e""r"".""i""d"" ""i""n"" ""f""o""u""n""d""_""f""i""r""s""t""_""i""d""s"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""c""l""o""n""e"" ""="" ""c""o""p""y"".""c""o""p""y""(""t""r""i""g""g""e""r"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""c""l""o""n""e"".""i""d"" ""="" ""s""e""l""f"".""r""e""s""u""l""t"".""g""e""t""_""n""e""w""_""i""d""(""'""T""'"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""r""e""s""u""l""t"".""a""d""d""_""a""n""n""o""t""a""t""i""o""n""(""c""l""o""n""e"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""m""a""p""p""i""n""g"".""a""d""d""(""t""r""i""g""g""e""r"".""i""d"","" ""c""l""o""n""e"".""i""d"","" ""T""r""u""e"")""
-"" "" "" "" ""#"" ""}""}""}""
-"" "" "" "" ""
-""
-"" "" "" "" ""#"" ""E""v""e""n""t""s"" ""{""{""{""
-"" "" "" "" ""#""
-"" "" "" "" ""#"" ""E""v""e""n""t""s"" ""a""r""e"" ""a"" ""p""r""o""b""l""e""m"","" ""s""i""n""c""e"" ""t""h""e""r""e"" ""c""a""n"" ""b""e"" ""m""u""l""t""i""p""l""e"" ""e""v""e""n""t""s"" ""f""o""r"" ""t""h""e""
-"" "" "" "" ""#"" ""s""a""m""e"" ""t""r""i""g""g""e""r"" ""w""h""i""c""h"" ""a""r""e"" ""o""n""l""y"" ""d""i""s""t""i""n""g""u""i""s""h""e""d"" ""b""y"" ""t""h""e""i""r"" ""a""r""g""u""m""e""n""t""s"".""
-"" "" "" "" ""#"" ""A""n"" ""a""d""d""i""t""i""o""n""a""l"" ""p""r""o""b""l""e""m"" ""i""s"" ""t""h""a""t"" ""a""r""g""u""m""e""n""t""s"" ""c""a""n"" ""a""l""s""o"" ""b""e"" ""e""v""e""n""t""s"","" ""s""o"" ""w""e""
-"" "" "" "" ""#"" ""d""o""n""'""t"" ""n""e""c""e""s""s""a""r""i""l""y"" ""k""n""o""w"" ""t""h""e"" ""m""a""p""p""i""n""g"" ""o""f"" ""t""h""e"" ""a""r""g""u""m""e""n""t""s"".""
-"" "" "" "" ""#"" ""T""h""u""s"","" ""w""h""e""n"" ""c""o""m""p""a""r""i""n""g"" ""e""v""e""n""t""s""-""a""s""-""a""r""g""u""m""e""n""t""s"","" ""w""e"" ""c""o""m""p""a""r""e"" ""o""n""l""y"" ""t""h""e""i""r""
-"" "" "" "" ""#"" ""t""r""i""g""g""e""r""s"".""
-"" "" "" "" ""d""e""f"" ""t""r""i""g""g""e""r""_""o""r""_""s""e""l""f""(""s""e""l""f"","" ""t""a""r""g""e""t"","" ""t""r""i""g""g""e""r""s"")"":""
-"" "" "" "" "" "" "" "" ""t""r""y"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""t""r""i""g""g""e""r""s""[""t""a""r""g""e""t""]""
-"" "" "" "" "" "" "" "" ""e""x""c""e""p""t"" ""K""e""y""E""r""r""o""r"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""t""a""r""g""e""t""
-""
-"" "" "" "" ""d""e""f"" ""f""i""n""d""_""c""l""o""s""e""s""t""_""e""v""e""n""t""s""(""s""e""l""f"","" ""s""e""c""o""n""d""_""e""v""e""n""t"","" ""f""o""u""n""d""_""e""v""e""n""t""s""_""d""i""c""t"","" ""f""i""r""s""t""_""t""r""i""g""g""e""r""s"","" ""s""e""c""o""n""d""_""t""r""i""g""g""e""r""s"")"":""
-"" "" "" "" "" "" "" "" ""s""e""c""o""n""d""_""a""r""g""s"" ""="" ""d""i""c""t""(""(""r""o""l""e"","" ""s""e""l""f"".""t""r""i""g""g""e""r""_""o""r""_""s""e""l""f""(""t""a""r""g""e""t"","" ""s""e""c""o""n""d""_""t""r""i""g""g""e""r""s"")"")"" ""f""o""r"" ""(""r""o""l""e"","" ""t""a""r""g""e""t"")"" ""i""n"" ""s""e""c""o""n""d""_""e""v""e""n""t"".""a""r""g""s"")""
-"" "" "" "" "" "" "" "" ""s""e""c""o""n""d""_""r""o""l""e""s"" ""="" ""s""e""t""(""s""e""c""o""n""d""_""a""r""g""s"".""k""e""y""s""("")"")""
-""
-"" "" "" "" "" "" "" "" ""f""o""r"" ""f""i""r""s""t""_""e""v""e""n""t"" ""i""n"" ""s""e""l""f"".""f""i""r""s""t"".""g""e""t""_""e""v""e""n""t""s""("")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""s""e""l""f"".""m""a""p""p""i""n""g"".""g""e""t""_""s""e""c""o""n""d""(""f""i""r""s""t""_""e""v""e""n""t"".""t""r""i""g""g""e""r"")"" ""=""="" ""s""e""c""o""n""d""_""e""v""e""n""t"".""t""r""i""g""g""e""r"" ""a""n""d"" ""f""i""r""s""t""_""e""v""e""n""t"".""t""y""p""e"" ""=""="" ""s""e""c""o""n""d""_""e""v""e""n""t"".""t""y""p""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""f""i""r""s""t""_""a""r""g""s"" ""="" ""d""i""c""t""(""(""r""o""l""e"","" ""s""e""l""f"".""m""a""p""p""i""n""g"".""g""e""t""_""s""e""c""o""n""d""(""s""e""l""f"".""t""r""i""g""g""e""r""_""o""r""_""s""e""l""f""(""t""a""r""g""e""t"","" ""f""i""r""s""t""_""t""r""i""g""g""e""r""s"")"")"")"" ""f""o""r"" ""(""r""o""l""e"","" ""t""a""r""g""e""t"")"" ""i""n"" ""f""i""r""s""t""_""e""v""e""n""t"".""a""r""g""s"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""f""i""r""s""t""_""r""o""l""e""s"" ""="" ""s""e""t""(""f""i""r""s""t""_""a""r""g""s"".""k""e""y""s""("")"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""o""n""l""y""_""f""i""r""s""t"" ""="" ""s""e""t""(""r""o""l""e"" ""f""o""r"" ""r""o""l""e"" ""i""n"" ""f""i""r""s""t""_""r""o""l""e""s"" ""i""f"" ""f""i""r""s""t""_""a""r""g""s"".""g""e""t""(""r""o""l""e"")"" ""!""="" ""s""e""c""o""n""d""_""a""r""g""s"".""g""e""t""(""r""o""l""e"")"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""o""n""l""y""_""s""e""c""o""n""d"" ""="" ""s""e""t""(""r""o""l""e"" ""f""o""r"" ""r""o""l""e"" ""i""n"" ""s""e""c""o""n""d""_""r""o""l""e""s"" ""i""f"" ""f""i""r""s""t""_""a""r""g""s"".""g""e""t""(""r""o""l""e"")"" ""!""="" ""s""e""c""o""n""d""_""a""r""g""s"".""g""e""t""(""r""o""l""e"")"")""
-""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""m""a""t""c""h"" ""="" ""(""f""i""r""s""t""_""e""v""e""n""t"".""i""d"","" ""f""i""r""s""t""_""a""r""g""s"","" ""s""e""c""o""n""d""_""a""r""g""s"","" ""o""n""l""y""_""f""i""r""s""t"","" ""o""n""l""y""_""s""e""c""o""n""d"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""c""o""r""e"" ""="" ""l""e""n""(""o""n""l""y""_""f""i""r""s""t"")"" ""+"" ""l""e""n""(""o""n""l""y""_""s""e""c""o""n""d"")""
-""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""#"" ""X""X""X"" ""t""h""i""s"" ""i""s"" ""h""o""r""r""i""b""l""e"";"" ""w""h""a""t""'""s"" ""m""o""r""e"" ""P""y""t""h""o""n""i""c"" ""w""a""y""?""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""t""r""y"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""f""o""u""n""d""_""e""v""e""n""t""s""_""d""i""c""t""[""s""c""o""r""e""]""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""e""x""c""e""p""t"" ""K""e""y""E""r""r""o""r"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""f""o""u""n""d""_""e""v""e""n""t""s""_""d""i""c""t""[""s""c""o""r""e""]"" ""="" ""d""i""c""t""("")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""t""r""y"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""f""o""u""n""d""_""e""v""e""n""t""s""_""d""i""c""t""[""s""c""o""r""e""]""[""s""e""c""o""n""d""_""e""v""e""n""t"".""i""d""]""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""e""x""c""e""p""t"" ""K""e""y""E""r""r""o""r"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""f""o""u""n""d""_""e""v""e""n""t""s""_""d""i""c""t""[""s""c""o""r""e""]""[""s""e""c""o""n""d""_""e""v""e""n""t"".""i""d""]"" ""="" ""[""]""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""f""o""u""n""d""_""e""v""e""n""t""s""_""d""i""c""t""[""s""c""o""r""e""]""[""s""e""c""o""n""d""_""e""v""e""n""t"".""i""d""]"".""a""p""p""e""n""d""(""m""a""t""c""h"")""
-""
-"" "" "" "" ""d""e""f"" ""d""i""f""f""_""e""v""e""n""t""s""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" ""s""e""c""o""n""d""_""t""r""i""g""g""e""r""s"" ""="" ""d""i""c""t""(""(""e""v""e""n""t"".""i""d"","" ""e""v""e""n""t"".""t""r""i""g""g""e""r"")"" ""f""o""r"" ""e""v""e""n""t"" ""i""n"" ""s""e""l""f"".""s""e""c""o""n""d"".""g""e""t""_""e""v""e""n""t""s""("")"")""
-"" "" "" "" "" "" "" "" ""f""i""r""s""t""_""t""r""i""g""g""e""r""s"" ""="" ""d""i""c""t""(""(""e""v""e""n""t"".""i""d"","" ""e""v""e""n""t"".""t""r""i""g""g""e""r"")"" ""f""o""r"" ""e""v""e""n""t"" ""i""n"" ""s""e""l""f"".""f""i""r""s""t"".""g""e""t""_""e""v""e""n""t""s""("")"")""
-""
-"" "" "" "" "" "" "" "" ""f""o""u""n""d""_""f""i""r""s""t""_""i""d""s"" ""="" ""s""e""t""("")""
-"" "" "" "" "" "" "" "" ""f""o""u""n""d""_""s""e""c""o""n""d""_""i""d""s"" ""="" ""s""e""t""("")""
-""
-"" "" "" "" "" "" "" "" ""f""o""u""n""d""_""e""v""e""n""t""s""_""d""i""c""t"" ""="" ""d""i""c""t""("")""
-""
-"" "" "" "" "" "" "" "" ""#"" ""f""i""r""s""t"" ""p""a""s""s"","" ""c""o""l""l""e""c""t"" ""e""x""a""c""t"" ""m""a""t""c""h""e""s""
-"" "" "" "" "" "" "" "" ""f""o""r"" ""e""v""e""n""t"" ""i""n"" ""s""e""l""f"".""s""e""c""o""n""d"".""g""e""t""_""e""v""e""n""t""s""("")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""f""i""n""d""_""c""l""o""s""e""s""t""_""e""v""e""n""t""s""(""e""v""e""n""t"","" ""f""o""u""n""d""_""e""v""e""n""t""s""_""d""i""c""t"","" ""f""i""r""s""t""_""t""r""i""g""g""e""r""s"","" ""s""e""c""o""n""d""_""t""r""i""g""g""e""r""s"")""
-""
-"" "" "" "" "" "" "" "" ""#"" ""X""X""X"" ""P""y""t""h""o""n""i""z""e""
-"" "" "" "" "" "" "" "" ""f""o""r"" ""s""c""o""r""e"" ""i""n"" ""s""o""r""t""e""d""(""f""o""u""n""d""_""e""v""e""n""t""s""_""d""i""c""t"".""k""e""y""s""("")"")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""f""o""r"" ""s""e""c""o""n""d""_""e""v""e""n""t""_""i""d"" ""i""n"" ""f""o""u""n""d""_""e""v""e""n""t""s""_""d""i""c""t""[""s""c""o""r""e""]"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""n""o""t"" ""s""e""c""o""n""d""_""e""v""e""n""t""_""i""d"" ""i""n"" ""f""o""u""n""d""_""s""e""c""o""n""d""_""i""d""s"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""f""o""r"" ""m""a""t""c""h"" ""i""n"" ""f""o""u""n""d""_""e""v""e""n""t""s""_""d""i""c""t""[""s""c""o""r""e""]""[""s""e""c""o""n""d""_""e""v""e""n""t""_""i""d""]"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""f""i""r""s""t""_""e""v""e""n""t""_""i""d"","" ""f""i""r""s""t""_""a""r""g""s"","" ""s""e""c""o""n""d""_""a""r""g""s"","" ""o""n""l""y""_""f""i""r""s""t"","" ""o""n""l""y""_""s""e""c""o""n""d"" ""="" ""m""a""t""c""h""
-""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""n""o""t"" ""f""i""r""s""t""_""e""v""e""n""t""_""i""d"" ""i""n"" ""f""o""u""n""d""_""f""i""r""s""t""_""i""d""s"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""f""o""u""n""d""_""f""i""r""s""t""_""i""d""s"".""a""d""d""(""f""i""r""s""t""_""e""v""e""n""t""_""i""d"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""f""o""u""n""d""_""s""e""c""o""n""d""_""i""d""s"".""a""d""d""(""s""e""c""o""n""d""_""e""v""e""n""t""_""i""d"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""m""a""p""p""i""n""g"".""a""d""d""(""f""i""r""s""t""_""e""v""e""n""t""_""i""d"","" ""s""e""c""o""n""d""_""e""v""e""n""t""_""i""d"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""f""o""r"" ""r""o""l""e"" ""i""n"" ""o""n""l""y""_""f""i""r""s""t"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""f""i""r""s""t""_""t""e""x""t"" ""="" ""s""e""l""f"".""f""i""r""s""t""_""t""e""x""t""b""o""u""n""d""s""[""s""e""l""f"".""m""a""p""p""i""n""g"".""g""e""t""_""f""i""r""s""t""(""f""i""r""s""t""_""a""r""g""s""[""r""o""l""e""]"")""]"".""g""e""t""_""t""e""x""t""("")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""r""o""l""e"" ""i""n"" ""o""n""l""y""_""s""e""c""o""n""d"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""a""d""d""_""c""h""a""n""g""e""d""(""s""e""c""o""n""d""_""e""v""e""n""t""_""i""d"","" ""'""C""h""a""n""g""e""d"" ""r""o""l""e"" ""%""s"" ""(""f""r""o""m"" ""%""s"" 
+                "\t" + reason)
+        self.result.add_annotation(comment)
+
+    def add_missing(self, target, reason):
+        self.add_mark('MissingAnnotation', target, reason)
+
+    def add_added(self, target, reason):
+        self.add_mark('AddedAnnotation', target, reason)
+
+    def add_changed(self, target, reason):
+        self.add_mark('ChangedAnnotation', target, reason)
+    
+
+
+    
+    def find_entity(self, haystack, needle):
+        for entity in haystack.get_entities():
+            if entity.same_span(needle) and entity.type == needle.type:
+                return entity
+        return None
+
+    def diff_entities(self):
+        found_first_ids = set()
+
+        for entity in self.second.get_entities():
+            found_first = self.find_entity(self.first, entity)
+            if found_first is None:
+                self.add_added(entity.id, 'Added entity')
+            else:
+                found_first_ids.add(found_first.id)
+                self.mapping.add(found_first.id, entity.id)
+        import copy
+        for entity in self.first.get_entities():
+            if not entity.id in found_first_ids:
+                clone = copy.copy(entity)
+                clone.id = self.result.get_new_id('T')
+                self.result.add_annotation(clone)
+                self.mapping.add(entity.id, clone.id, True)
+                self.add_missing(clone.id, 'Missing entity')
+    
+
+
+    
+    def find_trigger(self, haystack, needle):
+        for trigger in haystack.get_triggers():
+            if trigger.same_span(needle) and trigger.type == needle.type:
+                return trigger
+        return None
+
+    def diff_triggers(self):
+        found_first_ids = set()
+
+        for trigger in self.second.get_triggers():
+            found_first = self.find_trigger(self.first, trigger)
+            if found_first:
+                found_first_ids.add(found_first.id)
+                self.mapping.add(found_first.id, trigger.id)
+                
+        import copy
+        for trigger in self.first.get_triggers():
+            if not trigger.id in found_first_ids:
+                clone = copy.copy(trigger)
+                clone.id = self.result.get_new_id('T')
+                self.result.add_annotation(clone)
+                self.mapping.add(trigger.id, clone.id, True)
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    def trigger_or_self(self, target, triggers):
+        try:
+            return triggers[target]
+        except KeyError:
+            return target
+
+    def find_closest_events(self, second_event, found_events_dict, first_triggers, second_triggers):
+        second_args = dict((role, self.trigger_or_self(target, second_triggers)) for (role, target) in second_event.args)
+        second_roles = set(second_args.keys())
+
+        for first_event in self.first.get_events():
+            if self.mapping.get_second(first_event.trigger) == second_event.trigger and first_event.type == second_event.type:
+                first_args = dict((role, self.mapping.get_second(self.trigger_or_self(target, first_triggers))) for (role, target) in first_event.args)
+                first_roles = set(first_args.keys())
+                
+                only_first = set(role for role in first_roles if first_args.get(role) != second_args.get(role))
+                only_second = set(role for role in second_roles if first_args.get(role) != second_args.get(role))
+
+                match = (first_event.id, first_args, second_args, only_first, only_second)
+                score = len(only_first) + len(only_second)
+
+                
+                try:
+                    found_events_dict[score]
+                except KeyError:
+                    found_events_dict[score] = dict()
+                try:
+                    found_events_dict[score][second_event.id]
+                except KeyError:
+                    found_events_dict[score][second_event.id] = []
+                found_events_dict[score][second_event.id].append(match)
+
+    def diff_events(self):
+        second_triggers = dict((event.id, event.trigger) for event in self.second.get_events())
+        first_triggers = dict((event.id, event.trigger) for event in self.first.get_events())
+
+        found_first_ids = set()
+        found_second_ids = set()
+
+        found_events_dict = dict()
+
+        
+        for event in self.second.get_events():
+            self.find_closest_events(event, found_events_dict, first_triggers, second_triggers)
+
+        
+        for score in sorted(found_events_dict.keys()):
+            for second_event_id in found_events_dict[score]:
+                if not second_event_id in found_second_ids:
+                    for match in found_events_dict[score][second_event_id]:
+                        first_event_id, first_args, second_args, only_first, only_second = match
+
+                        if not first_event_id in found_first_ids:
+                            found_first_ids.add(first_event_id)
+                            found_second_ids.add(second_event_id)
+                            self.mapping.add(first_event_id, second_event_id)
+                            for role in only_first:
+                                first_text = self.first_textbounds[self.mapping.get_first(first_args[role])].get_text()
+                                if role in only_second:
+                                    self.add_changed(second_event_id, 'Changed role %s (from %s "%s")' % (role, first_args[role], first_text))
+                                else:
+                                    self.add_changed(second_event_id, 'Missing role %s (%s "%s")' % (role, first_args[role], first_text))
+                            for role in only_second - only_first:
+                                self.add_changed(second_event_id, 'Added role %s' % role)
+
+        for event in self.second.get_events():
+            if not event.id in found_second_ids:
+                self.add_added(event.id, 'Added event')
+
+        for event in self.first.get_events():
+            if not event.id in found_first_ids:
+                import copy
+                clone = copy.copy(event)
+                clone.id = self.result.get_new_id('E')
+                clone.trigger = self.mapping.get_second(event.trigger)
+                clone.args = [(role, self.mapping.get_second(trigger)) for (role, trigger) in clone.args]
+                self.result.add_annotation(clone)
+                self.mapping.add(event.id, clone.id, True)
+                self.add_missing(clone.id, 'Missing event')
+    
+    
+
+    
+    def find_attribute(self, haystack, needle, target):
+        for attribute in haystack.get_attributes():
+            if attribute.target == target and attribute.type == needle.type:
+                return attribute
+        return None
+
+    def has_attribute(self, haystack, needle, target):
+        return (self.find_attribute(haystack, needle, target) is not None)
+
+    def diff_attributes(self):
+        for attribute in self.second.get_attributes():
+            target_in_first = self.mapping.get_first(attribute.target)
+            found_first = self.find_attribute(self.first, attribute, target_in_first)
+            if found_first is None:
+                if target_in_first:
+                    self.add_changed(attribute.target, 'Added attribute %s' % attribute.type)
+            elif found_first.value != attribute.value:
+                self.add_changed(attribute.target, 'Changed attribute %s (from %s)' % (attribute.type, found_first.value))
+        for attribute in self.first.get_attributes():
+            target_in_second = self.mapping.get_second(attribute.target)
+            if self.mapping.is_only_in_first(attribute.target):
+                
+                
+                
+                import copy
+                clone = copy.copy(attribute)
+                clone.id = self.result.get_new_id('A')
+                clone.target = target_in_second
+                self.result.add_annotation(clone)
+            else:
+                if not self.has_attribute(self.second, attribute, target_in_second) and target_in_second:
+                    self.add_changed(attribute.target, 'Missing attribute %s (%s)' % (attribute.type, attribute.value))
+    
+    
+
+    
+    def has_oneline_comment(self, haystack, needle, target):
+        for oneline_comment in haystack.get_oneline_comments():
+            if oneline_comment.target == target and oneline_comment.get_text() == needle.get_text():
+                return True
+        return False
+
+    def diff_oneline_comments(self):
+        for oneline_comment in self.second.get_oneline_comments():
+            target_in_first = self.mapping.get_first(oneline_comment.target)
+            if not self.has_oneline_comment(self.first, oneline_comment, target_in_first):
+                self.add_changed(oneline_comment.target, 'Added %s: "%s"' % (oneline_comment.type, oneline_comment.get_text()))
+        for oneline_comment in self.first.get_oneline_comments():
+            target_in_second = self.mapping.get_second(oneline_comment.target)
+            if not self.has_oneline_comment(self.second, oneline_comment, target_in_second):
+                self.add_changed(target_in_second, 'Missing %s: "%s"' % (oneline_comment.type, oneline_comment.get_text()))
+    
+
+
+    
+    def diff_equivs(self):
+        
+        
+        
+        correspondence_map = dict()
+        second_equivs = [equiv.entities for equiv in self.second.get_equivs()]
+        for equiv_group, equiv in enumerate(second_equivs):
+            for entity in equiv:
+                correspondence_map[entity] = [None, equiv_group]
+        first_equivs = [equiv.entities for equiv in self.first.get_equivs()]
+        for equiv_group, equiv in enumerate(first_equivs):
+            for first_entity in equiv:
+                entity = self.mapping.get_second(first_entity)
+                if entity in correspondence_map:
+                    correspondence_map[entity][0] = equiv_group
+                else:
+                    correspondence_map[entity] = [equiv_group, None]
+
+        correspondence_hist = dict()
+        for entity in correspondence_map.keys():
+            key = "%s-%s" % tuple(correspondence_map[entity])
+            if key not in correspondence_hist:
+                correspondence_hist[key] = [1, correspondence_map[entity], [entity]]
+            else:
+                correspondence_hist[key][0] += 1
+                correspondence_hist[key][2].append(entity)
+
+        seen = []
+        import operator
+        sorted_hist = sorted(correspondence_hist.iteritems(), key=operator.itemgetter(1))
+        for key, equiv_item in sorted_hist:
+            count, correspondence_pair, entities = equiv_item
+            first_group, second_group = correspondence_pair
+            for entity in entities:
+                if first_group is None:
+                    self.add_changed(entity, 'Added to equiv')
+                elif second_group is None:
+                    rest = ["%s (%s)" % (self.mapping.get_second(other), self.first_textbounds[other].get_text()) for other in first_equivs[first_group] if other != entity]
+                    self.add_changed(entity, 'Missing from equiv with %s' % ', '.join(rest))
+                elif entity in seen:
+                    rest = ["%s (%s)" % (self.mapping.get_second(other), self.first_textbounds[other].get_text()) for other in first_equivs[first_group] if other != entity]
+                    self.add_changed(entity, 'Changed from equiv %s' % ', '.join(rest))
+                else:
+                    seen.append(entity)
+    
+    
+    
+    
+    def diff_relations(self):
+        first_relations = dict(((self.mapping.get_second(relation.arg1), self.mapping.get_second(relation.arg2), relation.type), relation.id) for relation in self.first.get_relations())
+        second_relations = dict(((relation.arg1, relation.arg2, relation.type), relation.id) for relation in self.second.get_relations())
+        first_relations_set = set(first_relations)
+        second_relations_set = set(second_relations)
+
+        for relation in second_relations_set - first_relations_set:
+            source, target, relation_type = relation
+            self.add_changed(source, 'Added relation %s to %s' % (relation_type, target))
+        for relation in first_relations_set - second_relations_set:
+            source, target, relation_type = relation
+            first_text = self.first_textbounds[self.mapping.get_first(target)].get_text()
+            self.add_changed(source, 'Missing relation %s to %s "%s"' % (relation_type, target, first_text))
+    
+    
+
+    
+    def has_normalization(self, haystack, needle, target):
+        for normalization in haystack.get_normalizations():
+            if normalization.target == target and normalization.refdb == needle.refdb and normalization.refid == needle.refid:
+                return True
+        return False
+
+    def diff_normalizations(self):
+        for normalization in self.second.get_normalizations():
+            target_in_first = self.mapping.get_first(normalization.target)
+            if not self.has_normalization(self.first, normalization, target_in_first):
+                self.add_changed(normalization.target, 'Added normalization %s:%s "%s"' % (normalization.refdb, normalization.refid, normalization.reftext))
+        for normalization in self.first.get_normalizations():
+            target_in_second = self.mapping.get_second(normalization.target)
+            if not self.has_normalization(self.second, normalization, target_in_second):
+                self.add_changed(target_in_second, 'Missing normalization %s:%s "%s"' % (normalization.refdb, normalization.refid, normalization.reftext))
+    
+
+
+
+
+KNOWN_FILE_SUFF = [annotation.TEXT_FILE_SUFFIX] + annotation.KNOWN_FILE_SUFF
+EXTENSIONS_RE = '\\.(%s)$' % '|'.join(KNOWN_FILE_SUFF)
+def name_without_extension(file_name):
+    import re
+    return re.sub(EXTENSIONS_RE, '', file_name)
+
+def copy_annotations(original_name, new_name):
+    import shutil
+    for extension in KNOWN_FILE_SUFF:
+        try:
+            shutil.copyfile('%s.%s' % (original_name, extension), '%s.%s' % (new_name, extension))
+        except IOError, e:
+            pass 
+    return annotation.TextAnnotations(new_name)
+
+def delete_annotations(name):
+    bare_name = name_without_extension(name)
+    for extension in KNOWN_FILE_SUFF:
+        try:
+            os.remove('%s.%s' % (name, extension))
+        except OSError, e:
+            pass 
+
+def diff_files(first_name, second_name, result_name):
+    first_bare = name_without_extension(first_name)
+    second_bare = name_without_extension(second_name)
+    result_bare = name_without_extension(result_name)
+
+    first = annotation.TextAnnotations(first_bare)
+    second = annotation.TextAnnotations(second_bare)
+    result = copy_annotations(second_bare, result_bare)
+
+    with result:
+        AnnotationDiff(first, second, result).diff()
+
+def is_dir(name):
+    import os.path
+    if os.path.exists(name):
+        return os.path.isdir(name)
+    else:
+        bare_name = name_without_extension(name)
+        for ext in annotation.KNOWN_FILE_SUFF:
+            if os.path.isfile('%s.%s' % (bare_name, ext)):
+                return False
+        return None
+
+def add_files(files, dir_or_file, errors):
+    import glob
+    import re
+    is_a_dir = is_dir(dir_or_file)
+
+    if is_a_dir is None:
+        errors.append('Error: no annotation files found in %s' % dir_or_file)
+    elif not is_a_dir:
+        files.append(dir_or_file)
+    else:
+        subfiles = glob.glob(os.path.join(dir_or_file, '*'))
+        matching_subfiles = [subfile for subfile in subfiles if re.search(EXTENSIONS_RE, subfile)]
+        bare_subfiles = set([name_without_extension(subfile) for subfile in matching_subfiles])
+        found = False
+        for subfile in bare_subfiles:
+            if is_dir(subfile) == False:
+                files.append(subfile)
+                found = True
+        if not found:
+            errors.append('Error: no annotation files found in %s' % dir_or_file)
+
+def diff_files_and_dirs(firsts, second, result, force=False, verbose=False):
+    import os.path
+    errors = []
+    fatal_errors = []
+    second_dir = is_dir(second)
+    result_dir = is_dir(result)
+    single_first = len(firsts) == 1 and is_dir(firsts[0]) == False
+
+    first_files = []
+    for first in firsts:
+        add_files(first_files, first, errors)
+
+    if first_files == []:
+        fatal_errors.append('Error: no annotation files found in %s' % ', '.join(firsts))
+    if second_dir is None:
+        fatal_errors.append('Error: no annotation files found in %s' % second)
+    if not single_first and len(first_files) > 1 and result_dir is False:
+        fatal_errors.append('Error: result of comparison of multiple files doesn\'t fit in %s' % result)
+    errors.extend(fatal_errors)
+
+    if fatal_errors == []:
+
+        if not single_first and second_dir and result_dir is None:
+            os.mkdir(result)
+            result_dir = True
+
+        for first_name in first_files:
+            basename = os.path.basename(first_name)
+
+            if verbose:
+                print "Comparing", basename
+
+            if second_dir:
+                second_name = os.path.join(second, basename)
+                if is_dir(second_name) != False:
+                    errors.append('Error: No annotation files found corresponding to %s' % second_name)
+                    continue
+            else:
+                second_name = second
+
+            result_name = os.path.join(result, basename) if result_dir else result
+            real_result_dir = is_dir(result_name)
+            if real_result_dir == True:
+                errors.append('Error: %s is a directory' % result_name)
+                continue
+
+            if real_result_dir == False:
+                if force:
+                    delete_annotations(result_name)
+                else:
+                    errors.append('Error: %s already exists (use --force to overwrite)' % result_name)
+                    continue
+
+            diff_files(first_name, second_name, result_name)
+
+    if errors != []:
+        sys.stderr.write("\n".join(errors) + "\n")
+        exit(1)
+
+
+
+
+
+
+
+
+
+def argparser():
+    import argparse
+
+    ap=argparse.ArgumentParser(description="Diff two annotation files, creating a diff annotation file")
+    ap.add_argument("-v", "--verbose", default=False, action="store_true", help="Verbose output.")
+    ap.add_argument("firsts", metavar="<first>", nargs="+", help="Original (or gold standard) directories/files")
+    ap.add_argument("second", metavar="<second>", help="Changed (or tested) directory/file")
+    ap.add_argument("result", metavar="<result>", help="Output file/directory")
+    ap.add_argument("-f", "--force", action="store_true", help="Force overwrite")
+    return ap
+
+def main(argv=None):
+    if argv is None:
+        argv = sys.argv
+    args = argparser().parse_args(argv[1:])
+
+    diff_files_and_dirs(args.firsts, args.second, args.result, args.force, args.verbose)
+
+if __name__ == "__main__":
+    import sys
+    sys.exit(main(sys.argv))
+

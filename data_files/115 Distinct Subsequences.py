@@ -21,5 +21,5 @@ class Solution:
 
         return dp[-1][-1]
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""n""u""m""D""i""s""t""i""n""c""t""(
+if __name__=="__main__":
+    assert Solution().numDistinct("rabbbit", "rabbit")==3

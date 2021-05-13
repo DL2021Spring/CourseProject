@@ -15,7 +15,9 @@ class Solution:
         for i in range(pointer, len(digits)):
             digits[i] = 9
 
-        return int("".""j""o""i""n""(""m""a""p""(""s""t""r"","" ""d""i""g""i""t""s"")"")"")""
-""
-""
-""i""f"" ""_""_""n""a""m""e""_""_"" ""=""="" 
+        return int("".join(map(str, digits)))
+
+
+if __name__ == "__main__":
+    assert Solution().monotoneIncreasingDigits(10) == 9
+    assert Solution().monotoneIncreasingDigits(332) == 299

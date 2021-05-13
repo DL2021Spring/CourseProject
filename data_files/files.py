@@ -5,10 +5,17 @@ class FileUtils(object):
     @classmethod
     def rename(cls):
         
-        find = r"."+"("?"P"<"t"i"m"e">"\"d"{"4"}"-"\"d"{"2"}"-"\"d"{"2"}"-"\"d"{"2"}"-"\"d"{"2"}"-"\"d"{"2"}"\"."p"n"g"$")""
-"" "" "" "" "" "" "" "" ""d""i""r"" ""="" ""o""s"".""p""a""t""h"".""d""i""r""n""a""m""e""(""o""s"".""p""a""t""h"".""r""e""a""l""p""a""t""h""(""_""_""f""i""l""e""_""_"")"")""
-"" "" "" "" "" "" "" "" ""f""o""r"" ""r"","" ""d""i""r""s"","" ""f""s"" ""i""n"" ""o""s"".""w""a""l""k""(""d""i""r"")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""f""o""r"" ""f"" ""i""n"" ""f""s"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""m"" ""="" ""r""e"".""s""e""a""r""c""h""(""f""i""n""d"","" ""f"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""m"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""f""1"" ""="" ""m"".""g""r""o""u""p""(
+        find = r".+(?P<time>\d{4}-\d{2}-\d{2}-\d{2}-\d{2}-\d{2}\.png$)"
+        dir = os.path.dirname(os.path.realpath(__file__))
+        for r, dirs, fs in os.walk(dir):
+            for f in fs:
+                m = re.search(find, f)
+                if m:
+                    f1 = m.group("time")
+                    os.rename(f, f1)
+                    print "%s -> %s" % (f, f1)
+
+class CmdUtils(object):
+    @classmethod
+    def execute(cls, cmd):
+        os.system(cmd)

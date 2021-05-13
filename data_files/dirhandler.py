@@ -43,7 +43,66 @@ class CVSHandler():
 class Git():
     @staticmethod
     def _get_root(directory):
-        return run_command("c"d" "%"s" "&"&" "g"i"t" "r"e"v"-"p"a"r"s"e" "-"-"s"h"o"w"-"t"o"p"l"e"v"e"l"" ""%"" ""d""i""r""e""c""t""o""r""y"")"".""s""t""r""i""p""("")""
-"" "" "" "" ""@""s""t""a""t""i""c""m""e""t""h""o""d""
-"" "" "" "" ""d""e""f"" ""_""g""e""t""_""t""r""a""c""k""e""d""_""f""i""l""e""s""(""d""i""r""e""c""t""o""r""y"")"":""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""r""u""n""_""c""o""m""m""a""n""d""( The default directory handler uses the 'find' external program to return all the files inside a given directory up to MAX_depth depth (ie, if maxdepth=2, returns all files inside that dir, and all files in a subdir of that directory) check first if the given directory is inside a git tracked project, if no, check with mercurial, if no, fallback to the default handler 
+        return run_command("cd %s && git rev-parse --show-toplevel" % directory).strip()
+    @staticmethod
+    def _get_tracked_files(directory):
+        return run_command("cd %s && git ls-files && git ls-files --others --exclude-standard" % directory).strip().split('\n')
+
+class Mercurial():
+    @staticmethod
+    def _get_root(directory):
+        return run_command("cd %s && hg root" % directory).strip()
+    @staticmethod
+    def _get_tracked_files(directory):
+        return run_command("cd %s && (hg status -marcu | cut -d' ' -f2)" % directory).strip().split('\n')
+
+class DefaultDirHandler():
+    
+
+    def __init__(self):
+        self._cache = {}
+        self.MAX_DEPTH = 3
+
+    def _walk_down(self, start_dir):
+        try:
+            out = run_command("find %s -maxdepth %s -type f -not -path '*/\.*'" % (start_dir, self.MAX_DEPTH))
+        except subprocess.CalledProcessError as e:
+            
+            
+            out = e.output
+            if sys.version_info >= (3, 0):
+                out = out.decode('utf-8')
+        if not out:
+            return []
+        files = out.split('\n')
+        return [os.path.relpath(f, start_dir) for f in files if f]
+
+    def get_source_files(self, start_dir):
+        if not start_dir in self._cache:
+            self._cache[start_dir] = self._walk_down(start_dir)
+        return self._cache[start_dir]
+
+def run_command(string):
+    
+    DEVNULL = open(os.devnull, 'wb')
+    out = subprocess.check_output(string, stderr=DEVNULL, shell=True)
+    if sys.version_info >= (3, 0):
+        return out.decode('utf-8')
+    return out
+
+
+git = CVSHandler(Git)
+hg = CVSHandler(Mercurial)
+default = DefaultDirHandler()
+
+def get_source_files(directory):
+    
+    files = git.get_source_files(directory)
+    
+    if files:
+        return files
+    files = hg.get_source_files(directory)
+    if files:
+        return files
+    return default.get_source_files(directory)
+

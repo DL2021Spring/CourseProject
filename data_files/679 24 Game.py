@@ -30,6 +30,6 @@ class Solution:
         return cache[tuple(A)]
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""j""u""d""g""e""P""o""i""n""t""2""4""(""[""4"","" ""1"","" ""8"","" ""7""]"")"" ""=""="" ""T""r""u""e""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""j""u""d""g""e""P""o""i""n""t""2""4""(""[""1"","" ""2"","" ""1"","" ""2""]"")"" ""=""="" ""F""a""l""s""e""
+if __name__ == "__main__":
+    assert Solution().judgePoint24([4, 1, 8, 7]) == True
+    assert Solution().judgePoint24([1, 2, 1, 2]) == False

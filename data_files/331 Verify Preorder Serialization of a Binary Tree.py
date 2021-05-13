@@ -40,5 +40,11 @@ class Solution(object):
         return not stk and len(child_stk) == 1
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""S""o""l""u""t""i""o""n""("")"".""i""s""V""a""l""i""d""S""e""r""i""a""l""i""z""a""t""i""o""n""(
+if __name__ == "__main__":
+    Solution().isValidSerialization("9,3,4,
+
+
+
+
+
+

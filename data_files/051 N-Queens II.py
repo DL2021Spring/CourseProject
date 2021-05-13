@@ -55,5 +55,5 @@ class Solution:
             self.backtrack(queen_index+1, new_config, result)
 
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""t""o""t""a""l""N""Q""u""e""e""n""s""(""4"")
+if __name__=="__main__":
+    print Solution().totalNQueens(4)

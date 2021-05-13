@@ -23,14 +23,14 @@ class Solution:
 
         seq[i], seq[j] = seq[j], seq[i]
         seq[i+1:] = reversed(seq[i+1:])
-        ret = int("".""j""o""i""n""(""s""e""q"")"")""
-"" "" "" "" "" "" "" "" ""i""f"" ""r""e""t"" ""<""="" ""1"" ""<""<"" ""3""1"" ""-"" ""1"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""r""e""t""
-"" "" "" "" "" "" "" "" ""e""l""s""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""-""1""
-""
-"" "" "" "" ""d""e""f"" ""n""e""x""t""G""r""e""a""t""e""r""E""l""e""m""e""n""t""_""s""o""r""t""(""s""e""l""f"","" ""n"":"" ""i""n""t"")"" ""-"">"" ""i""n""t"":""
-"" "" "" "" "" "" "" "" 
+        ret = int("".join(seq))
+        if ret <= 1 << 31 - 1:
+            return ret
+        else:
+            return -1
+
+    def nextGreaterElement_sort(self, n: int) -> int:
+        
         seq = [int(e) for e in str(n)]
         stk = []  
         for i in range(len(seq) - 1, -1 , -1):
@@ -42,15 +42,16 @@ class Solution:
             if popped:
                 seq[i], seq[popped] = seq[popped], seq[i]
                 seq[i+1:] = sorted(seq[i+1:])  
-                ret = int("".""j""o""i""n""(""m""a""p""(""s""t""r"","" ""s""e""q"")"")"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""r""e""t"" ""<""="" ""1"" ""<""<"" ""3""1"" ""-"" ""1"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""r""e""t""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""e""l""s""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""-""1""
-""
-"" "" "" "" "" "" "" "" "" "" "" "" ""s""t""k"".""a""p""p""e""n""d""(""i"")""
-""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""-""1""
-""
-""
-""i""f"" ""_""_""n""a""m""e""_""_"" ""=""="" 
+                ret = int("".join(map(str, seq)))
+                if ret <= 1 << 31 - 1:
+                    return ret
+                else:
+                    return -1
+
+            stk.append(i)
+
+        return -1
+
+
+if __name__ == "__main__":
+    assert Solution().nextGreaterElement(12) == 21

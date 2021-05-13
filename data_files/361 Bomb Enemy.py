@@ -34,5 +34,5 @@ class Solution(object):
 
         return gmax
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""m""a""x""K""i""l""l""e""d""E""n""e""m""i""e""s""(""[
+if __name__ == "__main__":
+    assert Solution().maxKilledEnemies(["0E00", "E0WE", "0E00"]) == 3

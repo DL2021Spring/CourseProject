@@ -21,7 +21,9 @@ class Solution:
                 nums[i], nums[j] = nums[j], nums[i]
                 break
 
-        return int("".""j""o""i""n""(""n""u""m""s"")"")""
-""
-""
-""i""f"" ""_""_""n""a""m""e""_""_"" ""=""="" 
+        return int("".join(nums))
+
+
+if __name__ == "__main__":
+    assert Solution().maximumSwap(2736) == 7236
+    assert Solution().maximumSwap(9973) == 9973

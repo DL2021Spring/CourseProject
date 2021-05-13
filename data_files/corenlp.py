@@ -35,31 +35,88 @@ class CoreNLPTagger(object):
                     jar_paths.append(path_join(core_nlp_path, fname))
                     break
             else:
-                assert False, 'could not locate any jar on the form "%"s""'"" ""%"" ""j""a""r""_""r""e""g""e""x""
-""
-"" "" "" "" "" "" "" "" ""#"" ""T""h""e""n"" ""h""o""o""k"" ""u""p"" ""t""h""e"" ""C""o""r""e""N""L""P"" ""p""r""o""c""e""s""s""
-"" "" "" "" "" "" "" "" ""c""o""r""e""n""l""p""_""c""m""d"" ""="" ""'"" ""'"".""j""o""i""n""(""(""'""j""a""v""a"" ""-""X""m""x""%""s""'"" ""%"" ""m""e""m"",""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""'""-""c""p"" ""%""s""'"" ""%"" ""'"":""'"".""j""o""i""n""(""j""a""r""_""p""a""t""h""s"")"",""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""'""e""d""u"".""s""t""a""n""f""o""r""d"".""n""l""p"".""p""i""p""e""l""i""n""e"".""S""t""a""n""f""o""r""d""C""o""r""e""N""L""P""'"",""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""'""-""a""n""n""o""t""a""t""o""r""s"" ""t""o""k""e""n""i""z""e"",""s""s""p""l""i""t"",""p""o""s"",""l""e""m""m""a"",""n""e""r""'"",""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "")"")""
-""
-"" "" "" "" "" "" "" "" ""#"" ""S""p""a""w""n"" ""t""h""e"" ""p""r""o""c""e""s""s""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""_""c""o""r""e""_""n""l""p""_""p""r""o""c""e""s""s"" ""="" ""s""p""a""w""n""(""c""o""r""e""n""l""p""_""c""m""d"","" ""t""i""m""e""o""u""t""=""6""0""0"")""
-"" "" "" "" "" "" "" "" ""#"" ""W""a""i""t"" ""f""o""r"" ""t""h""e"" ""m""o""d""e""l""s"" ""t""o"" ""l""o""a""d"","" ""t""h""i""s"" ""i""s"" ""n""o""t"" ""o""v""e""r""l""y"" ""f""a""s""t""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""_""c""o""r""e""_""n""l""p""_""p""r""o""c""e""s""s"".""e""x""p""e""c""t""(""'""E""n""t""e""r""i""n""g"" ""i""n""t""e""r""a""c""t""i""v""e"" ""s""h""e""l""l"".""'"")""
-""
-"" "" "" "" ""d""e""f"" ""_""_""d""e""l""_""_""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" ""#"" ""I""f"" ""o""u""r"" ""c""h""i""l""d"" ""p""r""o""c""e""s""s"" ""i""s"" ""s""t""i""l""l"" ""a""r""o""u""n""d"","" ""k""i""l""l"" ""i""t""
-"" "" "" "" "" "" "" "" ""i""f"" ""s""e""l""f"".""_""c""o""r""e""_""n""l""p""_""p""r""o""c""e""s""s"".""i""s""a""l""i""v""e""("")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""_""c""o""r""e""_""n""l""p""_""p""r""o""c""e""s""s"".""t""e""r""m""i""n""a""t""e""("")""
-""
-"" "" "" "" ""d""e""f"" ""t""a""g""(""s""e""l""f"","" ""t""e""x""t"")"":""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""_""c""o""r""e""_""n""l""p""_""p""r""o""c""e""s""s"".""s""e""n""d""l""i""n""e""(""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""#"" ""N""e""w""l""i""n""e""s"" ""a""r""e"" ""n""o""t"" ""h""e""a""l""t""h""y"" ""a""t"" ""t""h""i""s"" ""s""t""a""g""e"","" ""r""e""m""o""v""e"" ""t""h""e""m"","" ""t""h""e""y""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""#"" "" "" ""w""o""n""'""t"" ""a""f""f""e""c""t"" ""t""h""e"" ""o""f""f""s""e""t""s""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""t""e""x""t"".""r""e""p""l""a""c""e""(""'""\""n""'"","" ""'"" ""'"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "")""
-""
-"" "" "" "" "" "" "" "" ""#"" ""W""e"" ""c""a""n"" ""e""x""p""e""c""t"" ""C""o""r""e""N""L""P"" ""t""o"" ""b""e"" ""f""a""i""r""l""y"" ""f""a""s""t"","" ""b""u""t"" ""l""e""t""'""s"" ""c""u""t"" ""i""t"" ""s""o""m""e"" ""s""l""a""c""k""
-"" "" "" "" "" "" "" "" ""#"" "" "" ""h""a""l""f"" ""a"" ""s""e""c""o""n""d"" ""p""e""r"" 
+                assert False, 'could not locate any jar on the form "%s"' % jar_regex
+
+        
+        corenlp_cmd = ' '.join(('java -Xmx%s' % mem,
+                '-cp %s' % ':'.join(jar_paths),
+                'edu.stanford.nlp.pipeline.StanfordCoreNLP',
+                '-annotators tokenize,ssplit,pos,lemma,ner',
+                ))
+
+        
+        self._core_nlp_process = spawn(corenlp_cmd, timeout=600)
+        
+        self._core_nlp_process.expect('Entering interactive shell.')
+
+    def __del__(self):
+        
+        if self._core_nlp_process.isalive():
+            self._core_nlp_process.terminate()
+
+    def tag(self, text):
+        self._core_nlp_process.sendline(
+                
+                
+                text.replace('\n', ' ')
+                )
+
+        
+        
+        output_timeout = 1 + int(len(text.split()) * 0.5)
+        
+        self._core_nlp_process.expect(SENTENCE_OUTPUT_REGEX,
+                timeout=output_timeout)
+        
+        self._core_nlp_process.expect('NLP>', timeout=output_timeout)
+
+        annotations = {}
+        def _add_ann(start, end, _type):
+            annotations[len(annotations)] = {
+                    'type': _type,
+                    'offsets': ((start, end), ),
+                    'texts': ((text[start:end]), ),
+                    }
+
+        
+        
+        for sent_output in (d.strip() for i, d in enumerate(
+                self._core_nlp_process.before.rstrip().split('\r\n'))
+                if (i + 1) % 3 == 0):
+            ann_start = None
+            last_end = None
+            ann_type = None
+            for output_token in sent_output.split('] ['):
+                
+
+                
+                m = OUTPUT_TOKEN_REGEX.search(output_token)
+                assert m is not None, 'failed to parse output'
+                
+
+                gdic = m.groupdict()
+                start = int(gdic['start'])
+                end = int(gdic['end'])
+                _type = gdic['type']
+
+                
+                if ((_type == 'O' or ann_type != _type)
+                        and ann_start is not None):
+                    _add_ann(ann_start, last_end, ann_type)
+                    ann_start = None
+                    ann_type = None
+                elif _type != 'O' and ann_start is None:
+                    ann_start = start
+                    ann_type = _type
+                last_end = end
+            
+            if ann_start is not None:
+                _add_ann(ann_start, last_end, ann_type)
+
+        return annotations
+
+if __name__ == '__main__':
+    
+    tagger = CoreNLPTagger('stanford-corenlp-2012-04-09')
+    print tagger.tag('Just a test, like the ones they do at IBM.\n'
+            'Or Microsoft for that matter.')

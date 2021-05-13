@@ -42,6 +42,25 @@ class Solution:
 
                     for word in line[:-1]:
                         str_builder.append(word)
-                        str_builder.append(" ""*""s""p""a""c""e"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""r""e""m""a""i""n"">""0"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""t""r""_""b""u""i""l""d""e""r"".""a""p""p""e""n""d""(
+                        str_builder.append(" "*space)
+                        if remain>0:
+                            str_builder.append(" ")
+                            remain -= 1
+
+                    str_builder.append(line[-1])
+                else:
+                    str_builder.append(line[-1])
+                    str_builder.append(" "*space_cnt)
+            else:  
+                str_builder = [" ".join(line)]
+                str_builder.append(" "*(space_cnt-hole_cnt))
+
+            new_result.append("".join(str_builder))
+
+        return new_result
+
+
+
+if __name__=="__main__":
+    print Solution().fullJustify(["This", "is", "an", "example", "of", "text", "justification."], 16)
+    print Solution().fullJustify(["What","must","be","shall","be."], 12)

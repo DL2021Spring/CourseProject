@@ -3,26 +3,27 @@ __author__ = 'Danyang'
 class Solution:
     def countAndSay(self, n):
         
-        string = "1""
-"" "" "" "" "" "" "" "" ""f""o""r"" ""i"" ""i""n"" ""r""a""n""g""e""(""1"","" ""n"")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""s""t""r""i""n""g"" ""="" ""s""e""l""f"".""s""i""n""g""l""e""C""o""u""n""t""A""n""d""S""a""y""(""s""t""r""i""n""g"")""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""s""t""r""i""n""g""
-""
-""
-"" "" "" "" ""d""e""f"" ""s""i""n""g""l""e""C""o""u""n""t""A""n""d""S""a""y""(""s""e""l""f"","" ""n""u""m""_""s""t""r""i""n""g"")"":""
-"" "" "" "" "" "" "" "" 
+        string = "1"
+        for i in range(1, n):
+            string = self.singleCountAndSay(string)
+        return string
+
+
+    def singleCountAndSay(self, num_string):
+        
         string_builder = ""
-""
-"" "" "" "" "" "" "" "" ""i"" ""="" ""0""
-"" "" "" "" "" "" "" "" ""w""h""i""l""e"" ""i""<""l""e""n""(""n""u""m""_""s""t""r""i""n""g"")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""#"" ""f""i""n""d"" ""n""e""x""t"" ""d""i""f""f""e""r""e""n""t"" ""n""u""m""b""e""r""
-"" "" "" "" "" "" "" "" "" "" "" "" ""j"" ""="" ""i""+""1""
-"" "" "" "" "" "" "" "" "" "" "" "" ""w""h""i""l""e"" ""j""<""l""e""n""(""n""u""m""_""s""t""r""i""n""g"")"" ""a""n""d"" ""n""u""m""_""s""t""r""i""n""g""[""j""]""=""=""n""u""m""_""s""t""r""i""n""g""[""i""]"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""j"" ""+""="" ""1""
-"" "" "" "" "" "" "" "" "" "" "" "" ""c""o""u""n""t"" ""="" ""j""-""i""
-"" "" "" "" "" "" "" "" "" "" "" "" ""s""t""r""i""n""g""_""b""u""i""l""d""e""r"" ""+""="" ""s""t""r""(""c""o""u""n""t"")""+""s""t""r""(""n""u""m""_""s""t""r""i""n""g""[""i""]"")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""i"" ""="" ""j""
-""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""s""t""r""i""n""g""_""b""u""i""l""d""e""r""
-""
-""i""f"" ""_""_""n""a""m""e""_""_""=""=
+
+        i = 0
+        while i<len(num_string):
+            
+            j = i+1
+            while j<len(num_string) and num_string[j]==num_string[i]:
+                j += 1
+            count = j-i
+            string_builder += str(count)+str(num_string[i])
+            i = j
+
+        return string_builder
+
+if __name__=="__main__":
+    print Solution().countAndSay(4)

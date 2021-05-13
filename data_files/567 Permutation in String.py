@@ -30,5 +30,6 @@ class Solution:
         return False
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""c""h""e""c""k""I""n""c""l""u""s""i""o""n""(
+if __name__ == "__main__":
+    assert Solution().checkInclusion("ab", "eidbaooo") == True
+    assert Solution().checkInclusion("ab", "eidboaoo") == False

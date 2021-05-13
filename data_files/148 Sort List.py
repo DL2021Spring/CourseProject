@@ -71,15 +71,15 @@ class Solution:
 
 
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""l""e""n""g""t""h"" ""="" ""5""
-"" "" "" "" ""l""s""t"" ""="" ""[""L""i""s""t""N""o""d""e""(""l""e""n""g""t""h""-""i"")"" ""f""o""r"" ""i"" ""i""n"" ""r""a""n""g""e""(""l""e""n""g""t""h"")""]""
-"" "" "" "" ""f""o""r"" ""i"" ""i""n"" ""r""a""n""g""e""(""l""e""n""g""t""h""-""1"")"":""
-"" "" "" "" "" "" "" "" ""l""s""t""[""i""]"".""n""e""x""t"" ""="" ""l""s""t""[""i""+""1""]""
-""
-"" "" "" "" ""h""e""a""d"" ""="" ""S""o""l""u""t""i""o""n""("")"".""s""o""r""t""L""i""s""t""(""l""s""t""[""0""]"")""
-""
-"" "" "" "" ""c""u""r"" ""="" ""h""e""a""d""
-"" "" "" "" ""w""h""i""l""e""(""c""u""r"")"":""
-"" "" "" "" "" "" "" "" ""p""r""i""n""t"" ""c""u""r"".""v""a""l""
-"" "" "" "" "" "" "" "" ""c""u""r"" ""="" ""c""u""r"".""n""e""x""t
+if __name__=="__main__":
+    length = 5
+    lst = [ListNode(length-i) for i in range(length)]
+    for i in range(length-1):
+        lst[i].next = lst[i+1]
+
+    head = Solution().sortList(lst[0])
+
+    cur = head
+    while(cur):
+        print cur.val
+        cur = cur.next

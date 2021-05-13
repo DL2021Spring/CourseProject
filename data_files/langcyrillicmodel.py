@@ -285,12 +285,47 @@ Koi8rModel = {
   'precedenceMatrix': RussianLangModel,
   'mTypicalPositiveRatio': 0.976601,
   'keepEnglishLetter': False,
-  'charsetName': "K"O"I"8"-"R""
-""}""
-""
-""W""i""n""1""2""5""1""C""y""r""i""l""l""i""c""M""o""d""e""l"" ""="" ""{""
-"" "" ""'""c""h""a""r""T""o""O""r""d""e""r""M""a""p""'"":"" ""w""i""n""1""2""5""1""_""C""h""a""r""T""o""O""r""d""e""r""M""a""p"",""
-"" "" ""'""p""r""e""c""e""d""e""n""c""e""M""a""t""r""i""x""'"":"" ""R""u""s""s""i""a""n""L""a""n""g""M""o""d""e""l"",""
-"" "" ""'""m""T""y""p""i""c""a""l""P""o""s""i""t""i""v""e""R""a""t""i""o""'"":"" ""0"".""9""7""6""6""0""1"",""
-"" "" ""'""k""e""e""p""E""n""g""l""i""s""h""L""e""t""t""e""r""'"":"" ""F""a""l""s""e"",""
-"" "" ""'""c""h""a""r""s""e""t""N""a""m""e""'"":"" 
+  'charsetName': "KOI8-R"
+}
+
+Win1251CyrillicModel = {
+  'charToOrderMap': win1251_CharToOrderMap,
+  'precedenceMatrix': RussianLangModel,
+  'mTypicalPositiveRatio': 0.976601,
+  'keepEnglishLetter': False,
+  'charsetName': "windows-1251"
+}
+
+Latin5CyrillicModel = {
+  'charToOrderMap': latin5_CharToOrderMap,
+  'precedenceMatrix': RussianLangModel,
+  'mTypicalPositiveRatio': 0.976601,
+  'keepEnglishLetter': False,
+  'charsetName': "ISO-8859-5"
+}
+
+MacCyrillicModel = {
+  'charToOrderMap': macCyrillic_CharToOrderMap,
+  'precedenceMatrix': RussianLangModel,
+  'mTypicalPositiveRatio': 0.976601,
+  'keepEnglishLetter': False,
+  'charsetName': "MacCyrillic"
+};
+
+Ibm866Model = {
+  'charToOrderMap': IBM866_CharToOrderMap,
+  'precedenceMatrix': RussianLangModel,
+  'mTypicalPositiveRatio': 0.976601,
+  'keepEnglishLetter': False,
+  'charsetName': "IBM866"
+}
+
+Ibm855Model = {
+  'charToOrderMap': IBM855_CharToOrderMap,
+  'precedenceMatrix': RussianLangModel,
+  'mTypicalPositiveRatio': 0.976601,
+  'keepEnglishLetter': False,
+  'charsetName': "IBM855"
+}
+
+

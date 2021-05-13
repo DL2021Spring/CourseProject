@@ -25,12 +25,35 @@ class Solution:
             cur_cover = 1 << lsb
             n -= cur_cover
             ret.append(
-                self.to_ip(num_ip) + f"/"{"3"2"-"l"s"b"}""
-"" "" "" "" "" "" "" "" "" "" "" "" "")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""n""u""m""_""i""p"" ""+""="" ""c""u""r""_""c""o""v""e""r""
-""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""r""e""t""
-""
-"" "" "" "" ""d""e""f"" ""t""o""_""b""i""n""(""s""e""l""f"","" ""i""p"")"":""
-"" "" "" "" "" "" "" "" ""r""e""t"" ""="" ""0""
-"" "" "" "" "" "" "" "" ""f""o""r"" ""n"","" ""w"" ""i""n"" ""z""i""p""(""m""a""p""(""i""n""t"","" ""i""p"".""s""p""l""i""t""(
+                self.to_ip(num_ip) + f"/{32-lsb}"
+            )
+            num_ip += cur_cover
+
+        return ret
+
+    def to_bin(self, ip):
+        ret = 0
+        for n, w in zip(map(int, ip.split(".")), weights):
+            ret += n << w
+
+        return ret
+
+    def to_ip(self, bin):
+        ret = []
+        for w in weights:
+            ret.append(
+                (bin >> w) & 255
+            )
+        return ".".join(map(str, ret))
+
+    def get_lsb(self, n):
+        lsb = 0
+        while (n >> lsb) & 1 == 0:
+            lsb += 1
+            
+        return lsb
+
+
+if __name__ == "__main__":
+    assert Solution().ipToCIDR("60.166.253.147", 12) == ["60.166.253.147/32","60.166.253.148/30","60.166.253.152/30","60.166.253.156/31","60.166.253.158/32"]
+    assert Solution().ipToCIDR("255.0.0.7", 10) == ["255.0.0.7/32","255.0.0.8/29","255.0.0.16/32"]

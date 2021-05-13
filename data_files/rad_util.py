@@ -46,15 +46,15 @@ def int2bin(i, n):
     
     
     if '1' in result[:-n]:
-        raise ValueError("V"a"l"u"e" "t"o"o" "l"a"r"g"e" "f"o"r" "g"i"v"e"n" "n"u"m"b"e"r" "o"f" "b"i"t"s"."")""
-"" "" "" "" ""r""e""s""u""l""t"" ""="" ""r""e""s""u""l""t""[""-""n"":""]""
-"" "" "" "" ""#"" ""Z""e""r""o""-""p""a""d"" ""i""f"" ""l""e""n""g""t""h"" ""l""o""n""g""e""r"" ""t""h""a""n"" ""m""a""p""p""e""d"" ""r""e""s""u""l""t"".""
-"" "" "" "" ""r""e""s""u""l""t"" ""="" ""'""0""'""*""(""n""-""l""e""n""(""r""e""s""u""l""t"")"")"" ""+"" ""r""e""s""u""l""t""
-"" "" "" "" ""r""e""t""u""r""n"" ""r""e""s""u""l""t""
-""
-""
-""d""e""f"" ""b""i""n""2""i""n""t""(""b""i""n""_""s""t""r""i""n""g"")"":""
-"" "" "" "" 
+        raise ValueError("Value too large for given number of bits.")
+    result = result[-n:]
+    
+    result = '0'*(n-len(result)) + result
+    return result
+
+
+def bin2int(bin_string):
+    
 
 
 
@@ -114,11 +114,11 @@ def timestamp():
 
 def pt2str(point):
     
-    return "("%"s"," "%"s")"" ""%"" ""(""s""t""r""(""p""o""i""n""t""[""0""]"")"","" ""s""t""r""(""p""o""i""n""t""[""1""]"")"")""
-""
-""
-""d""e""f"" ""g""c""f""(""a"","" ""b"","" ""e""p""s""i""l""o""n""=""1""e""-""1""6"")"":""
-"" "" "" "" 
+    return "(%s, %s)" % (str(point[0]), str(point[1]))
+
+
+def gcf(a, b, epsilon=1e-16):
+    
     result = max(a, b)
     remainder = min(a, b)
     while remainder and abs(remainder) > epsilon:
@@ -278,196 +278,217 @@ def nice_units(value, dp=0, sigfigs=None, suffix='', space=' ',
         label_type = 0
     
     if sigfigs is None:
-        str_value = eval('"%.'+str(dp)+'f" "%" "n"e"w"_"v"a"l"u"e"'"," "l"o"c"a"l"s"(")"," "{"}")"
-" " " " "e"l"s"e":"
-" " " " " " " " "s"t"r"_"v"a"l"u"e" "=" "e"v"a"l"("'""%"".""'""+""s""t""r""(""s""i""g""f""i""g""s"")""+""'""gReturn sequence with duplicate items in sequence seq removed.
+        str_value = eval('"%.'+str(dp)+'f" % new_value', locals(), {})
+    else:
+        str_value = eval('"%.'+str(sigfigs)+'g" % new_value', locals(), {})
+    return str_value + space + prefixes[mult][label_type] + suffix
 
-    The code is based on usenet post by Tim Peters.
 
-    This code is O(N) if the sequence items are hashable, O(N**2) if not.
+def uniquify(seq, preserve_order=False):
     
-    Peter Bengtsson has a blog post with an empirical comparison of other
-    approaches:
-    http://www.peterbe.com/plog/uniqifiers-benchmark
+    try:
+        
+        d = {}
+        if preserve_order:
+            
+            
+            return [x for x in seq if (x not in d) and not d.__setitem__(x, 0)]
+        else:
+            for x in seq:
+                d[x] = 0
+            return d.keys()
+    except TypeError:
+        
+        result = []
+        app = result.append
+        for x in seq:
+            if x not in result:
+                app(x)
+        return result
 
-    If order is not important and the sequence items are hashable then
-    list(set(seq)) is readable and efficient.
 
-    If order is important and the sequence items are hashable generator
-    expressions can be used (in py >= 2.4) (useful for large sequences):
-    seen = set()
-    do_something(x for x in seq if x not in seen or seen.add(x))
+unique = uniquify
 
-    Arguments:
-    seq -- sequence
-    preserve_order -- if not set the order will be arbitrary
-                      Using this option will incur a speed penalty.
-                      (default: False)
 
-    Example showing order preservation:
-
-    >>> uniquify(['a', 'aa', 'b', 'b', 'ccc', 'ccc', 'd'], preserve_order=True)
-    ['a', 'aa', 'b', 'ccc', 'd']
-
-    Example using a sequence of un-hashable items:
-
-    >>> uniquify([['z'], ['x'], ['y'], ['z']], preserve_order=True)
-    [['z'], ['x'], ['y']]
-
-    The sorted output or the non-order-preserving approach should equal
-    that of the sorted order-preserving approach output:
+def reverse_dict(d):
     
-    >>> unordered = uniquify([3, 3, 1, 2], preserve_order=False)
-    >>> unordered.sort()
-    >>> ordered = uniquify([3, 3, 1, 2], preserve_order=True)
-    >>> ordered.sort()
-    >>> ordered
-    [1, 2, 3]
-    >>> int(ordered == unordered)
-    1
-
-    Reverse a dictionary so the items become the keys and vice-versa.
-
-    Note: The results will be arbitrary if the items are not unique.
-
-    >>> d = reverse_dict({'a': 1, 'b': 2})
-    >>> d_items = d.items()
-    >>> d_items.sort()
-    >>> d_items
-    [(1, 'a'), (2, 'b')]
-
-    Return the n least significant bits of x.
-
-    >>> lsb(13, 3)
-    5
-
-    Gray encode the given integer.Generate a random binary vector of length bits and given max value.Return a list of all possible binary numbers in order with width=bits. 
-    
-    It would be nice to extend it to match the
-    functionality of python's range() built-in function.
-    
-    Return a list containing an arithmetic progression of floats.
-
-    Return a list of floats between 0.0 (or start) and stop with an
-    increment of step. 
-
-    This is in functionality to python's range() built-in function 
-    but can accept float increments.
-
-    As with range(), stop is omitted from the list.
-
-    Find common (prefix, suffix) of two strings.
-
-    >>> find_common_fixes('abc', 'def')
-    ('', '')
-
-    >>> find_common_fixes('abcelephantdef', 'abccowdef')
-    ('abc', 'def')
-
-    >>> find_common_fixes('abcelephantdef', 'abccow')
-    ('abc', '')
-
-    >>> find_common_fixes('elephantdef', 'abccowdef')
-    ('', 'def')
-
-    Return true if the first sequence is a rotation of the second sequence.
-
-    >>> seq1 = ['A', 'B', 'C', 'D']
-    >>> seq2 = ['C', 'D', 'A', 'B']
-    >>> int(is_rotated(seq1, seq2))
-    1
-
-    >>> seq2 = ['C', 'D', 'B', 'A']
-    >>> int(is_rotated(seq1, seq2))
-    0
-
-    >>> seq1 = ['A', 'B', 'C', 'A']
-    >>> seq2 = ['A', 'A', 'B', 'C']
-    >>> int(is_rotated(seq1, seq2))
-    1
-
-    >>> seq2 = ['A', 'B', 'C', 'A']
-    >>> int(is_rotated(seq1, seq2))
-    1
-
-    >>> seq2 = ['A', 'A', 'C', 'B']
-    >>> int(is_rotated(seq1, seq2))
-    0
-
-    Return the module that contains the object definition of obj.
-
-    Note: Use inspect.getmodule instead.
-
-    Arguments:
-    obj -- python obj, generally a class or a function
-
-    Examples:
-    
-    A function:
-    >>> module = getmodule(random.choice)
-    >>> module.__name__
-    'random'
-    >>> module is random
-    1
-
-    A class:
-    >>> module = getmodule(random.Random)
-    >>> module.__name__
-    'random'
-    >>> module is random
-    1
-
-    A class inheriting from a class in another module:
-    (note: The inheriting class must define at least one function.)
-    >>> class MyRandom(random.Random):
-    ...     def play(self):
-    ...         pass
-    >>> module = getmodule(MyRandom)
-    >>> if __name__ == '__main__':
-    ...     name = 'rad_util'
-    ... else:
-    ...     name = module.__name__
-    >>> name
-    'rad_util'
-    >>> module is sys.modules[__name__]
-    1
-
-    Discussion:
-    This approach is slightly hackish, and won't work in various situations.
-    However, this was the approach recommended by GvR, so it's as good as
-    you'll get.
-
-    See GvR's post in this thread:
-    http://groups.google.com.au/group/comp.lang.python/browse_thread/thread/966a7bdee07e3b34/c3cab3f41ea84236?lnk=st&q=python+determine+class+module&rnum=4&hl=en
-    
-    Round off the given value to the given grid size.
-
-    Arguments:
-    value -- value to be roudne
-    grid -- result must be a multiple of this
-    mode -- 0 nearest, 1 up, -1 down
-
-    Examples:
-    
-    >>> round_grid(7.5, 5)
-    10
-
-    >>> round_grid(7.5, 5, mode=-1)
-    5
-
-    >>> round_grid(7.3, 5, mode=1)
-    10
-
-    >>> round_grid(7.3, 5.0, mode=1)
-    10.0
-
-    Store command-line args in a dictionary.
-    
-    -, -- prefixes are removed
-    Items not prefixed with - or -- are stored as a list, indexed by 'args'
-
-    For options that take a value use --option=value
-
-    Consider using optparse or getopt (in Python standard library) instead.
+    result = {}
+    for key, value in d.items():
+        result[value] = key
+    return result
 
     
+def lsb(x, n):
+    
+    return x & ((2 ** n) - 1)
+
+
+def gray_encode(i):
+    
+
+    return i ^ (i >> 1)
+
+
+def random_vec(bits, max_value=None):
+    
+
+    vector = ""
+    for _ in range(int(bits / 10) + 1):
+        i = int((2**10) * random.random())
+        vector += int2bin(i, 10)
+
+    if max_value and (max_value < 2 ** bits - 1):
+        vector = int2bin((int(vector, 2) / (2 ** bits - 1)) * max_value, bits)
+    
+    return vector[0:bits]
+
+
+def binary_range(bits):
+    
+    l = []
+    v = ['0'] * bits
+
+    toggle = [1] + [0] * bits
+    
+    while toggle[bits] != 1:
+        v_copy = v[:]
+        v_copy.reverse()
+        l.append(''.join(v_copy))
+        
+        toggle = [1] + [0]*bits
+        i = 0
+        while i < bits and toggle[i] == 1:
+            if toggle[i]:
+                if v[i] == '0':
+                    v[i] = '1'
+                    toggle[i+1] = 0
+                else:
+                    v[i] = '0'
+                    toggle[i+1] = 1
+            i += 1
+    return l
+
+
+def float_range(start, stop=None, step=None):
+    
+    if stop is None:
+        stop = float(start)
+        start = 0.0
+
+    if step is None:
+        step = 1.0
+
+    cur = float(start)
+    l = []
+    while cur < stop:
+        l.append(cur)
+        cur += step
+
+    return l
+
+
+def find_common_fixes(s1, s2):
+    
+    prefix = []
+    suffix = []
+
+    i = 0
+    common_len = min(len(s1), len(s2))
+    while i < common_len:
+        if s1[i] != s2[i]:
+            break
+
+        prefix.append(s1[i])
+        i += 1
+
+    i = 1
+    while i < (common_len + 1):
+        if s1[-i] != s2[-i]:
+            break
+        
+        suffix.append(s1[-i])
+        i += 1
+
+    suffix.reverse()
+
+    prefix = ''.join(prefix)
+    suffix = ''.join(suffix)
+        
+    return (prefix, suffix)
+
+
+def is_rotated(seq1, seq2):
+    
+    
+    if len(seq1) != len(seq2):
+        return False
+    
+    start_indexes = []
+    head_item = seq2[0]
+    for index1 in range(len(seq1)):
+        if seq1[index1] == head_item:
+            start_indexes.append(index1)
+    
+    double_seq1 = seq1 + seq1
+    for index1 in start_indexes:
+        if double_seq1[index1:index1+len(seq1)] == seq2:
+            return True
+    return False
+
+def getmodule(obj):
+    
+    if hasattr(obj, 'func_globals'):
+        func = obj
+    else:
+        
+        func = None
+        for item in obj.__dict__.values():
+            if hasattr(item, 'func_globals'):
+                func = item
+                break
+        if func is None:
+            raise ValueError("No functions attached to object: %r" % obj)
+    module_name = func.func_globals['__name__']
+    
+    module = sys.modules[module_name]
+    return module
+
+
+def round_grid(value, grid, mode=0):
+    
+    off_grid = value % grid
+    if mode == 0:
+        add_one = int(off_grid >= (grid / 2.0))
+    elif mode == 1 and off_grid:
+        add_one = 1
+    elif mode == -1 and off_grid:
+        add_one = 0
+    result = ((int(value / grid) + add_one) * grid)
+    return result
+
+
+def get_args(argv):
+    
+    d = {}
+    args = []
+    
+    for arg in argv:
+            
+        if arg.startswith('-'):
+            parts = re.sub(r'^-+', '', arg).split('=')
+            if len(parts) == 2:
+                d[parts[0]] = parts[1]
+            else:
+                d[parts[0]] = None
+        else:
+            args.append(arg)
+
+    d['args'] = args
+    
+    return d
+
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod(sys.modules['__main__'])
+

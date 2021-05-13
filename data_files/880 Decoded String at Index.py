@@ -53,5 +53,5 @@ class Solution:
         return S[i+K]
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""d""e""c""o""d""e""A""t""I""n""d""e""x""(
+if __name__ == "__main__":
+    assert Solution().decodeAtIndex("ha22", 5) == "h"

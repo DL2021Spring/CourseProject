@@ -19,14 +19,62 @@ def centroid_histogram(clt):
     (hist, _) = np.histogram(clt.labels_, bins = numLabels)
 
     
-    hist = hist.astype("f"l"o"a"t"")""
-"" "" "" "" ""h""i""s""t"" ""/""="" ""h""i""s""t"".""s""u""m""("")""
-""
-"" "" "" "" ""#"" ""r""e""t""u""r""n"" ""t""h""e"" ""h""i""s""t""o""g""r""a""m""
-"" "" "" "" ""r""e""t""u""r""n"" ""h""i""s""t""
-""
-""
-""d""e""f"" ""p""l""o""t""_""c""o""l""o""r""s""(""h""i""s""t"","" ""c""e""n""t""r""o""i""d""s"")"":""
-"" "" "" "" ""#"" ""i""n""i""t""i""a""l""i""z""e"" ""t""h""e"" ""b""a""r"" ""c""h""a""r""t"" ""r""e""p""r""e""s""e""n""t""i""n""g"" ""t""h""e"" ""r""e""l""a""t""i""v""e"" ""f""r""e""q""u""e""n""c""y""
-"" "" "" "" ""#"" ""o""f"" ""e""a""c""h"" ""o""f"" ""t""h""e"" ""c""o""l""o""r""s""
-"" "" "" "" ""b""a""r"" ""="" ""n""p"".""z""e""r""o""s""(""(""5""0"","" ""3""0""0"","" ""3"")"","" ""d""t""y""p""e"" ""="" 
+    hist = hist.astype("float")
+    hist /= hist.sum()
+
+    
+    return hist
+
+
+def plot_colors(hist, centroids):
+    
+    
+    bar = np.zeros((50, 300, 3), dtype = "uint8")
+    startX = 0
+
+    
+    
+    for (percent, color) in zip(hist, centroids):
+        
+        endX = startX + (percent * 300)
+        cv2.rectangle(bar, (int(startX), 0), (int(endX), 50),
+                      color.astype("uint8").tolist(), -1)
+        startX = endX
+
+    
+    return bar
+
+
+ap = argparse.ArgumentParser()
+ap.add_argument("-i", "--image", required=True, help="Path to the image")
+ap.add_argument("-c", "--clusters", required=True, type=int,
+                help="# of clusters")
+args = vars(ap.parse_args())
+
+
+
+image = cv2.imread(args["image"])
+image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+
+plt.figure()
+plt.axis("off")
+plt.imshow(image)
+
+
+image = image.reshape((image.shape[0]*image.shape[1], 3))
+
+
+clt = KMeans(n_clusters=args["clusters"])
+clt.fit(image)
+
+
+
+hist = centroid_histogram(clt)
+bar = plot_colors(hist, clt.cluster_centers_)
+
+
+plt.figure()
+plt.axis("off")
+plt.imshow(bar)
+plt.show()

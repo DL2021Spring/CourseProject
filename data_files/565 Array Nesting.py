@@ -24,5 +24,5 @@ class Solution:
         return len(path)
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""a""r""r""a""y""N""e""s""t""i""n""g""(""[""5"",""4"",""0"",""3"",""1"",""6"",""2""]"")"" ""=""="" ""4""
+if __name__ == "__main__":
+    assert Solution().arrayNesting([5,4,0,3,1,6,2]) == 4

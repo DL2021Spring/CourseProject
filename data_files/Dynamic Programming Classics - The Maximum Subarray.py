@@ -9,16 +9,34 @@ class Solution(object):
         
         maxa = max(A)
         if maxa < 0:
-            return "%"d" "%"d"" ""%"" ""(""m""a""x""a"","" ""m""a""x""a"")""
-""
-"" "" "" "" "" "" "" "" ""s""u""m""_""b"" ""="" ""s""u""m""(""f""i""l""t""e""r""(""l""a""m""b""d""a"" ""x"":"" ""x"" "">"" ""0"","" ""A"")"")""
-""
-"" "" "" "" "" "" "" "" ""s""u""m""_""a"" ""="" ""0""
-"" "" "" "" "" "" "" "" ""c""u""r""r""e""n""t""_""s""u""m"" ""="" ""0""
-"" "" "" "" "" "" "" "" ""f""o""r"" ""a"" ""i""n"" ""A"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""c""u""r""r""e""n""t""_""s""u""m"" ""+""="" ""a""
-"" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""c""u""r""r""e""n""t""_""s""u""m"" ""<"" ""0"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""c""u""r""r""e""n""t""_""s""u""m"" ""="" ""0""
-"" "" "" "" "" "" "" "" "" "" "" "" ""s""u""m""_""a"" ""="" ""m""a""x""(""s""u""m""_""a"","" ""c""u""r""r""e""n""t""_""s""u""m"")""
-""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" 
+            return "%d %d" % (maxa, maxa)
+
+        sum_b = sum(filter(lambda x: x > 0, A))
+
+        sum_a = 0
+        current_sum = 0
+        for a in A:
+            current_sum += a
+            if current_sum < 0:
+                current_sum = 0
+            sum_a = max(sum_a, current_sum)
+
+        return "%d %d" % (sum_a, sum_b)
+
+
+if __name__ == "__main__":
+    import sys
+
+    f = open("1.in", "r")
+    
+    solution = Solution()
+    testcases = int(f.readline().strip())
+
+    for t in xrange(testcases):
+        
+        N = int(f.readline().strip())
+        A = map(int, f.readline().strip().split(' '))
+        cipher = N, A
+        
+        s = "%s\n" % (solution.solve(cipher))
+        print s,

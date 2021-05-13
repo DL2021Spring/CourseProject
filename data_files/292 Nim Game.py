@@ -32,5 +32,5 @@ class Solution(object):
         return F[n]
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""c""a""n""W""i""n""N""i""m""(""5"")
+if __name__ == "__main__":
+    assert Solution().canWinNim(5)

@@ -32,32 +32,32 @@
 
 
 import sys, os
-sys.path.append("."."/"."."")""
-""#"" ""i""m""p""o""r""t"" ""f""a""c""e""r""e""c"" ""m""o""d""u""l""e""s""
-""f""r""o""m"" ""f""a""c""e""r""e""c"".""f""e""a""t""u""r""e"" ""i""m""p""o""r""t"" ""F""i""s""h""e""r""f""a""c""e""s"","" ""S""p""a""t""i""a""l""H""i""s""t""o""g""r""a""m"","" ""I""d""e""n""t""i""t""y""
-""f""r""o""m"" ""f""a""c""e""r""e""c"".""d""i""s""t""a""n""c""e"" ""i""m""p""o""r""t"" ""E""u""c""l""i""d""e""a""n""D""i""s""t""a""n""c""e"","" ""C""h""i""S""q""u""a""r""e""D""i""s""t""a""n""c""e""
-""f""r""o""m"" ""f""a""c""e""r""e""c"".""c""l""a""s""s""i""f""i""e""r"" ""i""m""p""o""r""t"" ""N""e""a""r""e""s""t""N""e""i""g""h""b""o""r""
-""f""r""o""m"" ""f""a""c""e""r""e""c"".""m""o""d""e""l"" ""i""m""p""o""r""t"" ""P""r""e""d""i""c""t""a""b""l""e""M""o""d""e""l""
-""f""r""o""m"" ""f""a""c""e""r""e""c"".""v""a""l""i""d""a""t""i""o""n"" ""i""m""p""o""r""t"" ""K""F""o""l""d""C""r""o""s""s""V""a""l""i""d""a""t""i""o""n""
-""f""r""o""m"" ""f""a""c""e""r""e""c"".""v""i""s""u""a""l"" ""i""m""p""o""r""t"" ""s""u""b""p""l""o""t""
-""f""r""o""m"" ""f""a""c""e""r""e""c"".""u""t""i""l"" ""i""m""p""o""r""t"" ""m""i""n""m""a""x""_""n""o""r""m""a""l""i""z""e""
-""f""r""o""m"" ""f""a""c""e""r""e""c"".""s""e""r""i""a""l""i""z""a""t""i""o""n"" ""i""m""p""o""r""t"" ""s""a""v""e""_""m""o""d""e""l"","" ""l""o""a""d""_""m""o""d""e""l""
-""#"" ""i""m""p""o""r""t"" ""n""u""m""p""y"","" ""m""a""t""p""l""o""t""l""i""b"" ""a""n""d"" ""l""o""g""g""i""n""g""
-""i""m""p""o""r""t"" ""n""u""m""p""y"" ""a""s"" ""n""p""
-""#"" ""t""r""y"" ""t""o"" ""i""m""p""o""r""t"" ""t""h""e"" ""P""I""L"" ""I""m""a""g""e"" ""m""o""d""u""l""e""
-""t""r""y"":""
-"" "" "" "" ""f""r""o""m"" ""P""I""L"" ""i""m""p""o""r""t"" ""I""m""a""g""e""
-""e""x""c""e""p""t"" ""I""m""p""o""r""t""E""r""r""o""r"":""
-"" "" "" "" ""i""m""p""o""r""t"" ""I""m""a""g""e""
-""i""m""p""o""r""t"" ""m""a""t""p""l""o""t""l""i""b"".""c""m"" ""a""s"" ""c""m""
-""i""m""p""o""r""t"" ""l""o""g""g""i""n""g""
-""i""m""p""o""r""t"" ""m""a""t""p""l""o""t""l""i""b"".""p""y""p""l""o""t"" ""a""s"" ""p""l""t""
-""i""m""p""o""r""t"" ""m""a""t""p""l""o""t""l""i""b"".""c""m"" ""a""s"" ""c""m""
-""f""r""o""m"" ""f""a""c""e""r""e""c"".""l""b""p"" ""i""m""p""o""r""t"" ""L""P""Q"","" ""E""x""t""e""n""d""e""d""L""B""P""
-""
-""
-""d""e""f"" ""r""e""a""d""_""i""m""a""g""e""s""(""p""a""t""h"","" ""s""z""=""N""o""n""e"")"":""
-"" "" "" "" 
+sys.path.append("../..")
+
+from facerec.feature import Fisherfaces, SpatialHistogram, Identity
+from facerec.distance import EuclideanDistance, ChiSquareDistance
+from facerec.classifier import NearestNeighbor
+from facerec.model import PredictableModel
+from facerec.validation import KFoldCrossValidation
+from facerec.visual import subplot
+from facerec.util import minmax_normalize
+from facerec.serialization import save_model, load_model
+
+import numpy as np
+
+try:
+    from PIL import Image
+except ImportError:
+    import Image
+import matplotlib.cm as cm
+import logging
+import matplotlib.pyplot as plt
+import matplotlib.cm as cm
+from facerec.lbp import LPQ, ExtendedLBP
+
+
+def read_images(path, sz=None):
+    
     c = 0
     X,y = [], []
     for dirname, dirnames, filenames in os.walk(path):
@@ -66,11 +66,61 @@ sys.path.append("."."/"."."")""
             for filename in os.listdir(subject_path):
                 try:
                     im = Image.open(os.path.join(subject_path, filename))
-                    im = im.convert("L"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""#"" ""r""e""s""i""z""e"" ""t""o"" ""g""i""v""e""n"" ""s""i""z""e"" ""(""i""f"" ""g""i""v""e""n"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""(""s""z"" ""i""s"" ""n""o""t"" ""N""o""n""e"")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""i""m"" ""="" ""i""m"".""r""e""s""i""z""e""(""s""e""l""f"".""s""z"","" ""I""m""a""g""e"".""A""N""T""I""A""L""I""A""S"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""X"".""a""p""p""e""n""d""(""n""p"".""a""s""a""r""r""a""y""(""i""m"","" ""d""t""y""p""e""=""n""p"".""u""i""n""t""8"")"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""y"".""a""p""p""e""n""d""(""c"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""e""x""c""e""p""t"" ""I""O""E""r""r""o""r"","" ""(""e""r""r""n""o"","" ""s""t""r""e""r""r""o""r"")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""p""r""i""n""t"" 
+                    im = im.convert("L")
+                    
+                    if (sz is not None):
+                        im = im.resize(self.sz, Image.ANTIALIAS)
+                    X.append(np.asarray(im, dtype=np.uint8))
+                    y.append(c)
+                except IOError, (errno, strerror):
+                    print "I/O error({0}): {1}".format(errno, strerror)
+                except:
+                    print "Unexpected error:", sys.exc_info()[0]
+                    raise
+            c = c+1
+    return [X,y]
+
+if __name__ == "__main__":
+    
+    
+    out_dir = None
+    
+    
+    
+    if len(sys.argv) < 2:
+        print "USAGE: facerec_demo.py </path/to/images>"
+        sys.exit()
+    
+    [X,y] = read_images(sys.argv[1])
+    
+    handler = logging.StreamHandler(sys.stdout)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    handler.setFormatter(formatter)
+    
+    logger = logging.getLogger("facerec")
+    logger.addHandler(handler)
+    logger.setLevel(logging.DEBUG)
+    
+    feature = Fisherfaces()
+    
+    classifier = NearestNeighbor(dist_metric=EuclideanDistance(), k=1)
+    
+    my_model = PredictableModel(feature=feature, classifier=classifier)
+    
+    my_model.compute(X, y)
+    
+    save_model('model.pkl', my_model)
+    model = load_model('model.pkl')
+    
+    
+    E = []
+    for i in xrange(min(model.feature.eigenvectors.shape[1], 16)):
+        e = model.feature.eigenvectors[:,i].reshape(X[0].shape)
+        E.append(minmax_normalize(e,0,255, dtype=np.uint8))
+    
+    subplot(title="Fisherfaces", images=E, rows=4, cols=4, sptitle="Fisherface", colormap=cm.jet, filename="fisherfaces.png")
+    
+    cv = KFoldCrossValidation(model, k=10)
+    cv.validate(X, y)
+    
+    cv.print_results()

@@ -30,5 +30,18 @@ class Solution:
 
 
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""f"" ""="" ""o""p""e""n""(
+if __name__=="__main__":
+    f = open("2.in", "r")
+    o = open("out.out", "w")
+
+    testcases = int(f.readline().strip())
+
+    for t in xrange(testcases):
+        
+        cipher = f.readline().strip().split(' ')
+        lst = [int(item) for item in f.readline().strip().split(' ')]
+
+        
+        s = "Case 
+        print s,
+        o.write(s)

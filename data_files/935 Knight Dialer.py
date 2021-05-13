@@ -114,7 +114,7 @@ class SolutionTLE:
         return self.cache[i, j, r]
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""k""n""i""g""h""t""D""i""a""l""e""r""(""1"")"" ""=""="" ""1""0""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""k""n""i""g""h""t""D""i""a""l""e""r""(""2"")"" ""=""="" ""2""0""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""k""n""i""g""h""t""D""i""a""l""e""r""(""3"")"" ""=""="" ""4""6""
+if __name__ == "__main__":
+    assert Solution().knightDialer(1) == 10
+    assert Solution().knightDialer(2) == 20
+    assert Solution().knightDialer(3) == 46

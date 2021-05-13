@@ -36,6 +36,6 @@ class TaskScheduleSolution(object):
         return t
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""T""a""s""k""S""c""h""e""d""u""l""e""S""o""l""u""t""i""o""n""("")"".""s""o""l""v""e""(""[""1"","" ""1"","" ""2"","" ""1""]"","" ""2"")"" ""=""="" ""7""
-"" "" "" "" ""a""s""s""e""r""t"" ""T""a""s""k""S""c""h""e""d""u""l""e""S""o""l""u""t""i""o""n""("")"".""s""o""l""v""e""(""[""1"","" ""2"","" ""3"","" ""1"","" ""2"","" ""3""]"","" ""3"")"" ""=""="" ""7""
+if __name__ == "__main__":
+    assert TaskScheduleSolution().solve([1, 1, 2, 1], 2) == 7
+    assert TaskScheduleSolution().solve([1, 2, 3, 1, 2, 3], 3) == 7

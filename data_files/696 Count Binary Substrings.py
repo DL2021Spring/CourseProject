@@ -21,4 +21,22 @@ class Solution:
 
     def countBinarySubstrings_error(self, s: str) -> int:
         
-        counter = {"0"":"" ""0"","" 
+        counter = {"0": 0, "1": 0}
+        ret = 0
+        if not s:
+            return ret
+        counter[s[0]] += 1
+        for i in range(1, len(s)):
+            if s[i] != s[i-1] and counter[s[i]] != 0:
+                counter[s[i]] = 0
+
+            counter[s[i]] += 1
+            if min(counter["0"], counter["1"]) > 0:
+                ret += 1
+
+        return ret
+
+
+if __name__ == "__main__":
+    assert Solution().countBinarySubstrings("00110011") == 6
+    assert Solution().countBinarySubstrings("00110") == 3

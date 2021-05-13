@@ -26,5 +26,5 @@ class Solution(object):
         return maxa
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""l""e""n""g""t""h""O""f""L""o""n""g""e""s""t""S""u""b""s""t""r""i""n""g""K""D""i""s""t""i""n""c""t""(
+if __name__ == "__main__":
+    assert Solution().lengthOfLongestSubstringKDistinct("eceba", 2) == 3

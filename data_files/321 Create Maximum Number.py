@@ -18,10 +18,10 @@ class SolutionTLE(object):
         return maxa
 
     def eval(self, lst):
-        return int("".""j""o""i""n""(""m""a""p""(""s""t""r"","" ""l""s""t"")"")"")""
-""
-"" "" "" "" ""d""e""f"" ""m""a""x""N""u""m""b""e""r""S""i""n""g""l""e""(""s""e""l""f"","" ""A"","" ""k"")"":""
-"" "" "" "" "" "" "" "" 
+        return int("".join(map(str, lst)))
+
+    def maxNumberSingle(self, A, k):
+        
         stk = []
         n = len(A)
         for i in xrange(n):

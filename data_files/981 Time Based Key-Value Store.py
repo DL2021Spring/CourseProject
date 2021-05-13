@@ -17,7 +17,20 @@ class TimeMap:
     def get(self, key: str, timestamp: int) -> str:
         if key not in self.m:
             return ""
-""
-"" "" "" "" "" "" "" "" ""#"" ""f""i""n""d"" ""t""h""e"" ""l""a""r""g""e""s""t"" ""v"","" ""s"".""t""."" ""v"" ""<""="" ""t""
-"" "" "" "" "" "" "" "" ""l""s""t"" ""="" ""s""e""l""f"".""m""[""k""e""y""]""
-"" "" "" "" "" "" "" "" ""i"" ""="" ""b""i""s""e""c""t"".""b""i""s""e""c""t""(""l""s""t"","" ""(""t""i""m""e""s""t""a""m""p"","" 
+
+        
+        lst = self.m[key]
+        i = bisect.bisect(lst, (timestamp, ""))
+        if i < len(lst) and lst[i][0] == timestamp:
+            return lst[i][1]
+        i -= 1
+        if i >= 0:
+            return lst[i][1]
+            
+        return ""
+
+
+
+
+
+

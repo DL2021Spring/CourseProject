@@ -15,8 +15,29 @@ class Solution:
         @lru_cache(None)
         def F(i, j, m):
             if i >= j or m < 1:
-                return float("i"n"f"")""
-""
-"" "" "" "" "" "" "" "" "" "" "" "" ""n"" ""="" ""j"" ""-"" ""i""
-"" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""(""n"" ""-"" ""m"")"" ""%"" ""(""K"" ""-"" ""1"")"" ""!""="" ""0"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""f""l""o""a""t""(
+                return float("inf")
+
+            n = j - i
+            if (n - m) % (K - 1) != 0:
+                return float("inf")
+
+            if j == i + 1:
+                if m == 1:
+                    return 0
+                return float("inf")
+
+            if m == 1:
+                return F(i, j, K) + sums[j] - sums[i]
+
+            ret = min(
+                F(i, mid, 1) + F(mid, j, m - 1)
+                for mid in range(i + 1, j, K - 1)
+            )
+            return ret
+
+        ret = F(0, N, 1)
+        return ret if ret != float("inf") else -1
+
+
+if __name__ == "__main__":
+    assert Solution().mergeStones([3,5,1,2,6], 3) == 25

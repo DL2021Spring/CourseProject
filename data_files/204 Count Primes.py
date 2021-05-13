@@ -20,5 +20,5 @@ class Solution:
         return is_prime.count(True)
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""c""o""u""n""t""P""r""i""m""e""s""(""1""5""0""0""0""0""0"")"" ""=""="" ""1""1""4""1""5""5
+if __name__ == "__main__":
+    assert Solution().countPrimes(1500000) == 114155

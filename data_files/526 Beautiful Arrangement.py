@@ -22,5 +22,5 @@ class Solution:
         return ret
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""c""o""u""n""t""A""r""r""a""n""g""e""m""e""n""t""(""2"")"" ""=""="" ""2""
+if __name__ == "__main__":
+    assert Solution().countArrangement(2) == 2

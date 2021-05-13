@@ -5,24 +5,47 @@ __author__ = 'Danyang'
 class Solution(object):
     def longestCommonPrefix(self, strs):
         if not strs: return ""
-"" "" "" "" "" "" "" "" ""l"" ""="" ""m""i""n""(""m""a""p""(""l""e""n"","" ""s""t""r""s"")"")""
-"" "" "" "" "" "" "" "" ""i"" ""="" ""0""
-"" "" "" "" "" "" "" "" ""w""h""i""l""e"" ""i"" ""<"" ""l"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""c""h""a""r"" ""="" ""s""t""r""s""[""0""]""[""i""]""
-"" "" "" "" "" "" "" "" "" "" "" "" ""f""o""r"" ""s"" ""i""n"" ""s""t""r""s"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""s""[""i""]"" ""!""="" ""c""h""a""r"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""s""t""r""s""[""0""]""["":""i""]""
-""
-"" "" "" "" "" "" "" "" "" "" "" "" ""i"" ""+""="" ""1""
-""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""s""t""r""s""[""0""]""["":""i""]""
-""
-"" "" "" "" ""d""e""f"" ""l""o""n""g""e""s""t""C""o""m""m""o""n""P""r""e""f""i""x""C""o""m""p""l""e""x""(""s""e""l""f"","" ""s""t""r""s"")"":""
-"" "" "" "" "" "" "" "" 
+        l = min(map(len, strs))
+        i = 0
+        while i < l:
+            char = strs[0][i]
+            for s in strs:
+                if s[i] != char:
+                    return strs[0][:i]
+
+            i += 1
+
+        return strs[0][:i]
+
+    def longestCommonPrefixComplex(self, strs):
+        
         
         if not strs:
             return ""
-""
-"" "" "" "" "" "" "" "" ""n"" ""="" ""l""e""n""(""s""t""r""s"")""
-""
-"" "" "" "" "" "" "" "" ""s""t""r""_""b""u""i""l""d""e""r"" ""="" 
+
+        n = len(strs)
+
+        str_builder = ""
+        min_len = min(len(string) for string in strs)
+        for i in range(min_len):
+            char = strs[0][i]
+
+            j = 0
+            while j < n:
+                try:
+                    if strs[j][i] != char: break
+                    j += 1
+                except IndexError:
+                    break
+
+            if j == n:
+                str_builder += char
+            else:
+                break
+
+        return str_builder
+
+
+if __name__ == "__main__":
+    strs = ["abc", "abcd"]
+    print Solution().longestCommonPrefix(strs)

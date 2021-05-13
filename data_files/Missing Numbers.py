@@ -21,7 +21,21 @@ class Solution(object):
             else:
                 hm[b] -= 1
         result = sorted(list(result))
-        return " "".""j""o""i""n""(""m""a""p""(""s""t""r"","" ""r""e""s""u""l""t"")"")""
-""
-""
-""i""f"" ""_""_""n""a""m""e""_""_"" ""=""="" 
+        return " ".join(map(str, result))
+
+
+if __name__ == "__main__":
+    import sys
+
+    f = open("1.in", "r")
+    
+    solution = Solution()
+    m = int(f.readline().strip())
+    A = map(int, f.readline().strip().split(' '))
+    n = int(f.readline().strip())
+    B = map(int, f.readline().strip().split(' '))
+
+    cipher = m, A, n, B
+    
+    s = "%s\n" % (solution.solve(cipher))
+    print s,

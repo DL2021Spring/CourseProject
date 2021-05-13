@@ -83,7 +83,7 @@ class Solution(object):
         return ret
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""n""u""m""W""a""y""s""(""3"","" ""2"")"" ""=""="" ""6""
-""
-""
+if __name__ == "__main__":
+    assert Solution().numWays(3, 2) == 6
+
+

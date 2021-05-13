@@ -16,9 +16,9 @@ from bs4.testing import (
 
 @skipIf(
     not HTML5LIB_PRESENT,
-    "h"t"m"l"5"l"i"b" "s"e"e"m"s" "n"o"t" "t"o" "b"e" "p"r"e"s"e"n"t"," "n"o"t" "t"e"s"t"i"n"g" "i"t"s" "t"r"e"e" "b"u"i"l"d"e"r"."")""
-""c""l""a""s""s"" ""H""T""M""L""5""L""i""b""B""u""i""l""d""e""r""S""m""o""k""e""T""e""s""t""(""S""o""u""p""T""e""s""t"","" ""H""T""M""L""5""T""r""e""e""B""u""i""l""d""e""r""S""m""o""k""e""T""e""s""t"")"":""
-"" "" "" "" 
+    "html5lib seems not to be present, not testing its tree builder.")
+class HTML5LibBuilderSmokeTest(SoupTest, HTML5TreeBuilderSmokeTest):
+    
 
     @property
     def default_builder(self):
@@ -26,5 +26,33 @@ from bs4.testing import (
 
     def test_soupstrainer(self):
         
-        strainer = SoupStrainer("b"")""
-"" "" "" "" "" "" "" "" ""m""a""r""k""u""p"" ""="" html5lib inserts <tbody> tags where other parsers don't.
+        strainer = SoupStrainer("b")
+        markup = "<p>A <b>bold</b> statement.</p>"
+        with warnings.catch_warnings(record=True) as w:
+            soup = self.soup(markup, parse_only=strainer)
+        self.assertEqual(
+            soup.decode(), self.document_for(markup))
+
+        self.assertTrue(
+            "the html5lib tree builder doesn't support parse_only" in
+            str(w[0].message))
+
+    def test_correctly_nested_tables(self):
+        
+        markup = ('<table id="1">'
+                  '<tr>'
+                  "<td>Here's another table:"
+                  '<table id="2">'
+                  '<tr><td>foo</td></tr>'
+                  '</table></td>')
+
+        self.assertSoupEquals(
+            markup,
+            '<table id="1"><tbody><tr><td>Here\'s another table:'
+            '<table id="2"><tbody><tr><td>foo</td></tr></tbody></table>'
+            '</td></tr></tbody></table>')
+
+        self.assertSoupEquals(
+            "<table><thead><tr><td>Foo</td></tr></thead>"
+            "<tbody><tr><td>Bar</td></tr></tbody>"
+            "<tfoot><tr><td>Baz</td></tr></tfoot></table>")

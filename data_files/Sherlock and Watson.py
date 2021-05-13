@@ -11,7 +11,24 @@ class Solution(object):
         for i in q:
             result.append(A[(i - K) % N])
 
-        return "\"n"".""j""o""i""n""(""m""a""p""(""s""t""r"","" ""r""e""s""u""l""t"")"")""
-""
-""
-""i""f"" ""_""_""n""a""m""e""_""_"" ""=""="" 
+        return "\n".join(map(str, result))
+
+
+if __name__ == "__main__":
+    import sys
+
+    f = open("1.in", "r")
+    
+    N, K, Q = map(int, f.readline().strip().split(' '))
+    A = map(int, f.readline().strip().split(' '))
+
+    q = []
+    for i in xrange(Q):
+        q.append(int(f.readline().strip()))
+
+    cipher = N, K, Q, A, q
+
+
+    
+    s = "%s\n" % (Solution().solve(cipher))
+    print s,

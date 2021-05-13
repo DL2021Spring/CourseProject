@@ -85,6 +85,6 @@ class Solution:
                 heapq.heappush(heap, (smallest_node.next.val, smallest_node.next))
         return dummy.next
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" "" ""S""o""l""u""t""i""o""n""("")"".""m""e""r""g""e""K""L""i""s""t""s""(""[""N""o""n""e"","" ""N""o""n""e""]"")""=""=""N""o""n""e""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""m""e""r""g""e""K""L""i""s""t""s""(""[""L""i""s""t""N""o""d""e""(""1"")"","" ""L""i""s""t""N""o""d""e""(""0"")""]"")"".""v""a""l""=""=""0""
+if __name__=="__main__":
+    assert  Solution().mergeKLists([None, None])==None
+    assert Solution().mergeKLists([ListNode(1), ListNode(0)]).val==0

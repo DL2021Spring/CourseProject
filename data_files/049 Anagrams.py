@@ -5,11 +5,45 @@ class Solution:
         
         temp = list(strs)
         for ind, string in enumerate(temp):
-            if string and string!="":"" "" ""#"" ""a""v""o""i""d"" ""c""a""s""e"" ""o""f"" ""e""m""p""t""y"" ""s""t""r""i""n""g""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""t""r""i""n""g"" ""="" ""[""c""h""a""r"" ""f""o""r"" ""c""h""a""r"" ""i""n"" ""s""t""r""i""n""g""]""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""t""r""i""n""g"".""s""o""r""t""("")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""t""r""i""n""g"" ""="" 
-        Algorithm: sort string and hash map
-        :param strs: a list of strings
-        :return: a list of strings
+            if string and string!="":  
+                string = [char for char in string]
+                string.sort()
+                string = "".join(string)
+                temp[ind] = string
+
+
+        hash_map = {}
+        for ind, string in enumerate(temp):
+            indexes = hash_map.get(string, [])
+            indexes.append(ind)  
+            hash_map[string] = indexes
+
+        result = []
+        for val in hash_map.values():
+            if len(val)>1:
+                
+                result += [strs[i] for i in val]
+        return result
+
+    def anagrams(self, strs):
         
+        hash_map = {}
+        for ind, string in enumerate(strs):
+            string = "".join(sorted(string))  
+            if string not in hash_map:
+                hash_map[string] = [ind]
+            else:
+                hash_map[string].append(ind)
+            
+            
+            
+
+        result = []
+        for val in hash_map.values():
+            if len(val)>1:
+                
+                result += [strs[i] for i in val]
+        return result
+
+if __name__=="__main__":
+    Solution().anagrams(["", ""])

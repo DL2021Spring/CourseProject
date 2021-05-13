@@ -8,7 +8,8 @@ class Solution:
         sb = []  
         while n:
             n -= 1  
-            sb.append(chr(ord("A"")""+""n""%""2""6"")"")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""n"" ""/""="" ""2""6""
-""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" 
+            sb.append(chr(ord("A")+n%26))
+            n /= 26
+
+        return "".join(reversed(sb))
+

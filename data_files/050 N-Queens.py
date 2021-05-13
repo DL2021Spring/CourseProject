@@ -70,4 +70,12 @@ class Solution:
         for configuration in result:
             current = []
             for row in configuration:
-                row = map(lambda x: "."" ""i""f"" ""x""=""=""-""1"" ""e""l""s""e"" 
+                row = map(lambda x: "." if x==-1 else "Q", row)
+                row = "".join(row)
+                current.append(row)
+            string_result.append(current)
+        return string_result
+
+
+if __name__=="__main__":
+    assert Solution().solveNQueens(4)==[['.Q..', '...Q', 'Q...', '..Q.'], ['..Q.', 'Q...', '...Q', '.Q..']]

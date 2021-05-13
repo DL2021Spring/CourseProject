@@ -71,5 +71,12 @@ class Solution:
 
         return ret.values()
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""i""t""e""m""s"" ""="" ""{""i"":"" ""D""i""r""e""c""t""e""d""G""r""a""p""h""N""o""d""e""(""i"")"" ""f""o""r"" ""i"" ""i""n"" 
+if __name__ == "__main__":
+    items = {i: DirectedGraphNode(i) for i in "ABCDEF"}
+    items["A"].neighbors.append(items["B"])
+    items["A"].neighbors.append(items["D"])
+    items["B"].neighbors.append(items["D"])
+    items["C"].neighbors.append(items["E"])
+    items["F"].neighbors.append(items["E"])
+    assert Solution().connectedSet2(items.values()) == [['A', 'B', 'D'], ['C', 'E', 'F']]
+

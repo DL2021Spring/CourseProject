@@ -16,8 +16,29 @@ class Solution(object):
                 elif cnt > max_topic:
                     team_cnt = 1
                     max_topic = cnt
-        return "%"d"\"n"%"d"" ""%"" ""(""m""a""x""_""t""o""p""i""c"","" ""t""e""a""m""_""c""n""t"")""
-""
-"" "" "" "" ""d""e""f"" ""c""o""m""m""o""n""_""t""o""p""i""c""s""(""s""e""l""f"","" ""M"","" ""a"","" ""b"")"":""
-"" "" "" "" "" "" "" "" ""t""o""p""i""c"" ""="" ""a"" ""|"" ""b""
-"" "" "" "" "" "" "" "" ""t""o""p""i""c""_""c""n""t"" ""="" ""b""i""n""(""t""o""p""i""c"")"".""c""o""u""n""t""(
+        return "%d\n%d" % (max_topic, team_cnt)
+
+    def common_topics(self, M, a, b):
+        topic = a | b
+        topic_cnt = bin(topic).count("1")  
+        
+        
+        
+        
+        
+        return topic_cnt
+
+
+if __name__ == "__main__":
+    import sys
+
+    f = open("1.in", "r")
+    
+    N, M = map(lambda x: int(x), f.readline().strip().split(" "))
+    ppl = []
+    for i in xrange(N):
+        ppl.append(int(f.readline().strip(), 2))
+
+    cipher = [N, M, ppl]
+    s = "%s\n" % (Solution().solve(cipher))
+    print s,

@@ -42,5 +42,5 @@ class Solution:
         return True
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""c""a""n""R""e""o""r""d""e""r""D""o""u""b""l""e""d""(""[""4"",""-""2"",""2"",""-""4""]"")"" ""=""="" ""T""r""u""e""
+if __name__ == "__main__":
+    assert Solution().canReorderDoubled([4,-2,2,-4]) == True

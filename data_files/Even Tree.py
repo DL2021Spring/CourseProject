@@ -37,7 +37,19 @@ class Solution(object):
         return self.f[cur]
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""i""m""p""o""r""t"" ""s""y""s""
-""
-"" "" "" "" ""f"" ""="" ""o""p""e""n""(
+if __name__ == "__main__":
+    import sys
+
+    f = open("1.in", "r")
+    
+    N, M = map(int, f.readline().strip().split(' '))
+    solution = Solution(N, M)
+    E = []
+    for t in xrange(M):
+        
+        E.append(map(int, f.readline().strip().split(' ')))
+
+    
+    cipher = N, M, E
+    s = "%s\n" % (solution.solve(cipher))
+    print s,

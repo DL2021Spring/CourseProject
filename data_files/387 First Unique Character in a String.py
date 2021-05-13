@@ -19,5 +19,5 @@ class Solution(object):
         return min(lst) if lst else -1
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""f""i""r""s""t""U""n""i""q""C""h""a""r""(
+if __name__ == "__main__":
+    assert Solution().firstUniqChar("leetcode") == 0

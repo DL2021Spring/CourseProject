@@ -23,5 +23,5 @@ class Solution:
         return current_level
 
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""g""e""t""R""o""w""(""3"")
+if __name__=="__main__":
+    print Solution().getRow(3)

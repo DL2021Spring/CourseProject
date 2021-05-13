@@ -19,5 +19,5 @@ class Solution:
 
         return cnt
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""t""r""i""a""n""g""l""e""C""o""u""n""t""(""[""3"","" ""4"","" ""6"","" ""7""]"")"" ""=""="" ""3
+if __name__ == "__main__":
+    assert Solution().triangleCount([3, 4, 6, 7]) == 3

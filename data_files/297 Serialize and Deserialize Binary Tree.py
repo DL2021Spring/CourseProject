@@ -15,26 +15,53 @@ class Codec:
     def serialize(self, root):
         
         if not root:
-            return "n"u"l"l""
-""
-"" "" "" "" "" "" "" "" ""r""e""t"" ""="" ""[""]""
-"" "" "" "" "" "" "" "" ""q"" ""="" ""[""]""
-"" "" "" "" "" "" "" "" ""q"".""a""p""p""e""n""d""(""r""o""o""t"")""
-"" "" "" "" "" "" "" "" ""r""e""t"".""a""p""p""e""n""d""(""s""t""r""(""r""o""o""t"".""v""a""l"")"")"" "" ""#"" ""a""d""d"" ""r""e""s""u""l""t"" ""w""h""e""n"" ""e""n""q""u""e""u""e""
-"" "" "" "" "" "" "" "" ""w""h""i""l""e"" ""q"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""l"" ""="" ""l""e""n""(""q"")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""f""o""r"" ""i"" ""i""n"" ""x""r""a""n""g""e""(""l"")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""c""u""r"" ""="" ""q""[""i""]""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""c""u""r"".""l""e""f""t"":"" ""q"".""a""p""p""e""n""d""(""c""u""r"".""l""e""f""t"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t"".""a""p""p""e""n""d""(""s""e""l""f"".""e""n""c""o""d""e""(""c""u""r"".""l""e""f""t"")"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""c""u""r"".""r""i""g""h""t"":"" ""q"".""a""p""p""e""n""d""(""c""u""r"".""r""i""g""h""t"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t"".""a""p""p""e""n""d""(""s""e""l""f"".""e""n""c""o""d""e""(""c""u""r"".""r""i""g""h""t"")"")""
-""
-"" "" "" "" "" "" "" "" "" "" "" "" ""q"" ""="" ""q""[""l"":""]""
-""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" 
-        Decodes your encoded data to tree.
-        decode: 1, 2, 3, null, null, 4, 5, null, null, null, null
-        :type data: str
-        :rtype: TreeNode
+            return "null"
+
+        ret = []
+        q = []
+        q.append(root)
+        ret.append(str(root.val))  
+        while q:
+            l = len(q)
+            for i in xrange(l):
+                cur = q[i]
+                if cur.left: q.append(cur.left)
+                ret.append(self.encode(cur.left))
+                if cur.right: q.append(cur.right)
+                ret.append(self.encode(cur.right))
+
+            q = q[l:]
+
+        return ",".join(ret)
+
+    def deserialize(self, data):
         
+        lst = data.split(",")
+        root = self.decode(lst[0])
+
+        q = deque([root])
+        i = 1
+        while q:
+            cur = q.popleft()
+            if i < len(lst):
+                cur.left = self.decode(lst[i])
+                i += 1
+                if cur.left: q.append(cur.left)
+            if i < len(lst):
+                cur.right = self.decode(lst[i])
+                i += 1
+                if cur.right: q.append(cur.right)
+
+        return root
+
+    def decode(self, s):
+        if s == "null":
+            return None
+        else:
+            return TreeNode(int(s))
+
+    def encode(self, node):
+        if not node:
+            return "null"
+        else:
+            return str(node.val)

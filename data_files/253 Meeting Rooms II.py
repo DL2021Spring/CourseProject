@@ -17,13 +17,13 @@ class Solution(object):
         
         maxa = 0
 
-        intervals.sort(key=operator.attrgetter("s"t"a"r"t"")"")""
-"" "" "" "" "" "" "" "" ""h""_""e""n""d"" ""="" ""[""]""
-"" "" "" "" "" "" "" "" ""f""o""r"" ""i""t""v""l"" ""i""n"" ""i""n""t""e""r""v""a""l""s"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""h""e""a""p""q"".""h""e""a""p""p""u""s""h""(""h""_""e""n""d"","" ""i""t""v""l"".""e""n""d"")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""w""h""i""l""e"" ""h""_""e""n""d"" ""a""n""d"" ""h""_""e""n""d""[""0""]"" ""<""="" ""i""t""v""l"".""s""t""a""r""t"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""h""e""a""p""q"".""h""e""a""p""p""o""p""(""h""_""e""n""d"")""
-""
-"" "" "" "" "" "" "" "" "" "" "" "" ""m""a""x""a"" ""="" ""m""a""x""(""m""a""x""a"","" ""l""e""n""(""h""_""e""n""d"")"")""
-""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""m""a""x""a
+        intervals.sort(key=operator.attrgetter("start"))
+        h_end = []
+        for itvl in intervals:
+            heapq.heappush(h_end, itvl.end)
+            while h_end and h_end[0] <= itvl.start:
+                heapq.heappop(h_end)
+
+            maxa = max(maxa, len(h_end))
+
+        return maxa

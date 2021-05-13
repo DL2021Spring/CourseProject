@@ -28,5 +28,7 @@ class Solution:
         return p2 == len(s) and p1 == 0 and e != len(s)
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""r""e""p""e""a""t""e""d""S""u""b""s""t""r""i""n""g""P""a""t""t""e""r""n""(
+if __name__ == "__main__":
+    assert Solution().repeatedSubstringPattern("abab") == True
+    assert Solution().repeatedSubstringPattern("abcd") == False
+    assert Solution().repeatedSubstringPattern("abacababacab") == True

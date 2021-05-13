@@ -19,7 +19,19 @@ class Solution(object):
                 K -= 1
                 lst[idx], lst[i] = lst[i], lst[idx]
 
-        return " "".""j""o""i""n""(""m""a""p""(""s""t""r"","" ""l""s""t"")"")""
-""
-""
-""i""f"" ""_""_""n""a""m""e""_""_"" ""=""="" 
+        return " ".join(map(str, lst))
+
+
+if __name__ == "__main__":
+    import sys
+
+    f = open("1.in", "r")
+    
+    solution = Solution()
+
+    N, K = map(int, f.readline().strip().split(' '))
+    lst = map(int, f.readline().strip().split(' '))
+    cipher = (N, K, lst)
+    
+    s = "%s\n" % (solution.solve(cipher))
+    print s,

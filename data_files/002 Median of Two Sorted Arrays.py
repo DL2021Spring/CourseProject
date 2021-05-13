@@ -29,8 +29,8 @@ class Solution:
             return self.find_kth(B, A, k)
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""f""i""n""d""M""e""d""i""a""n""S""o""r""t""e""d""A""r""r""a""y""s""(""[""1"","" ""2""]"","" ""[""1"","" ""2"","" ""3""]"")"" ""=""="" ""2""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""f""i""n""d""M""e""d""i""a""n""S""o""r""t""e""d""A""r""r""a""y""s""(""[""1"","" ""2""]"","" ""[""3""]"")"" ""=""="" ""2""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""f""i""n""d""M""e""d""i""a""n""S""o""r""t""e""d""A""r""r""a""y""s""(""[""1""]"","" ""[""2"","" ""3""]"")"" ""=""="" ""2""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""f""i""n""d""M""e""d""i""a""n""S""o""r""t""e""d""A""r""r""a""y""s""(""[""1"","" ""2""]"","" ""[""1"","" ""2""]"")"" ""=""="" ""1"".""5""
+if __name__ == "__main__":
+    assert Solution().findMedianSortedArrays([1, 2], [1, 2, 3]) == 2
+    assert Solution().findMedianSortedArrays([1, 2], [3]) == 2
+    assert Solution().findMedianSortedArrays([1], [2, 3]) == 2
+    assert Solution().findMedianSortedArrays([1, 2], [1, 2]) == 1.5

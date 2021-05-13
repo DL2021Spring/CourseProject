@@ -36,22 +36,31 @@ class DualHeap(object):
                 return -self.max_h[0]
             elif m == l2:
                 return self.min_h[0]
-            raise Exception("n"o"t" "b"a"l"a"n"c"e"d"")""
-"" "" "" "" "" "" "" "" ""e""l""s""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""(""-""s""e""l""f"".""m""a""x""_""h""[""0""]"" ""+"" ""s""e""l""f"".""m""i""n""_""h""[""0""]"")"" ""/"" ""2"".""0""
-""
-""
-""c""l""a""s""s"" ""S""o""l""u""t""i""o""n"":""
-"" "" "" "" ""d""e""f"" ""_""_""i""n""i""t""_""_""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""d""h"" ""="" ""D""u""a""l""H""e""a""p""("")""
-""
-"" "" "" "" ""d""e""f"" ""s""o""l""v""e""(""s""e""l""f"","" ""c""i""p""h""e""r"")"":""
-"" "" "" "" "" "" "" "" 
+            raise Exception("not balanced")
+        else:
+            return (-self.max_h[0] + self.min_h[0]) / 2.0
+
+
+class Solution:
+    def __init__(self):
+        self.dh = DualHeap()
+
+    def solve(self, cipher):
+        
         self.dh.insert(cipher)
         return self.dh.get_median()
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""i""m""p""o""r""t"" ""s""y""s""
-""
-"" "" "" "" ""f"" ""="" ""o""p""e""n""(
+if __name__ == "__main__":
+    import sys
+
+    f = open("0.in", "r")
+    
+    solution = Solution()
+    testcases = int(f.readline().strip())
+
+    for t in xrange(testcases):
+        
+        cipher = int(f.readline().strip())
+        s = "%.1f\n" % (solution.solve(cipher))
+        print s,

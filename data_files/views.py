@@ -9,15 +9,18 @@ from rake import rake
 
 
 class MainView(View):
-    template_name = "t"a"g"g"i"n"g"."h"t"m"l""
-""
-"" "" "" "" ""@""m""e""t""h""o""d""_""d""e""c""o""r""a""t""o""r""(""c""s""r""f""_""e""x""e""m""p""t"")""
-"" "" "" "" ""d""e""f"" ""d""i""s""p""a""t""c""h""(""s""e""l""f"","" ""*""a""r""g""s"","" ""*""*""k""w""a""r""g""s"")"":""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""s""u""p""e""r""(""M""a""i""n""V""i""e""w"","" ""s""e""l""f"")"".""d""i""s""p""a""t""c""h""(""*""a""r""g""s"","" ""*""*""k""w""a""r""g""s"")""
-""
-"" "" "" "" ""d""e""f"" ""g""e""t""(""s""e""l""f"","" ""r""e""q""u""e""s""t"","" ""*""a""r""g""s"","" ""*""*""k""w""a""r""g""s"")"":""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""S""i""m""p""l""e""T""e""m""p""l""a""t""e""R""e""s""p""o""n""s""e""(""M""a""i""n""V""i""e""w"".""t""e""m""p""l""a""t""e""_""n""a""m""e"")""
-""
-"" "" "" "" ""d""e""f"" ""p""o""s""t""(""s""e""l""f"","" ""r""e""q""u""e""s""t"")"":""
-"" "" "" "" "" "" "" "" ""d""i""c"" ""="" ""j""s""o""n"".""l""o""a""d""s""(""r""e""q""u""e""s""t"".""b""o""d""y"")""
-"" "" "" "" "" "" "" "" ""r""e""t"" ""="" ""r""a""k""e"".""R""a""k""e""("")"".""r""u""n""(""d""i""c""[
+    template_name = "tagging.html"
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, *args, **kwargs):
+        return super(MainView, self).dispatch(*args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        return SimpleTemplateResponse(MainView.template_name)
+
+    def post(self, request):
+        dic = json.loads(request.body)
+        ret = rake.Rake().run(dic["text"])
+        ret = filter(lambda x: len(x.split(" ")) > 1, map(lambda x: x[0], ret))
+        ret = {"keywords": list(ret)}
+        return HttpResponse(json.dumps(ret))

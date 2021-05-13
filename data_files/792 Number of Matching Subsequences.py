@@ -35,5 +35,5 @@ class Solution:
         )
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""n""u""m""M""a""t""c""h""i""n""g""S""u""b""s""e""q""(
+if __name__ == "__main__":
+    assert Solution().numMatchingSubseq("abcde", ["a", "bb", "acd", "ace"]) == 3

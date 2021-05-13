@@ -148,135 +148,269 @@ class HTTPConnectionPool(ConnectionPool, RequestMethods):
     def _new_conn(self):
         
         self.num_connections += 1
-        log.info("S"t"a"r"t"i"n"g" "n"e"w" "H"T"T"P" "c"o"n"n"e"c"t"i"o"n" "("%"d")":" "%"s"" ""%""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""(""s""e""l""f"".""n""u""m""_""c""o""n""n""e""c""t""i""o""n""s"","" ""s""e""l""f"".""h""o""s""t"")"")""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""H""T""T""P""C""o""n""n""e""c""t""i""o""n""(""h""o""s""t""=""s""e""l""f"".""h""o""s""t"",""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""p""o""r""t""=""s""e""l""f"".""p""o""r""t"",""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""t""r""i""c""t""=""s""e""l""f"".""s""t""r""i""c""t"")""
-""
-"" "" "" "" ""d""e""f"" ""_""g""e""t""_""c""o""n""n""(""s""e""l""f"","" ""t""i""m""e""o""u""t""=""N""o""n""e"")"":""
-"" "" "" "" "" "" "" "" 
+        log.info("Starting new HTTP connection (%d): %s" %
+                 (self.num_connections, self.host))
+        return HTTPConnection(host=self.host,
+                              port=self.port,
+                              strict=self.strict)
+
+    def _get_conn(self, timeout=None):
+        
         conn = None
         try:
             conn = self.pool.get(block=self.block, timeout=timeout)
 
         except AttributeError: 
-            raise ClosedPoolError(self, "P"o"o"l" "i"s" "c"l"o"s"e"d"."")""
-""
-"" "" "" "" "" "" "" "" ""e""x""c""e""p""t"" ""E""m""p""t""y"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""s""e""l""f"".""b""l""o""c""k"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""r""a""i""s""e"" ""E""m""p""t""y""P""o""o""l""E""r""r""o""r""(""s""e""l""f"",""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" 
-        Put a connection back into the pool.
+            raise ClosedPoolError(self, "Pool is closed.")
 
-        :param conn:
-            Connection object for the current host and port as returned by
-            :meth:`._new_conn` or :meth:`._get_conn`.
+        except Empty:
+            if self.block:
+                raise EmptyPoolError(self,
+                                     "Pool reached maximum size and no more "
+                                     "connections are allowed.")
+            pass  
 
-        If the pool is already full, the connection is closed and discarded
-        because we exceeded maxsize. If connections are discarded frequently,
-        then maxsize should be increased.
-
-        If the pool is closed, then the connection will be closed and discarded.
         
-        Perform a request on a given httplib connection object taken from our
-        pool.
+        if conn and is_connection_dropped(conn):
+            log.info("Resetting dropped connection: %s" % self.host)
+            conn.close()
+
+        return conn or self._new_conn()
+
+    def _put_conn(self, conn):
         
-        Close all pooled connections and disable the pool.
+        try:
+            self.pool.put(conn, block=False)
+            return 
+        except AttributeError:
+            
+            pass
+        except Full:
+            
+            log.warning("HttpConnectionPool is full, discarding connection: %s"
+                        % self.host)
+
         
-        Check if the given ``url`` is a member of the same host as this
-        connection pool.
+        conn.close()
+
+    def _make_request(self, conn, method, url, timeout=_Default,
+                      **httplib_request_kw):
         
-        Get a connection from the pool and perform an HTTP request. This is the
-        lowest level call for making a request, so you'll need to specify all
-        the raw details.
+        self.num_requests += 1
 
-        .. note::
+        if timeout is _Default:
+            timeout = self.timeout
 
-           More commonly, it's appropriate to use a convenience method provided
-           by :class:`.RequestMethods`, such as :meth:`request`.
+        conn.timeout = timeout 
+        conn.request(method, url, **httplib_request_kw)
 
-        .. note::
-
-           `release_conn` will only behave as expected if
-           `preload_content=False` because we want to make
-           `preload_content=False` the default behaviour someday soon without
-           breaking backwards compatibility.
-
-        :param method:
-            HTTP request method (such as GET, POST, PUT, etc.)
-
-        :param body:
-            Data to send in the request body (useful for creating
-            POST requests, see HTTPConnectionPool.post_url for
-            more convenience).
-
-        :param headers:
-            Dictionary of custom headers to send, such as User-Agent,
-            If-None-Match, etc. If None, pool headers are used. If provided,
-            these headers completely replace any pool-specific headers.
-
-        :param retries:
-            Number of retries to allow before raising a MaxRetryError exception.
-
-        :param redirect:
-            If True, automatically handle redirects (status codes 301, 302,
-            303, 307). Each redirect counts as a retry.
-
-        :param assert_same_host:
-            If ``True``, will make sure that the host of the pool requests is
-            consistent else will raise HostChangedError. When False, you can
-            use the pool on an HTTP proxy and request foreign hosts.
-
-        :param timeout:
-            If specified, overrides the default timeout for this one request.
-
-        :param pool_timeout:
-            If set and the pool is set to block=True, then this method will
-            block for ``pool_timeout`` seconds and raise EmptyPoolError if no
-            connection is available within the time period.
-
-        :param release_conn:
-            If False, then the urlopen call will not release the connection
-            back into the pool once a response is received (but will release if
-            you read the entire contents of the response such as when
-            `preload_content=True`). This is useful if you're not preloading
-            the response's content immediately. You will need to call
-            ``r.release_conn()`` on the response ``r`` to return the connection
-            back into the pool. If None, it takes the value of
-            ``response_kw.get('preload_content', True)``.
-
-        :param \**response_kw:
-            Additional parameters are passed to
-            :meth:`urllib3.response.HTTPResponse.from_httplib`
         
-    Same as :class:`.HTTPConnectionPool`, but HTTPS.
+        sock = getattr(conn, 'sock', False) 
+        if sock:
+            sock.settimeout(timeout)
 
-    When Python is compiled with the :mod:`ssl` module, then
-    :class:`.VerifiedHTTPSConnection` is used, which *can* verify certificates,
-    instead of :class:`httplib.HTTPSConnection`.
+        try: 
+            httplib_response = conn.getresponse(buffering=True)
+        except TypeError: 
+            httplib_response = conn.getresponse()
 
-    The ``key_file``, ``cert_file``, ``cert_reqs``, ``ca_certs``, and ``ssl_version``
-    are only used if :mod:`ssl` is available and are fed into
-    :meth:`urllib3.util.ssl_wrap_socket` to upgrade the connection socket into an SSL socket.
+        
+        http_version = getattr(conn, '_http_vsn_str', 'HTTP/?')
+        log.debug("\"%s %s %s\" %s %s" % (method, url, http_version,
+                                          httplib_response.status,
+                                          httplib_response.length))
+        return httplib_response
+
+    def close(self):
+        
+        
+        old_pool, self.pool = self.pool, None
+
+        try:
+            while True:
+                conn = old_pool.get(block=False)
+                if conn:
+                    conn.close()
+
+        except Empty:
+            pass 
+
+    def is_same_host(self, url):
+        
+        if url.startswith('/'):
+            return True
+
+        
+        scheme, host, port = get_host(url)
+
+        if self.port and not port:
+            
+            port = port_by_scheme.get(scheme)
+
+        return (scheme, host, port) == (self.scheme, self.host, self.port)
+
+    def urlopen(self, method, url, body=None, headers=None, retries=3,
+                redirect=True, assert_same_host=True, timeout=_Default,
+                pool_timeout=None, release_conn=None, **response_kw):
+        
+        if headers is None:
+            headers = self.headers
+
+        if retries < 0:
+            raise MaxRetryError(self, url)
+
+        if timeout is _Default:
+            timeout = self.timeout
+
+        if release_conn is None:
+            release_conn = response_kw.get('preload_content', True)
+
+        
+        if assert_same_host and not self.is_same_host(url):
+            host = "%s://%s" % (self.scheme, self.host)
+            if self.port:
+                host = "%s:%d" % (host, self.port)
+
+            raise HostChangedError(self, url, retries - 1)
+
+        conn = None
+
+        try:
+            
+            conn = self._get_conn(timeout=pool_timeout)
+
+            
+            httplib_response = self._make_request(conn, method, url,
+                                                  timeout=timeout,
+                                                  body=body, headers=headers)
+
+            
+            
+            
+            
+            response_conn = not release_conn and conn
+
+            
+            response = HTTPResponse.from_httplib(httplib_response,
+                                                 pool=self,
+                                                 connection=response_conn,
+                                                 **response_kw)
+
+            
+            
+            
+            
+
+        except Empty as e:
+            
+            raise TimeoutError(self, "Request timed out. (pool_timeout=%s)" %
+                               pool_timeout)
+
+        except SocketTimeout as e:
+            
+            raise TimeoutError(self, "Request timed out. (timeout=%s)" %
+                               timeout)
+
+        except BaseSSLError as e:
+            
+            raise SSLError(e)
+
+        except CertificateError as e:
+            
+            raise SSLError(e)
+
+        except (HTTPException, SocketError) as e:
+            
+            conn = None
+            
+            err = e
+
+            if retries == 0:
+                raise MaxRetryError(self, url, e)
+
+        finally:
+            if release_conn:
+                
+                
+                
+                self._put_conn(conn)
+
+        if not conn:
+            
+            log.warn("Retrying (%d attempts remain) after connection "
+                     "broken by '%r': %s" % (retries, err, url))
+            return self.urlopen(method, url, body, headers, retries - 1,
+                                redirect, assert_same_host,
+                                timeout=timeout, pool_timeout=pool_timeout,
+                                release_conn=release_conn, **response_kw)
+
+        
+        redirect_location = redirect and response.get_redirect_location()
+        if redirect_location:
+            if response.status == 303:
+                method = 'GET'
+            log.info("Redirecting %s -> %s" % (url, redirect_location))
+            return self.urlopen(method, redirect_location, body, headers,
+                                retries - 1, redirect, assert_same_host,
+                                timeout=timeout, pool_timeout=pool_timeout,
+                                release_conn=release_conn, **response_kw)
+
+        return response
+
+
+class HTTPSConnectionPool(HTTPConnectionPool):
     
-        Return a fresh :class:`httplib.HTTPSConnection`.
+
+    scheme = 'https'
+
+    def __init__(self, host, port=None,
+                 strict=False, timeout=None, maxsize=1,
+                 block=False, headers=None,
+                 key_file=None, cert_file=None,
+                 cert_reqs='CERT_NONE', ca_certs=None, ssl_version=None):
+
+        HTTPConnectionPool.__init__(self, host, port,
+                                    strict, timeout, maxsize,
+                                    block, headers)
+        self.key_file = key_file
+        self.cert_file = cert_file
+        self.cert_reqs = cert_reqs
+        self.ca_certs = ca_certs
+        self.ssl_version = ssl_version
+
+    def _new_conn(self):
         
-    Given a url, return an :class:`.ConnectionPool` instance of its host.
+        self.num_connections += 1
+        log.info("Starting new HTTPS connection (%d): %s"
+                 % (self.num_connections, self.host))
 
-    This is a shortcut for not having to parse out the scheme, host, and port
-    of the url before creating an :class:`.ConnectionPool` instance.
+        if not ssl: 
+            if not HTTPSConnection or HTTPSConnection is object:
+                raise SSLError("Can't connect to HTTPS URL because the SSL "
+                               "module is not available.")
 
-    :param url:
-        Absolute URL string that must include the scheme. Port is optional.
+            return HTTPSConnection(host=self.host,
+                                   port=self.port,
+                                   strict=self.strict)
 
-    :param \**kw:
-        Passes additional parameters to the constructor of the appropriate
-        :class:`.ConnectionPool`. Useful for specifying things like
-        timeout, maxsize, headers, etc.
+        connection = VerifiedHTTPSConnection(host=self.host,
+                                             port=self.port,
+                                             strict=self.strict)
+        connection.set_cert(key_file=self.key_file, cert_file=self.cert_file,
+                            cert_reqs=self.cert_reqs, ca_certs=self.ca_certs)
 
-    Example: ::
+        if self.ssl_version is None:
+            connection.ssl_version = ssl.PROTOCOL_SSLv23
+        else:
+            connection.ssl_version = self.ssl_version
 
-        >>> conn = connection_from_url('http://google.com/')
-        >>> r = conn.request('GET', '/')
+        return connection
+
+
+def connection_from_url(url, **kw):
     
+    scheme, host, port = get_host(url)
+    if scheme == 'https':
+        return HTTPSConnectionPool(host, port=port, **kw)
+    else:
+        return HTTPConnectionPool(host, port=port, **kw)

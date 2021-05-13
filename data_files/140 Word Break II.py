@@ -9,37 +9,38 @@ class Solution:
         
         dp = [[] for _ in range(len(s) + 1)]
 
-        dp[0].append("d"u"m"m"y"")""
-""
-"" "" "" "" "" "" "" "" ""f""o""r"" ""i"" ""i""n"" ""r""a""n""g""e""(""l""e""n""(""s"")"")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""n""o""t"" ""d""p""[""i""]"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""c""o""n""t""i""n""u""e""
-""
-"" "" "" "" "" "" "" "" "" "" "" "" ""f""o""r"" ""w""o""r""d"" ""i""n"" ""d""i""c""t"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""s""[""i"":""i"" ""+"" ""l""e""n""(""w""o""r""d"")""]"" ""=""="" ""w""o""r""d"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""d""p""[""i"" ""+"" ""l""e""n""(""w""o""r""d"")""]"".""a""p""p""e""n""d""(""w""o""r""d"")""
-""
-"" "" "" "" "" "" "" "" ""#"" ""b""u""i""l""d"" ""r""e""s""u""l""t""
-"" "" "" "" "" "" "" "" ""i""f"" ""n""o""t"" ""d""p""[""-""1""]"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""[""]""
-""
-"" "" "" "" "" "" "" "" ""r""e""s""u""l""t"" ""="" ""[""]""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""b""u""i""l""d""_""r""e""s""u""l""t""(""d""p"","" ""l""e""n""(""s"")"","" ""d""e""q""u""e""("")"","" ""r""e""s""u""l""t"")""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""r""e""s""u""l""t""
-""
-""
-"" "" "" "" ""d""e""f"" ""b""u""i""l""d""_""r""e""s""u""l""t""(""s""e""l""f"","" ""d""p"","" ""c""u""r""_""i""n""d""e""x"","" ""c""u""r""_""s""e""n""t""e""n""c""e"","" ""r""e""s""u""l""t"")"":""
-"" "" "" "" "" "" "" "" 
+        dp[0].append("dummy")
+
+        for i in range(len(s)):
+            if not dp[i]:
+                continue
+
+            for word in dict:
+                if s[i:i + len(word)] == word:
+                    dp[i + len(word)].append(word)
+
+        
+        if not dp[-1]:
+            return []
+
+        result = []
+        self.build_result(dp, len(s), deque(), result)
+        return result
+
+
+    def build_result(self, dp, cur_index, cur_sentence, result):
+        
         
         if cur_index == 0:
-            result.append(" "".""j""o""i""n""(""c""u""r""_""s""e""n""t""e""n""c""e"")"")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n""
-""
-"" "" "" "" "" "" "" "" ""#"" ""d""f""s""
-"" "" "" "" "" "" "" "" ""f""o""r"" ""p""r""e""f""i""x"" ""i""n"" ""d""p""[""c""u""r""_""i""n""d""e""x""]"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""c""u""r""_""s""e""n""t""e""n""c""e"".""a""p""p""e""n""d""l""e""f""t""(""p""r""e""f""i""x"")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""b""u""i""l""d""_""r""e""s""u""l""t""(""d""p"","" ""c""u""r""_""i""n""d""e""x"" ""-"" ""l""e""n""(""p""r""e""f""i""x"")"","" ""c""u""r""_""s""e""n""t""e""n""c""e"","" ""r""e""s""u""l""t"")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""c""u""r""_""s""e""n""t""e""n""c""e"".""p""o""p""l""e""f""t""("")""
-""
-""
-""i""f"" ""_""_""n""a""m""e""_""_""=""=
+            result.append(" ".join(cur_sentence))
+            return
+
+        
+        for prefix in dp[cur_index]:
+            cur_sentence.appendleft(prefix)
+            self.build_result(dp, cur_index - len(prefix), cur_sentence, result)
+            cur_sentence.popleft()
+
+
+if __name__=="__main__":
+    assert Solution().wordBreak("catsanddog", ["cat", "cats", "and", "sand", "dog"])==['cat sand dog', 'cats and dog']

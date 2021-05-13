@@ -88,27 +88,27 @@ class Traverser(object):
         print node.val
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""r""o""o""t"" ""="" ""T""r""e""e""N""o""d""e""(""6"")""
-"" "" "" "" ""r""o""o""t"".""l""e""f""t"" ""="" ""T""r""e""e""N""o""d""e""(""2"")""
-"" "" "" "" ""r""o""o""t"".""l""e""f""t"".""l""e""f""t"" ""="" ""T""r""e""e""N""o""d""e""(""1"")""
-"" "" "" "" ""r""o""o""t"".""l""e""f""t"".""r""i""g""h""t"" ""="" ""T""r""e""e""N""o""d""e""(""4"")""
-"" "" "" "" ""r""o""o""t"".""l""e""f""t"".""r""i""g""h""t"".""l""e""f""t"" ""="" ""T""r""e""e""N""o""d""e""(""3"")""
-"" "" "" "" ""r""o""o""t"".""l""e""f""t"".""r""i""g""h""t"".""r""i""g""h""t"" ""="" ""T""r""e""e""N""o""d""e""(""5"")""
-"" "" "" "" ""r""o""o""t"".""r""i""g""h""t"" ""="" ""T""r""e""e""N""o""d""e""(""7"")""
-"" "" "" "" ""r""o""o""t"".""r""i""g""h""t"".""r""i""g""h""t"" ""="" ""T""r""e""e""N""o""d""e""(""9"")""
-"" "" "" "" ""r""o""o""t"".""r""i""g""h""t"".""r""i""g""h""t"".""l""e""f""t"" ""="" ""T""r""e""e""N""o""d""e""(""8"")""
-""
-"" "" "" "" ""t""r""a""v""e""r""s""e""r"" ""="" ""T""r""a""v""e""r""s""e""r""("")""
-"" "" "" "" ""p""r""i""n""t"" ""t""r""a""v""e""r""s""e""r"".""m""o""r""r""i""s""_""i""n""o""r""d""e""r"".""_""_""n""a""m""e""_""_""
-"" "" "" "" ""t""r""a""v""e""r""s""e""r"".""m""o""r""r""i""s""_""i""n""o""r""d""e""r""(""r""o""o""t"")""
-"" "" "" "" ""p""r""i""n""t"" ""t""r""a""v""e""r""s""e""r"".""m""o""r""r""i""s""_""p""r""e""o""r""d""e""r"".""_""_""n""a""m""e""_""_""
-"" "" "" "" ""t""r""a""v""e""r""s""e""r"".""m""o""r""r""i""s""_""p""r""e""o""r""d""e""r""(""r""o""o""t"")""
-"" "" "" "" ""p""r""i""n""t"" ""t""r""a""v""e""r""s""e""r"".""m""o""r""r""i""s""_""p""o""s""t""o""r""d""e""r"".""_""_""n""a""m""e""_""_""
-"" "" "" "" ""t""r""a""v""e""r""s""e""r"".""m""o""r""r""i""s""_""p""o""s""t""o""r""d""e""r""(""r""o""o""t"")""
-""
-""
-""
-""
-""
-""
+if __name__ == "__main__":
+    root = TreeNode(6)
+    root.left = TreeNode(2)
+    root.left.left = TreeNode(1)
+    root.left.right = TreeNode(4)
+    root.left.right.left = TreeNode(3)
+    root.left.right.right = TreeNode(5)
+    root.right = TreeNode(7)
+    root.right.right = TreeNode(9)
+    root.right.right.left = TreeNode(8)
+
+    traverser = Traverser()
+    print traverser.morris_inorder.__name__
+    traverser.morris_inorder(root)
+    print traverser.morris_preorder.__name__
+    traverser.morris_preorder(root)
+    print traverser.morris_postorder.__name__
+    traverser.morris_postorder(root)
+
+
+
+
+
+

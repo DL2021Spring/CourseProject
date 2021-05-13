@@ -26,9 +26,9 @@ class Solution:
 
         return head
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""n""o""d""e""s"" ""="" ""[""L""i""s""t""N""o""d""e""(""1"")"" ""f""o""r"" ""_"" ""i""n"" ""r""a""n""g""e""(""2"")""]""
-"" "" "" "" ""f""o""r"" ""i"" ""i""n"" ""r""a""n""g""e""(""l""e""n""(""n""o""d""e""s"")""-""1"")"":""
-"" "" "" "" "" "" "" "" ""n""o""d""e""s""[""i""]"".""n""e""x""t"" ""="" ""n""o""d""e""s""[""i""+""1""]""
-""
-"" "" "" "" ""S""o""l""u""t""i""o""n""("")"".""d""e""l""e""t""e""D""u""p""l""i""c""a""t""e""s""(""n""o""d""e""s""[""0""]"")
+if __name__=="__main__":
+    nodes = [ListNode(1) for _ in range(2)]
+    for i in range(len(nodes)-1):
+        nodes[i].next = nodes[i+1]
+
+    Solution().deleteDuplicates(nodes[0])

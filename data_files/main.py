@@ -1,28 +1,40 @@
-__author__ = 'Danyang'
 
 
-class Solution:
-    def generateParenthesisDfs(self, result, cur, left, right):
-        
-        
-        if left==0 and right==0:
-            result.append(cur)
-            return
-            
-        if left>0:
-            self.generateParenthesisDfs(result, cur+"("","" ""l""e""f""t""-""1"","" ""r""i""g""h""t"")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""#"" ""a""d""d"" ""r""i""g""h""t"" ""p""a""r""e""n""t""h""e""s""i""s""
-"" "" "" "" "" "" "" "" ""i""f"" ""r""i""g""h""t"">""l""e""f""t"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""g""e""n""e""r""a""t""e""P""a""r""e""n""t""h""e""s""i""s""D""f""s""(""r""e""s""u""l""t"","" ""c""u""r""+
-        number of unique binary search tree
-        Catalan Number
 
-        C_n = {2n\choose n} - {2n\choose n+1}
-        Proof: http://en.wikipedia.org/wiki/Catalan_number
-        :param n: integer
-        :return: integer
-        
+from Join_Ftr import *
+from ReadFile import ReadFile
+from GS_Face import GsFace
 
-        
 
-        
+
+feature_pth = 'E:\\GPforFR\\data\\lfw_feature5'
+
+
+instruc_pth_t = 'E:\\GPforFR\\data\\lfw_view1\\pairsDevTrain.txt'  
+instruc_pth_s = 'E:\\GPforFR\\data\\lfw_view1\\pairsDevTest.txt'  
+
+
+num = 5
+
+
+read_file = ReadFile(instruc_pth_t, num)
+X1 = read_file.person_pair() + read_file.person_mispair()
+
+read_file = ReadFile(instruc_pth_s, num)
+X2 = read_file.person_pair() + read_file.person_mispair()
+
+
+gs_feature = Join_Ftr()
+
+
+Xtar, Ytar = gs_feature.Constrct_XY(feature_pth, X1)
+Xsrc, Ysrc = gs_feature.Constrct_XY(feature_pth, X2)
+
+Xt_in, Yt_in = gs_feature.XY_in(Xtar, Ytar)
+Xs_in, Ys_in = gs_feature.XY_in(Xsrc, Ysrc)
+
+
+gsface = GsFace(Xt_in, Xs_in)
+
+
+

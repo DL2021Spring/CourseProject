@@ -35,7 +35,7 @@ class Solution:
 
         return path[m-1][n-1]
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""g""r""i""d"" ""="" ""[""[""0"","" ""0""]"","" ""[""1"","" ""1""]"","" ""[""0"","" ""0""]""]""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""u""n""i""q""u""e""P""a""t""h""s""W""i""t""h""O""b""s""t""a""c""l""e""s""(""g""r""i""d"")""=""=""0""
-""
+if __name__=="__main__":
+    grid = [[0, 0], [1, 1], [0, 0]]
+    assert Solution().uniquePathsWithObstacles(grid)==0
+

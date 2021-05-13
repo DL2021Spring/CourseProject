@@ -213,12 +213,15 @@ Latin7GreekModel = {
   'precedenceMatrix': GreekLangModel,
   'mTypicalPositiveRatio': 0.982851,
   'keepEnglishLetter': False,
-  'charsetName': "I"S"O"-"8"8"5"9"-"7""
-""}""
-""
-""W""i""n""1""2""5""3""G""r""e""e""k""M""o""d""e""l"" ""="" ""{""
-"" "" ""'""c""h""a""r""T""o""O""r""d""e""r""M""a""p""'"":"" ""w""i""n""1""2""5""3""_""C""h""a""r""T""o""O""r""d""e""r""M""a""p"",""
-"" "" ""'""p""r""e""c""e""d""e""n""c""e""M""a""t""r""i""x""'"":"" ""G""r""e""e""k""L""a""n""g""M""o""d""e""l"",""
-"" "" ""'""m""T""y""p""i""c""a""l""P""o""s""i""t""i""v""e""R""a""t""i""o""'"":"" ""0"".""9""8""2""8""5""1"",""
-"" "" ""'""k""e""e""p""E""n""g""l""i""s""h""L""e""t""t""e""r""'"":"" ""F""a""l""s""e"",""
-"" "" ""'""c""h""a""r""s""e""t""N""a""m""e""'"":"" 
+  'charsetName': "ISO-8859-7"
+}
+
+Win1253GreekModel = {
+  'charToOrderMap': win1253_CharToOrderMap,
+  'precedenceMatrix': GreekLangModel,
+  'mTypicalPositiveRatio': 0.982851,
+  'keepEnglishLetter': False,
+  'charsetName': "windows-1253"
+}
+
+

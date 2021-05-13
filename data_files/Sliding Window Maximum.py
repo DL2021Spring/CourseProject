@@ -27,5 +27,5 @@ class Solution:
         return ret
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""m""a""x""S""l""i""d""i""n""g""W""i""n""d""o""w""(""[""1"","" ""2"","" ""7"","" ""7"","" ""8""]"","" ""3"")
+if __name__ == "__main__":
+    print Solution().maxSlidingWindow([1, 2, 7, 7, 8], 3)

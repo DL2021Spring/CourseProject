@@ -9,7 +9,23 @@ class Solution(object):
         A = cipher
         n = len(A)
         idx = sorted(range(n), key=lambda k: A[k][0] + A[k][1])
-        return " "".""j""o""i""n""(""m""a""p""(""l""a""m""b""d""a"" ""x"":"" ""s""t""r""(""x"" ""+"" ""1"")"","" ""i""d""x"")"")""
-""
-""
-""i""f"" ""_""_""n""a""m""e""_""_"" ""=""="" 
+        return " ".join(map(lambda x: str(x + 1), idx))
+
+
+if __name__ == "__main__":
+    import sys
+
+    f = open("0.in", "r")
+    
+    solution = Solution()
+    n = int(f.readline().strip())
+
+    cipher = []
+    for i in xrange(n):
+        
+        t = map(int, f.readline().strip().split(' '))
+        cipher.append(tuple(t))
+
+    
+    s = "%s\n" % (solution.solve(cipher))
+    print s,

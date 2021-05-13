@@ -71,8 +71,8 @@ class Solution:
     
     
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""n""o""d""e""1"" ""="" ""T""r""e""e""N""o""d""e""(""2"")""
-"" "" "" "" ""n""o""d""e""2"" ""="" ""T""r""e""e""N""o""d""e""(""1"")""
-"" "" "" "" ""n""o""d""e""1"".""r""i""g""h""t"" ""="" ""n""o""d""e""2""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""r""e""c""o""v""e""r""T""r""e""e""(""n""o""d""e""1"")
+if __name__=="__main__":
+    node1 = TreeNode(2)
+    node2 = TreeNode(1)
+    node1.right = node2
+    print Solution().recoverTree(node1)

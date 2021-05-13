@@ -81,32 +81,83 @@ class HTTPDigestAuth(AuthBase):
                 return hashlib.sha1(x).hexdigest()
             hash_utf8 = sha_utf8
         
-        KD = lambda s, d: hash_utf8("%"s":"%"s"" ""%"" ""(""s"","" ""d"")"")""
-""
-"" "" "" "" "" "" "" "" ""i""f"" ""h""a""s""h""_""u""t""f""8"" ""i""s"" ""N""o""n""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""N""o""n""e""
-""
-"" "" "" "" "" "" "" "" ""#"" ""X""X""X"" ""n""o""t"" ""i""m""p""l""e""m""e""n""t""e""d"" ""y""e""t""
-"" "" "" "" "" "" "" "" ""e""n""t""d""i""g"" ""="" ""N""o""n""e""
-"" "" "" "" "" "" "" "" ""p""_""p""a""r""s""e""d"" ""="" ""u""r""l""p""a""r""s""e""(""u""r""l"")""
-"" "" "" "" "" "" "" "" ""p""a""t""h"" ""="" ""p""_""p""a""r""s""e""d"".""p""a""t""h""
-"" "" "" "" "" "" "" "" ""i""f"" ""p""_""p""a""r""s""e""d"".""q""u""e""r""y"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""p""a""t""h"" ""+""="" ""'""?""'"" ""+"" ""p""_""p""a""r""s""e""d"".""q""u""e""r""y""
-""
-"" "" "" "" "" "" "" "" ""A""1"" ""="" ""'""%""s"":""%""s"":""%""s""'"" ""%"" ""(""s""e""l""f"".""u""s""e""r""n""a""m""e"","" ""r""e""a""l""m"","" ""s""e""l""f"".""p""a""s""s""w""o""r""d"")""
-"" "" "" "" "" "" "" "" ""A""2"" ""="" ""'""%""s"":""%""s""'"" ""%"" ""(""m""e""t""h""o""d"","" ""p""a""t""h"")""
-""
-"" "" "" "" "" "" "" "" ""i""f"" ""q""o""p"" ""=""="" ""'""a""u""t""h""'"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""n""o""n""c""e"" ""=""="" ""s""e""l""f"".""l""a""s""t""_""n""o""n""c""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""n""o""n""c""e""_""c""o""u""n""t"" ""+""="" ""1""
-"" "" "" "" "" "" "" "" "" "" "" "" ""e""l""s""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""n""o""n""c""e""_""c""o""u""n""t"" ""="" ""1""
-""
-"" "" "" "" "" "" "" "" "" "" "" "" ""n""c""v""a""l""u""e"" ""="" ""'""%""0""8""x""'"" ""%"" ""s""e""l""f"".""n""o""n""c""e""_""c""o""u""n""t""
-"" "" "" "" "" "" "" "" "" "" "" "" ""s"" ""="" ""s""t""r""(""s""e""l""f"".""n""o""n""c""e""_""c""o""u""n""t"")"".""e""n""c""o""d""e""(""'""u""t""f""-""8""'"")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""s"" ""+""="" ""n""o""n""c""e"".""e""n""c""o""d""e""(""'""u""t""f""-""8""'"")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""s"" ""+""="" ""t""i""m""e"".""c""t""i""m""e""("")"".""e""n""c""o""d""e""(""'""u""t""f""-""8""'"")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""s"" ""+""="" ""o""s"".""u""r""a""n""d""o""m""(""8"")""
-""
-"" "" "" "" "" "" "" "" "" "" "" "" ""c""n""o""n""c""e"" ""="" ""(""h""a""s""h""l""i""b"".""s""h""a""1""(""s"")"".""h""e""x""d""i""g""e""s""t""("")""["":""1""6""]"")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""n""o""n""c""e""b""i""t"" ""="" Takes the given response and tries digest-auth, if needed.
+        KD = lambda s, d: hash_utf8("%s:%s" % (s, d))
+
+        if hash_utf8 is None:
+            return None
+
+        
+        entdig = None
+        p_parsed = urlparse(url)
+        path = p_parsed.path
+        if p_parsed.query:
+            path += '?' + p_parsed.query
+
+        A1 = '%s:%s:%s' % (self.username, realm, self.password)
+        A2 = '%s:%s' % (method, path)
+
+        if qop == 'auth':
+            if nonce == self.last_nonce:
+                self.nonce_count += 1
+            else:
+                self.nonce_count = 1
+
+            ncvalue = '%08x' % self.nonce_count
+            s = str(self.nonce_count).encode('utf-8')
+            s += nonce.encode('utf-8')
+            s += time.ctime().encode('utf-8')
+            s += os.urandom(8)
+
+            cnonce = (hashlib.sha1(s).hexdigest()[:16])
+            noncebit = "%s:%s:%s:%s:%s" % (nonce, ncvalue, cnonce, qop, hash_utf8(A2))
+            respdig = KD(hash_utf8(A1), noncebit)
+        elif qop is None:
+            respdig = KD(hash_utf8(A1), "%s:%s" % (nonce, hash_utf8(A2)))
+        else:
+            
+            return None
+
+        self.last_nonce = nonce
+
+        
+        base = 'username="%s", realm="%s", nonce="%s", uri="%s", ' \
+           'response="%s"' % (self.username, realm, nonce, path, respdig)
+        if opaque:
+            base += ', opaque="%s"' % opaque
+        if entdig:
+            base += ', digest="%s"' % entdig
+            base += ', algorithm="%s"' % algorithm
+        if qop:
+            base += ', qop=auth, nc=%s, cnonce="%s"' % (ncvalue, cnonce)
+
+        return 'Digest %s' % (base)
+
+    def handle_401(self, r):
+        
+
+        num_401_calls = r.request.hooks['response'].count(self.handle_401)
+        s_auth = r.headers.get('www-authenticate', '')
+
+        if 'digest' in s_auth.lower() and num_401_calls < 2:
+
+            self.chal = parse_dict_header(s_auth.replace('Digest ', ''))
+
+            
+            
+            r.content
+            r.raw.release_conn()
+
+            r.request.headers['Authorization'] = self.build_digest_header(r.request.method, r.request.url)
+            _r = r.connection.send(r.request)
+            _r.history.append(r)
+
+            return _r
+
+        return r
+
+    def __call__(self, r):
+        
+        if self.last_nonce:
+            r.headers['Authorization'] = self.build_digest_header(r.method, r.url)
+        r.register_hook('response', self.handle_401)
+        return r

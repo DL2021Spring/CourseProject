@@ -4,10 +4,10 @@
 
 class Solution:
     def int(self, n):
-        return ord(n) - ord("0"")""
-""
-"" "" "" "" ""d""e""f"" ""a""d""d""S""t""r""i""n""g""s""(""s""e""l""f"","" ""n""u""m""1"","" ""n""u""m""2"")"":""
-"" "" "" "" "" "" "" "" 
+        return ord(n) - ord("0")
+
+    def addStrings(self, num1, num2):
+        
         ret = []
         
         if len(num1) > len(num2):
@@ -35,7 +35,10 @@ class Solution:
         if carry:
             ret.append(carry)
 
-        return "".""j""o""i""n""(""m""a""p""(""s""t""r"","" ""r""e""t""["":"":""-""1""]"")"")""
-""
-""
-""i""f"" ""_""_""n""a""m""e""_""_"" ""=""="" 
+        return "".join(map(str, ret[::-1]))
+
+
+if __name__ == "__main__":
+    assert Solution().addStrings("9999", "1") == "10000"
+    assert Solution().addStrings("9999", "9999") == "19998"
+    assert Solution().addStrings("23", "8") == "31"

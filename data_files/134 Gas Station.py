@@ -24,5 +24,5 @@ class Solution:
 
         return start_index
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""S""o""l""u""t""i""o""n""("")"".""c""a""n""C""o""m""p""l""e""t""e""C""i""r""c""u""i""t""(""[""5""]"","" ""[""4""]"")
+if __name__=="__main__":
+    Solution().canCompleteCircuit([5], [4])

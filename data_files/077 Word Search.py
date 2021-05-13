@@ -38,6 +38,11 @@ class Solution:
 
 
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""b""o""a""r""d"" ""="" ""[""
-"" "" "" "" "" "" "" "" 
+if __name__=="__main__":
+    board = [
+        "ABCE",
+        "SFCS",
+        "ADEE"
+    ]
+    word = "ABCCED"
+    print Solution().exist(board, word)

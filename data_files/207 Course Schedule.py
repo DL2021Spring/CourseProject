@@ -34,5 +34,5 @@ class Solution:
         return False
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""c""a""n""F""i""n""i""s""h""(""2"","" ""[""[""1"","" ""0""]"","" ""[""0"","" ""1""]""]"")"" ""i""s"" ""F""a""l""s""e
+if __name__ == "__main__":
+    assert Solution().canFinish(2, [[1, 0], [0, 1]]) is False

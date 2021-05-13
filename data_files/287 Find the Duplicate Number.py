@@ -20,6 +20,6 @@ class Solution(object):
         return t
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""f""i""n""d""D""u""p""l""i""c""a""t""e""(""[""1"","" ""2"","" ""3"" "",""4"","" ""5"","" ""5""]"")"" ""=""="" ""5""
-""
+if __name__ == "__main__":
+    assert Solution().findDuplicate([1, 2, 3 ,4, 5, 5]) == 5
+

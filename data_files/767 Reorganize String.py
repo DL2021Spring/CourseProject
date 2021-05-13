@@ -28,5 +28,13 @@ class Solution:
 
         if len(piles) > 1 and len(piles[-2]) == 1:
             return ""
-""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" 
+
+        return "".join(
+            map(lambda x: "".join(x), piles)
+        )
+
+
+if __name__ == "__main__":
+    assert Solution().reorganizeString("vvvlo") == "vlvov"
+    assert Solution().reorganizeString("aab") == "aba"
+    assert Solution().reorganizeString("aaab") == ""

@@ -29,5 +29,5 @@ class Solution:
         return True
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""S""o""l""u""t""i""o""n""("")"".""i""s""P""a""l""i""n""d""r""o""m""e""(""2""1""4""7""4""8""3""6""4""7"")
+if __name__ == "__main__":
+    Solution().isPalindrome(2147483647)

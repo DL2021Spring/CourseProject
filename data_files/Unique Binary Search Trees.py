@@ -25,5 +25,5 @@ class Solution:
         return self.cache[n]
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""n""u""m""T""r""e""e""s""(""3"")
+if __name__ == "__main__":
+    print Solution().numTrees(3)

@@ -13,12 +13,26 @@ class Solution(object):
             B.append(A[i] * A[i - 1] / self.gcd(A[i], A[i - 1]))
         B.append(A[-1])
 
-        return " "".""j""o""i""n""(""m""a""p""(""s""t""r"","" ""B"")"")""
-""
-"" "" "" "" ""d""e""f"" ""g""c""d""(""s""e""l""f"","" ""a"","" ""b"")"":""
-"" "" "" "" "" "" "" "" ""w""h""i""l""e"" ""b"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""a"","" ""b"" ""="" ""b"","" ""a"" ""%"" ""b""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""a""
-""
-""
-""i""f"" ""_""_""n""a""m""e""_""_"" ""=""="" 
+        return " ".join(map(str, B))
+
+    def gcd(self, a, b):
+        while b:
+            a, b = b, a % b
+        return a
+
+
+if __name__ == "__main__":
+    import sys
+
+    f = open("1.in", "r")
+    
+    testcases = int(f.readline().strip())
+
+    for t in xrange(testcases):
+        
+        N = int(f.readline().strip())
+        cipher = map(int, f.readline().strip().split(' '))
+
+        
+        s = "%s\n" % (Solution().solve(cipher))
+        print s,

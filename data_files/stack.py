@@ -29,5 +29,5 @@ class AllNerestSmallerValues(object):
             else:
                 assert expected[i] == A[P[i]]
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""A""l""l""N""e""r""e""s""t""S""m""a""l""l""e""r""V""a""l""u""e""s"".""t""e""s""t""("")
+if __name__ == "__main__":
+    AllNerestSmallerValues.test()

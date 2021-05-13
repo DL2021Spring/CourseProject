@@ -24,5 +24,5 @@ class Solution:
         )
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""m""i""n""i""m""u""m""L""e""n""g""t""h""E""n""c""o""d""i""n""g""(""[
+if __name__ == "__main__":
+    assert Solution().minimumLengthEncoding(["time", "me", "bell"]) == 10

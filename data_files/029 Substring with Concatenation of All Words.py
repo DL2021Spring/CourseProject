@@ -112,5 +112,8 @@ class Solution:
 
         return ret
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""f""i""n""d""S""u""b""s""t""r""i""n""g""(
+if __name__=="__main__":
+    assert Solution().findSubstring("abababab", ["a","b","a"])==[0,2,4]
+    assert Solution().findSubstring("a", ["a"])==[0]
+    assert Solution().findSubstring("lingmindraboofooowingdingbarrwingmonkeypoundcake", ["fooo","barr","wing","ding","wing"])==[13]
+    assert Solution().findSubstring("barfoofoofoobarman", ["foo", "foo"])==[3, 6]

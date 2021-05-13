@@ -18,5 +18,5 @@ class Solution(object):
         return F[target]
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""c""o""m""b""i""n""a""t""i""o""n""S""u""m""4""(""[""1"","" ""2"","" ""3""]"","" ""4"")"" ""=""="" ""7""
+if __name__ == "__main__":
+    assert Solution().combinationSum4([1, 2, 3], 4) == 7

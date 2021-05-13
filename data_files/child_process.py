@@ -13,10 +13,21 @@ def basic_child_process():
         ['sleep', '2'],
         stdout=subprocess.PIPE
     )
-    print "."P"o"p"e"n" "i"s" "n"o"n"-"b"l"o"c"k"i"n"g""
-"" "" "" "" ""o""u""t"","" ""e""r""r"" ""="" ""p""r""o""c""1"".""c""o""m""m""u""n""i""c""a""t""e""("")""
-"" "" "" "" ""p""r""i""n""t"" ""o""u""t""
-""
-"" "" "" "" ""p""r""i""n""t"" 
-    .poll() to get the status of the child process
+    print ".Popen is non-blocking"
+    out, err = proc1.communicate()
+    print out
+
+    print "Wait for sleep termination"
+    proc2.communicate()
+    return out.decode('utf-8')
+
+
+def poll_status():
     
+    proc = subprocess.Popen(['sleep', '0.03'])
+    cnt = 0
+    while proc.poll() is None:  
+        cnt += 1
+
+    print cnt
+    return 'Exit status %s' % proc.poll()

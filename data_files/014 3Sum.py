@@ -84,5 +84,5 @@ class Solution:
         return result
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""t""h""r""e""e""S""u""m""(""[""-""1"","" ""0"","" ""1"","" ""2"","" ""-""1"","" ""-""4""]"")
+if __name__ == "__main__":
+    print Solution().threeSum([-1, 0, 1, 2, -1, -4])

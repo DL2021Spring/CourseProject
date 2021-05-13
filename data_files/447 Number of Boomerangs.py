@@ -41,5 +41,5 @@ class Solution:
         return ret
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""n""u""m""b""e""r""O""f""B""o""o""m""e""r""a""n""g""s""(""[""[""0"",""0""]"",""[""1"",""0""]"",""[""2"",""0""]""]"")"" ""=""="" ""2""
+if __name__ == "__main__":
+    assert Solution().numberOfBoomerangs([[0,0],[1,0],[2,0]]) == 2

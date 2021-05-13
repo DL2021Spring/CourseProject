@@ -28,5 +28,5 @@ class Solution:
         return f[n]
 
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""c""l""i""m""b""S""t""a""i""r""s""(""3"")
+if __name__=="__main__":
+    print Solution().climbStairs(3)

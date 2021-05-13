@@ -38,5 +38,5 @@ class Solution:
         return ret
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""n""e""x""t""G""r""e""a""t""e""r""E""l""e""m""e""n""t""s""(""[""1"",""2"",""1""]"")"" ""=""="" ""[""2"","" ""-""1"","" ""2""]""
+if __name__ == "__main__":
+    assert Solution().nextGreaterElements([1,2,1]) == [2, -1, 2]

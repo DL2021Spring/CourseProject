@@ -118,18 +118,216 @@ def get_ns3_relative_path(path):
         if tail == 'ns3':
             return os.path.join(*l)
         l.insert(0, tail)
-    raise AssertionError("i"s" "t"h"e" "p"a"t"h" "%"r" "i"n"s"i"d"e" "n"s"3"?"!"" ""%"" ""p""a""t""h"")""
-""
-""
-""d""e""f"" ""p""r""e""_""s""c""a""n""_""h""o""o""k""(""d""u""m""m""y""_""m""o""d""u""l""e""_""p""a""r""s""e""r"",""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""p""y""g""c""c""x""m""l""_""d""e""f""i""n""i""t""i""o""n"",""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""g""l""o""b""a""l""_""a""n""n""o""t""a""t""i""o""n""s"",""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""p""a""r""a""m""e""t""e""r""_""a""n""n""o""t""a""t""i""o""n""s"")"":""
-"" "" "" "" ""n""s""3""_""h""e""a""d""e""r"" ""="" ""g""e""t""_""n""s""3""_""r""e""l""a""t""i""v""e""_""p""a""t""h""(""p""y""g""c""c""x""m""l""_""d""e""f""i""n""i""t""i""o""n"".""l""o""c""a""t""i""o""n"".""f""i""l""e""_""n""a""m""e"")""
-""
-"" "" "" "" ""#""#"" ""N""o""t""e"":"" ""w""e"" ""d""o""n""'""t"" ""i""n""c""l""u""d""e"" ""l""i""n""e"" ""n""u""m""b""e""r""s"" ""i""n"" ""t""h""e"" ""c""o""m""m""e""n""t""s"" ""b""e""c""a""u""s""e""
-"" "" "" "" ""#""#"" ""t""h""o""s""e"" ""n""u""m""b""e""r""s"" ""a""r""e"" ""v""e""r""y"" ""l""i""k""e""l""y"" ""t""o"" ""c""h""a""n""g""e"" ""f""r""e""q""u""e""n""t""l""y"","" ""w""h""i""c""h"" ""w""o""u""l""d""
-"" "" "" "" ""#""#"" ""c""a""u""s""e"" ""n""e""e""d""l""e""s""s"" ""c""h""a""n""g""e""s"","" ""s""i""n""c""e"" ""t""h""e"" ""g""e""n""e""r""a""t""e""d"" ""p""y""t""h""o""n"" ""f""i""l""e""s"" ""a""r""e""
-"" "" "" "" ""#""#"" ""k""e""p""t"" ""u""n""d""e""r"" ""v""e""r""s""i""o""n"" ""c""o""n""t""r""o""l"".""
-""
-"" "" "" "" ""#""g""l""o""b""a""l""_""a""n""n""o""t""a""t""i""o""n""s""[""'""p""y""g""e""n""_""c""o""m""m""e""n""t""'""]"" ""="" 
+    raise AssertionError("is the path %r inside ns3?!" % path)
+
+
+def pre_scan_hook(dummy_module_parser,
+                  pygccxml_definition,
+                  global_annotations,
+                  parameter_annotations):
+    ns3_header = get_ns3_relative_path(pygccxml_definition.location.file_name)
+
+    
+    
+    
+    
+
+    
+    
+    global_annotations['pygen_comment'] = "%s: %s" % \
+        (ns3_header, pygccxml_definition)
+
+
+    
+    
+    
+    if isinstance(pygccxml_definition, member_function_t) \
+            and pygccxml_definition.parent.name == 'Object' \
+            and pygccxml_definition.name == 'GetObject':
+        template_args = templates.args(pygccxml_definition.demangled_name)
+        if template_args == ['ns3::Object']:
+            global_annotations['template_instance_names'] = 'ns3::Object=>GetObject'
+
+    
+    if isinstance(pygccxml_definition, member_function_t) \
+            and pygccxml_definition.parent.name == 'Simulator' \
+            and pygccxml_definition.name.startswith('Schedule'):
+        global_annotations['ignore'] = None
+
+    
+    if isinstance(pygccxml_definition, member_function_t) \
+            and pygccxml_definition.parent.name == 'Simulator' \
+            and pygccxml_definition.name == 'Run':
+        global_annotations['ignore'] = True
+
+    
+    if isinstance(pygccxml_definition, calldef_t):
+        for arg in pygccxml_definition.arguments:
+            if arg.default_value is None:
+                continue
+            if "ns3::MilliSeconds( )" == arg.default_value:
+                arg.default_value = "ns3::MilliSeconds(0)"
+            if "ns3::Seconds( )" == arg.default_value:
+                arg.default_value = "ns3::Seconds(0)"
+
+    
+    if isinstance(pygccxml_definition, class_t):
+        
+        
+        
+
+        if pygccxml_definition.decl_string.startswith('::ns3::SimpleRefCount<'):
+            global_annotations['incref_method'] = 'Ref'
+            global_annotations['decref_method'] = 'Unref'
+            global_annotations['peekref_method'] = 'GetReferenceCount'
+            global_annotations['automatic_type_narrowing'] = 'true'
+            return
+
+        if pygccxml_definition.decl_string.startswith('::ns3::Callback<'):
+            
+            global_annotations['ignore'] = None
+            return
+
+        if pygccxml_definition.decl_string.startswith('::ns3::TracedCallback<'):
+            global_annotations['ignore'] = None
+            return
+
+        if pygccxml_definition.decl_string.startswith('::ns3::Ptr<'):
+            
+            global_annotations['ignore'] = None
+            return
+
+        
+        try:
+            annotations = type_annotations[pygccxml_definition.decl_string]
+        except KeyError:
+            pass
+        else:
+            global_annotations.update(annotations)
+
+    
+    if isinstance(pygccxml_definition, free_function_t):
+        if pygccxml_definition.name == 'PeekPointer':
+            global_annotations['ignore'] = None
+            return
+
+    
+    if isinstance(pygccxml_definition, (free_function_t, member_function_t, constructor_t)):
+        try:
+            annotations = type_annotations[str(pygccxml_definition)]
+        except KeyError:
+            pass
+        else:
+            for key,value in annotations.items():
+                if key == 'params':
+                    parameter_annotations.update (value)
+                    del annotations['params']
+            global_annotations.update(annotations)
+
+
+
+
+
+
+
+
+
+
+def scan_callback_classes(module_parser, callback_classes_file):
+    callback_classes_file.write("callback_classes = [\n")
+    for cls in module_parser.module_namespace.classes(function=module_parser.location_filter,
+                                                      recursive=False):
+        if not cls.name.startswith("Callback<"):
+            continue
+        assert templates.is_instantiation(cls.decl_string), "%s is not a template instantiation" % cls
+        dummy_cls_name, template_parameters = templates.split(cls.decl_string)
+        callback_classes_file.write("    %r,\n" % template_parameters)
+    callback_classes_file.write("]\n")
+
+
+class MyPygenClassifier(PygenClassifier):
+    def __init__(self, headers_map, section_precendences):
+        self.headers_map = headers_map
+        self.section_precendences = section_precendences
+
+    def classify(self, pygccxml_definition):
+        name = os.path.basename(pygccxml_definition.location.file_name)
+        try:
+            return self.headers_map[name]
+        except KeyError:
+            return '__main__'
+
+    def get_section_precedence(self, section_name):
+        if section_name == '__main__':
+            return -1
+        return self.section_precendences[section_name]
+
+
+def ns3_module_scan(top_builddir, pygen_file_name, everything_h, cflags):
+
+    ns3_modules = eval(sys.stdin.readline())
+
+    
+    from topsort import topsort
+    graph = []
+    module_names = ns3_modules.keys()
+    module_names.sort()
+    for ns3_module_name in module_names:
+        ns3_module_deps = list(ns3_modules[ns3_module_name][0])
+        ns3_module_deps.sort()
+        for dep in ns3_module_deps:
+            graph.append((dep, ns3_module_name))
+    sorted_ns3_modules = topsort(graph)
+    
+
+    sections = [PygenSection('__main__', FileCodeSink(open(pygen_file_name, "wt")))]
+    headers_map = {} 
+    section_precendences = {} 
+    for prec, ns3_module in enumerate(sorted_ns3_modules):
+        section_name = "ns3_module_%s" % ns3_module.replace('-', '_')
+        file_name = os.path.join(os.path.dirname(pygen_file_name), "%s.py" % section_name)
+        sections.append(PygenSection(section_name, FileCodeSink(open(file_name, "wt")),
+                                     section_name + "__local"))
+        for header in ns3_modules[ns3_module][1]:
+            headers_map[header] = section_name
+        section_precendences[section_name] = prec
+
+    module_parser = ModuleParser('ns3', 'ns3')
+
+    module_parser.add_pre_scan_hook(pre_scan_hook)
+    
+
+    gccxml_options = dict(
+        include_paths=[top_builddir],
+         define_symbols={
+            
+            
+            },
+        cflags=('--gccxml-cxxflags "%s -DPYTHON_SCAN"' % cflags)
+        )
+
+    module_parser.parse_init([everything_h],
+                             None, whitelist_paths=[top_builddir, os.path.dirname(everything_h)],
+                             
+                             pygen_sink=sections,
+                             pygen_classifier=MyPygenClassifier(headers_map, section_precendences),
+                             gccxml_options=gccxml_options)
+    module_parser.scan_types()
+
+    callback_classes_file = open(os.path.join(os.path.dirname(pygen_file_name), "callbacks_list.py"), "wt")
+    scan_callback_classes(module_parser, callback_classes_file)
+    callback_classes_file.close()
+
+
+    module_parser.scan_methods()
+    module_parser.scan_functions()
+    module_parser.parse_finalize()
+
+    for section in sections:
+        section.code_sink.file.close()
+
+
+
+if __name__ == '__main__':
+    ns3_module_scan(sys.argv[1], sys.argv[3], sys.argv[2], sys.argv[4])
+

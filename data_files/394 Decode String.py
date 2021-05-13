@@ -86,9 +86,9 @@ class SolutionError(object):
         return ''.join(ret)
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""d""e""c""o""d""e""S""t""r""i""n""g""(""'""2""[""a""b""c""]""3""[""c""d""]""e""f""'"")"" ""=""="" ""'""a""b""c""a""b""c""c""d""c""d""c""d""e""f""'""
-""
-""
-""
-""
+if __name__ == "__main__":
+    assert Solution().decodeString('2[abc]3[cd]ef') == 'abcabccdcdcdef'
+
+
+
+

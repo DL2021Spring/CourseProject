@@ -21,5 +21,5 @@ class Solution:
         return s[maxa[0]:maxa[1]]
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""l""o""n""g""e""s""t""P""a""l""i""n""d""r""o""m""e""(
+if __name__ == "__main__":
+    assert Solution().longestPalindrome("abcdzdcab") == "cdzdc"

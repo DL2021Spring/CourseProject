@@ -41,5 +41,5 @@ class Solution:
         return ret
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""n""e""w""2""1""G""a""m""e""(""6"","" ""1"","" ""1""0"")"" ""=""="" ""0"".""6""
+if __name__ == "__main__":
+    assert Solution().new21Game(6, 1, 10) == 0.6

@@ -57,4 +57,9 @@ def read_char_no_blocking():
     except IOError as e:
         ErrorNumber = e[0]
         
-        if (sys.platform.startswith("l"i"n"u"x"")"" ""a""n""d"" ""E""r""r""o""r""N""u""m""b""e""r"" ""!""="" ""1""1"")"" ""o""r"" ""(""s""y""s"".""p""l""a""t""f""o""r""m"" ""=""="" 
+        if (sys.platform.startswith("linux") and ErrorNumber != 11) or (sys.platform == "darwin" and ErrorNumber != 35):
+            raise
+        return ""
+    finally:
+        fcntl.fcntl(fd, fcntl.F_SETFL, old_flags)
+        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)

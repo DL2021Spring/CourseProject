@@ -65,7 +65,7 @@ class Solution(object):
 
 
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""t""1"" ""="" ""T""r""e""e""N""o""d""e""(""1"")""
-"" "" "" "" ""t""1"".""l""e""f""t"" ""="" ""T""r""e""e""N""o""d""e""(""2"")""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""p""r""e""o""r""d""e""r""T""r""a""v""e""r""s""a""l""(""t""1"")
+if __name__=="__main__":
+    t1 = TreeNode(1)
+    t1.left = TreeNode(2)
+    print Solution().preorderTraversal(t1)

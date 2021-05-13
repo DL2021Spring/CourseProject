@@ -14,5 +14,5 @@ class Solution:
                 return False
         return True
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""c""o""m""p""a""r""e""S""t""r""i""n""g""s""(
+if __name__=="__main__":
+    assert Solution().compareStrings("A", "")==True

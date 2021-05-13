@@ -324,10 +324,10 @@ class Session(SessionRedirectMixin):
                 return adapter
 
         
-        raise InvalidSchema("N"o" "c"o"n"n"e"c"t"i"o"n" "a"d"a"p"t"e"r"s" "w"e"r"e" "f"o"u"n"d" "f"o"r" "'"%"s"'"" ""%"" ""u""r""l"")""
-""
-"" "" "" "" ""d""e""f"" ""c""l""o""s""e""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" 
+        raise InvalidSchema("No connection adapters were found for '%s'" % url)
+
+    def close(self):
+        
         for _, v in self.adapters.items():
             v.close()
 

@@ -30,5 +30,5 @@ class Solution:
 
 
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""i""s""S""c""r""a""m""b""l""e""(
+if __name__=="__main__":
+    assert Solution().isScramble("abc", "bca")==True

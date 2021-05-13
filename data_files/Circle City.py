@@ -21,11 +21,28 @@ class Solution(object):
                         required += 2
                     else:
                         required += 4
-                    if required > k: return "i"m"p"o"s"s"i"b"l"e""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""b""r""e""a""k""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""e""l""i""f"" ""x"" ""*"" ""x"" ""+"" ""m""i""d"" ""*"" ""m""i""d"" ""<"" ""r""2"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""l""o""w"" ""="" ""m""i""d"" ""+"" ""1""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""e""l""s""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""h""i""g""h"" ""="" ""m""i""d"" ""-"" ""1""
-""
-"" "" "" "" "" "" "" "" ""i""f"" ""r""e""q""u""i""r""e""d"" "">"" ""k"":"" ""r""e""t""u""r""n"" 
+                    if required > k: return "impossible"
+                    break
+                elif x * x + mid * mid < r2:
+                    low = mid + 1
+                else:
+                    high = mid - 1
+
+        if required > k: return "impossible"
+        return "possible"
+
+
+if __name__ == "__main__":
+    import sys
+
+    f = open("1.in", "r")
+    
+    testcases = int(f.readline().strip())
+
+    for t in xrange(testcases):
+        
+        cipher = map(int, f.readline().strip().split(' '))
+
+        
+        s = "%s\n" % (Solution().solve(cipher))
+        print s,

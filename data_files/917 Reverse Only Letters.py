@@ -21,7 +21,8 @@ class Solution:
             else:
                 break
 
-        return "".""j""o""i""n""(""l""s""t"")""
-""
-""
-""i""f"" ""_""_""n""a""m""e""_""_"" ""=""="" 
+        return "".join(lst)
+
+
+if __name__ == "__main__":
+    assert Solution().reverseOnlyLetters("Test1ng-Leet=code-Q!") == "Qedo1ct-eeLg=ntse-T!"

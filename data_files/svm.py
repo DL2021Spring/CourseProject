@@ -29,6 +29,47 @@ def grid(grid_parameters):
 def grid_search(model, X, y, C_range=(-5,  15, 2), gamma_range=(3, -15, -2), k=5, num_cores=1):
     
     if not isinstance(model, PredictableModel):
-        raise TypeError("G"r"i"d"S"e"a"r"c"h" "e"x"p"e"c"t"s" "a" "P"r"e"d"i"c"t"a"b"l"e"M"o"d"e"l"." "I"f" "y"o"u" "w"a"n"t" "t"o" "p"e"r"f"o"r"m" "o"p"t"i"m"i"z"a"t"i"o"n" "o"n" "r"a"w" "d"a"t"a" "u"s"e" "f"a"c"e"r"e"c"."f"e"a"t"u"r"e"."I"d"e"n"t"i"t"y" "t"o" "p"a"s"s" "u"n"p"r"e"p"r"o"c"e"s"s"e"d" "d"a"t"a"!"")""
-"" "" "" "" ""i""f"" ""n""o""t"" ""i""s""i""n""s""t""a""n""c""e""(""m""o""d""e""l"".""c""l""a""s""s""i""f""i""e""r"","" ""S""V""M"")"":""
-"" "" "" "" "" "" "" "" ""r""a""i""s""e"" ""T""y""p""e""E""r""r""o""r""(
+        raise TypeError("GridSearch expects a PredictableModel. If you want to perform optimization on raw data use facerec.feature.Identity to pass unpreprocessed data!")
+    if not isinstance(model.classifier, SVM):
+        raise TypeError("GridSearch expects a SVM as classifier. Please use a facerec.classifier.SVM!")
+    
+    logger = logging.getLogger("facerec.svm.gridsearch")
+    logger.info("Performing a Grid Search.")
+    
+    
+    best_parameter = svm_parameter("-q")
+    best_parameter.kernel_type = model.classifier.param.kernel_type
+    best_parameter.nu = model.classifier.param.nu
+    best_parameter.coef0 = model.classifier.param.coef0
+    
+    if (gamma_range is None) or (model.classifier.param.kernel_type == LINEAR):
+        gamma_range = (0, 0, 1)
+    
+    
+    best_accuracy = np.finfo('float').min
+    
+    
+    g = grid([C_range, gamma_range])
+    results = []
+    for p in g:
+        C, gamma = p
+        C, gamma = 2**C, 2**gamma
+        model.classifier.param.C, model.classifier.param.gamma = C, gamma
+
+        
+        cv = KFoldCrossValidation(model=model,k=k)
+        cv.validate(X,y)
+
+        
+        results.append([C, gamma, cv.accuracy])
+        
+        
+        if cv.accuracy > best_accuracy:
+            logger.info("best_accuracy=%s" % (cv.accuracy))
+            best_accuracy = cv.accuracy
+            best_parameter.C, best_parameter.gamma = C, gamma
+        
+        logger.info("%d-CV Result = %.2f." % (k, cv.accuracy))
+        
+    
+    return best_parameter, results

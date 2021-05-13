@@ -15,10 +15,10 @@ class Solution(object):
             idx, k = divmod(k, math.factorial(i))
             ret.append(array.pop(idx))
 
-        return "".""j""o""i""n""(""m""a""p""(""s""t""r"","" ""r""e""t"")"")""
-""
-"" "" "" "" ""d""e""f"" ""g""e""t""P""e""r""m""u""t""a""t""i""o""n""(""s""e""l""f"","" ""n"","" ""k"")"":""
-"" "" "" "" "" "" "" "" 
+        return "".join(map(str, ret))
+
+    def getPermutation(self, n, k):
+        
         
         fac = [1 for _ in xrange(n)]
         for i in xrange(1, n):
@@ -48,10 +48,10 @@ class Solution(object):
             a[ind] = candidate[i]
             visited[i] = True
 
-        return "".""j""o""i""n""(""m""a""p""(""s""t""r"","" ""a"")"")""
-""
-"" "" "" "" ""d""e""f"" ""g""e""t""P""e""r""m""u""t""a""t""i""o""n""_""c""o""m""p""l""i""c""a""t""e""d""(""s""e""l""f"","" ""n"","" ""k"")"":""
-"" "" "" "" "" "" "" "" 
+        return "".join(map(str, a))
+
+    def getPermutation_complicated(self, n, k):
+        
         k -= 1  
 
         factorial = 1  
@@ -70,11 +70,11 @@ class Solution(object):
         
         result.append(array[0])
 
-        return "".""j""o""i""n""(""s""t""r""(""e""l""e""m""e""n""t"")"" ""f""o""r"" ""e""l""e""m""e""n""t"" ""i""n"" ""r""e""s""u""l""t"")""
-""
-""
-""c""l""a""s""s"" ""S""o""l""u""t""i""o""n""_""T""L""E"":""
-"" "" "" "" 
+        return "".join(str(element) for element in result)
+
+
+class Solution_TLE:
+    
 
     def __init__(self):
         self.counter = 0
@@ -86,11 +86,11 @@ class Solution(object):
 
         sequence = range(1, n+1)
         result = self.get_kth_permutation_dfs(sequence, k, [])
-        return "".""j""o""i""n""(""s""t""r""(""e""l""e""m""e""n""t"")"" ""f""o""r"" ""e""l""e""m""e""n""t"" ""i""n"" ""r""e""s""u""l""t"")""
-""
-""
-"" "" "" "" ""d""e""f"" ""g""e""t""_""k""t""h""_""p""e""r""m""u""t""a""t""i""o""n""_""d""f""s""(""s""e""l""f"","" ""r""e""m""a""i""n""i""n""g""_""s""e""q"","" ""k"","" ""c""u""r"")"":""
-"" "" "" "" "" "" "" "" 
+        return "".join(str(element) for element in result)
+
+
+    def get_kth_permutation_dfs(self, remaining_seq, k, cur):
+        
         if not remaining_seq:
             self.counter += 1
             if self.counter == k:
@@ -101,5 +101,9 @@ class Solution(object):
             if result: return result
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""g""e""t""P""e""r""m""u""t""a""t""i""o""n""(""4"","" ""6"")"" ""=""="" 
+if __name__ == "__main__":
+    assert Solution().getPermutation(4, 6) == "1432"
+    assert Solution().getPermutation(2, 2) == "21"
+    assert Solution().getPermutation(3, 1) == "123"
+    assert Solution().getPermutation(3, 5) == "312"
+    print Solution().getPermutation(9, 171669)

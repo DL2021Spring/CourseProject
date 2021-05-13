@@ -25,11 +25,11 @@ class Solution:
         return num
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""p""r""e""v""i""o""u""s""P""e""r""m""u""a""t""i""o""n""(""[""1"","" ""3"","" ""2"","" ""3""]"")""
-""
-""
-""
-""
-""
-""
+if __name__ == "__main__":
+    print Solution().previousPermuation([1, 3, 2, 3])
+
+
+
+
+
+

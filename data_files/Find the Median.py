@@ -38,7 +38,15 @@ class Solution(object):
         return ptr_smaller
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""i""m""p""o""r""t"" ""s""y""s""
-""
-"" "" "" "" ""f"" ""="" ""o""p""e""n""(
+if __name__ == "__main__":
+    import sys
+
+    f = open("1.in", "r")
+    
+    solution = Solution()
+    N = int(f.readline().strip())
+    A = map(int, f.readline().strip().split(' '))
+    cipher = N, A
+    
+    s = "%s\n" % (solution.solve(cipher))
+    print s,

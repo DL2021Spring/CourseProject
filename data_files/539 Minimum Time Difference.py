@@ -6,21 +6,27 @@ from typing import List
 class Solution:
     def findMinDifference(self, timePoints: List[str]) -> int:
         
-        ret = float("i"n"f"")""
-"" "" "" "" "" "" "" "" ""A"" ""="" ""l""i""s""t""(""s""o""r""t""e""d""(""m""a""p""(""s""e""l""f"".""m""i""n""u""t""e""s"","" ""t""i""m""e""P""o""i""n""t""s"")"")"")""
-"" "" "" "" "" "" "" "" ""n"" ""="" ""l""e""n""(""A"")""
-"" "" "" "" "" "" "" "" ""f""o""r"" ""i"" ""i""n"" ""r""a""n""g""e""(""n"" ""-"" ""1"")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t"" ""="" ""m""i""n""(""r""e""t"","" ""s""e""l""f"".""d""i""f""f""(""A""[""i""+""1""]"","" ""A""[""i""]"")"")""
-""
-"" "" "" "" "" "" "" "" ""r""e""t"" ""="" ""m""i""n""(""r""e""t"","" ""s""e""l""f"".""d""i""f""f""(""A""[""n""-""1""]"","" ""A""[""0""]"")"")""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""r""e""t""
-""
-"" "" "" "" ""d""e""f"" ""d""i""f""f""(""s""e""l""f"","" ""b"","" ""a"")"":""
-"" "" "" "" "" "" "" "" ""r""e""t"" ""="" ""b"" ""-"" ""a""
-"" "" "" "" "" "" "" "" ""i""f"" ""r""e""t"" "">"" ""1""2"" ""*"" ""6""0"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t"" ""="" ""2""4"" ""*"" ""6""0"" ""-"" ""r""e""t""
-""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""r""e""t""
-""
-"" "" "" "" ""d""e""f"" ""m""i""n""u""t""e""s""(""s""e""l""f"","" ""a"")"":""
-"" "" "" "" "" "" "" "" ""h"","" ""m"" ""="" ""a"".""s""p""l""i""t""(
+        ret = float("inf")
+        A = list(sorted(map(self.minutes, timePoints)))
+        n = len(A)
+        for i in range(n - 1):
+            ret = min(ret, self.diff(A[i+1], A[i]))
+
+        ret = min(ret, self.diff(A[n-1], A[0]))
+        return ret
+
+    def diff(self, b, a):
+        ret = b - a
+        if ret > 12 * 60:
+            ret = 24 * 60 - ret
+
+        return ret
+
+    def minutes(self, a):
+        h, m = a.split(":")
+        minutes = 60 * int(h) + int(m)
+        return minutes
+
+
+if __name__ == "__main__":
+    assert Solution().findMinDifference(["23:59","00:00"]) == 1

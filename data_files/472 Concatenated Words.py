@@ -20,34 +20,55 @@ class Solution:
             cur = self.root
             for c in w:
                 cur = cur[c]
-            cur["e"n"d""]"" ""="" ""T""r""u""e""
-""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""r""e""t""
-""
-"" "" "" "" ""d""e""f"" ""c""a""n""_""c""o""n""c""a""t""(""s""e""l""f"","" ""w""o""r""d"","" ""l""o"")"":""
-"" "" "" "" "" "" "" "" ""i""f"" ""n""o""t"" ""w""o""r""d"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""F""a""l""s""e""
-""
-"" "" "" "" "" "" "" "" ""k"" ""="" ""l""e""n""(""w""o""r""d"")""
-"" "" "" "" "" "" "" "" ""i""f"" ""l""o"" "">""="" ""k"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""T""r""u""e""
-""
-"" "" "" "" "" "" "" "" ""c""u""r"" ""="" ""s""e""l""f"".""r""o""o""t""
-"" "" "" "" "" "" "" "" ""f""o""r"" ""i"" ""i""n"" ""r""a""n""g""e""(""l""o"","" ""k"")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""c""u""r"" ""="" ""c""u""r""[""w""o""r""d""[""i""]""]""
-"" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""c""u""r"".""g""e""t""(
-        Trie check cannot be greedy: cat sdog vs cats dog
+            cur["end"] = True
 
-        Sort + Trie dfs
-        What is the complexity?
+        return ret
 
-        Word break DP
-        for a specific word
-        F[i] means word[:i] can be formed using shorter words
+    def can_concat(self, word, lo):
+        if not word:
+            return False
 
-        complexity
-        O(n) * O(k^2) * O(k)
-        n words * get F * compare words
+        k = len(word)
+        if lo >= k:
+            return True
 
-        Hard question is solving a collections of medium problems
+        cur = self.root
+        for i in range(lo, k):
+            cur = cur[word[i]]
+            if cur.get("end", False) and self.can_concat(word, i + 1):
+                return True
+
+        return False
+
+
+class SolutionTLE:
+    def findAllConcatenatedWordsInADict(self, words: List[str]) -> List[str]:
         
+        ret = []
+        
+        visited = set(words)
+        for w in words:
+            if self.can_concat(w, visited):
+                ret.append(w)
+
+        return ret
+
+    def can_concat(self, w, visited):
+        if not w:
+            return False
+
+        k = len(w)
+        F = [False for _ in range(k + 1)]
+        F[0] = True
+        for i in range(1, k + 1):
+            for j in range(i):
+                if j == 0 and i == k:
+                    continue  
+                if F[j] and w[j:i] in visited:
+                    F[i] = True
+
+        return F[k]
+
+
+if __name__ == "__main__":
+    assert Solution().findAllConcatenatedWordsInADict(["cat","cats","catsdogcats","dog","dogcatsdog","hippopotamuses","rat","ratcatdogcat"]) == ["catsdogcats","dogcatsdog","ratcatdogcat"]

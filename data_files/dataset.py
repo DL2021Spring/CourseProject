@@ -76,4 +76,4 @@ class NumericDataSet(object):
         return len(self.data)
 
     def __repr__(self):
-        print "N"u"m"e"r"i"c"D"a"t"a"S"e"t""
+        print "NumericDataSet"

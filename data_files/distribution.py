@@ -95,5 +95,5 @@ def draw_bivariate_3d(mean=[0, 0], cov=[[1, 0], [0, 1]]):
     plt.show()
 
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""d""r""a""w""_""b""i""v""a""r""i""a""t""e""_""3""d""("")
+if __name__=="__main__":
+    draw_bivariate_3d()

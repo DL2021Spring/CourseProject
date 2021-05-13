@@ -14,6 +14,6 @@ class Solution:
         return ret
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""h""a""m""m""i""n""g""D""i""s""t""a""n""c""e""(""3"","" ""1"")"" ""=""="" ""1""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""h""a""m""m""i""n""g""D""i""s""t""a""n""c""e""(""1"","" ""4"")"" ""=""="" ""2""
+if __name__ == "__main__":
+    assert Solution().hammingDistance(3, 1) == 1
+    assert Solution().hammingDistance(1, 4) == 2

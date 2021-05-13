@@ -106,11 +106,48 @@ class HTTPResponse(object):
                 if decode_content and decoder:
                     data = decoder(data)
             except (IOError, zlib.error):
-                raise DecodeError("R"e"c"e"i"v"e"d" "r"e"s"p"o"n"s"e" "w"i"t"h" "c"o"n"t"e"n"t"-"e"n"c"o"d"i"n"g":" "%"s"," "b"u"t" ""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" 
-        Given an :class:`httplib.HTTPResponse` instance ``r``, return a
-        corresponding :class:`urllib3.response.HTTPResponse` object.
+                raise DecodeError("Received response with content-encoding: %s, but "
+                                  "failed to decode it." % content_encoding)
 
-        Remaining parameters are passed to the HTTPResponse constructor, along
-        with ``original_response=r``.
+            if cache_content:
+                self._body = data
+
+            return data
+
+        finally:
+            if self._original_response and self._original_response.isclosed():
+                self.release_conn()
+
+    @classmethod
+    def from_httplib(ResponseCls, r, **response_kw):
         
+
+        
+        headers = {}
+        for k, v in r.getheaders():
+            
+            k = k.lower()
+
+            has_value = headers.get(k)
+            if has_value: 
+                v = ', '.join([has_value, v])
+
+            headers[k] = v
+
+        
+        strict = getattr(r, 'strict', 0)
+        return ResponseCls(body=r,
+                           headers=headers,
+                           status=r.status,
+                           version=r.version,
+                           reason=r.reason,
+                           strict=strict,
+                           original_response=r,
+                           **response_kw)
+
+    
+    def getheaders(self):
+        return self.headers
+
+    def getheader(self, name, default=None):
+        return self.headers.get(name, default)

@@ -27,5 +27,5 @@ class Solution:
             profit += max(0, prices[i] - prices[i-1])
         return profit
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""m""a""x""P""r""o""f""i""t""(""2"","" ""[""1"","" ""2"","" ""4""]"")
+if __name__ == "__main__":
+    print Solution().maxProfit(2, [1, 2, 4])

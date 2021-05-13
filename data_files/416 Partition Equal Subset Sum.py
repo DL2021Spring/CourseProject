@@ -49,6 +49,6 @@ class Solution:
         )
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""c""a""n""P""a""r""t""i""t""i""o""n""(""[""1"","" ""5"","" ""1""1"","" ""5""]"")"" ""=""="" ""T""r""u""e""
-"" "" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""c""a""n""P""a""r""t""i""t""i""o""n""(""[""1"","" ""2"","" ""3"","" ""5""]"")"" ""=""="" ""F""a""l""s""e""
+if __name__ == "__main__":
+     assert Solution().canPartition([1, 5, 11, 5]) == True
+     assert Solution().canPartition([1, 2, 3, 5]) == False

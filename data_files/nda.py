@@ -4,48 +4,48 @@ from sklearn.neighbors import NearestNeighbors as nn
 from facerec_py.facerec.feature import *
 from facerec_py.facerec.util import *
 
-__author__ = "X"i"n"g"J"i"a""
-""
-""c""l""a""s""s"" ""t""r""a""i""n""("")"":""
-"" "" "" "" ""d""e""f"" ""_""_""i""n""i""t""_""_""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""m""a""t"" ""="" ""[""]""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""l""a""b""e""l""s"" ""="" ""[""]""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""d""i""m"" ""="" ""0""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""N"" ""="" ""0""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""t""o""t""a""l""C""l""a""s""s"" ""="" ""0""
-""
-""c""l""a""s""s"" ""N""D""A""F""i""s""h""e""r""(""A""b""s""t""r""a""c""t""F""e""a""t""u""r""e"")"":""
-"" "" "" "" ""d""e""f"" ""_""_""i""n""i""t""_""_""(""s""e""l""f"","" ""n""u""m""_""c""o""m""p""o""n""e""n""t""s""=""1""0""0"")"":""
-"" "" "" "" "" "" "" "" ""A""b""s""t""r""a""c""t""F""e""a""t""u""r""e"".""_""_""i""n""i""t""_""_""(""s""e""l""f"")""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""_""n""u""m""_""c""o""m""p""o""n""e""n""t""s"" ""="" ""n""u""m""_""c""o""m""p""o""n""e""n""t""s""
-""
-"" "" "" "" ""d""e""f"" ""c""o""m""p""u""t""e""(""s""e""l""f"","" ""X"","" ""y"")"":""
-"" "" "" "" "" "" "" "" ""n""d""a"" ""="" ""N""D""A""("")""
-"" "" "" "" "" "" "" "" ""p""c""a"" ""="" ""P""C""A""(""s""e""l""f"".""_""n""u""m""_""c""o""m""p""o""n""e""n""t""s"")""
-"" "" "" "" "" "" "" "" ""m""o""d""e""l"" ""="" ""C""h""a""i""n""O""p""e""r""a""t""o""r""(""p""c""a"","" ""n""d""a"")""
-"" "" "" "" "" "" "" "" ""m""o""d""e""l"".""c""o""m""p""u""t""e""(""X"","" ""y"")""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""_""e""i""g""e""n""v""e""c""t""o""r""s"" ""="" ""n""p"".""d""o""t""(""p""c""a"".""e""i""g""e""n""v""e""c""t""o""r""s"","" ""n""d""a"".""W"".""T"")""
-"" "" "" "" "" "" "" "" ""f""e""a""t""u""r""e""s"" ""="" ""[""]""
-"" "" "" "" "" "" "" "" ""f""o""r"" ""x"" ""i""n"" ""X"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""x""p"" ""="" ""s""e""l""f"".""p""r""o""j""e""c""t""(""x"".""r""e""s""h""a""p""e""(""-""1"","" ""1"")"")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""f""e""a""t""u""r""e""s"".""a""p""p""e""n""d""(""x""p"")""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""f""e""a""t""u""r""e""s""
-""
-"" "" "" "" ""d""e""f"" ""e""x""t""r""a""c""t""(""s""e""l""f"","" ""X"")"":""
-"" "" "" "" "" "" "" "" ""X"" ""="" ""n""p"".""a""s""a""r""r""a""y""(""X"")"".""r""e""s""h""a""p""e""(""-""1"","" ""1"")""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""s""e""l""f"".""p""r""o""j""e""c""t""(""X"")""
-""
-"" "" "" "" ""d""e""f"" ""p""r""o""j""e""c""t""(""s""e""l""f"","" ""X"")"":""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""n""p"".""d""o""t""(""s""e""l""f"".""_""e""i""g""e""n""v""e""c""t""o""r""s"".""T"","" ""X"")""
-""
-""
-""
-""c""l""a""s""s"" ""N""D""A""(""A""b""s""t""r""a""c""t""F""e""a""t""u""r""e"")"":""
-"" "" "" "" ""d""e""f"" ""_""_""i""n""i""t""_""_""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" ""A""b""s""t""r""a""c""t""F""e""a""t""u""r""e"".""_""_""i""n""i""t""_""_""(""s""e""l""f"")""
-""
-"" "" "" "" ""d""e""f"" ""c""o""m""p""u""t""e""(""s""e""l""f"","" ""X"","" ""y"","" ""K""=""1"","" ""u""s""e""w""e""i""g""h""t""s""=""0"")"":""
-"" "" "" "" "" "" "" "" 
+__author__ = "XingJia"
+
+class train():
+    def __init__(self):
+        self.mat = []
+        self.labels = []
+        self.dim = 0
+        self.N = 0
+        self.totalClass = 0
+
+class NDAFisher(AbstractFeature):
+    def __init__(self, num_components=100):
+        AbstractFeature.__init__(self)
+        self._num_components = num_components
+
+    def compute(self, X, y):
+        nda = NDA()
+        pca = PCA(self._num_components)
+        model = ChainOperator(pca, nda)
+        model.compute(X, y)
+        self._eigenvectors = np.dot(pca.eigenvectors, nda.W.T)
+        features = []
+        for x in X:
+            xp = self.project(x.reshape(-1, 1))
+            features.append(xp)
+        return features
+
+    def extract(self, X):
+        X = np.asarray(X).reshape(-1, 1)
+        return self.project(X)
+
+    def project(self, X):
+        return np.dot(self._eigenvectors.T, X)
+
+
+
+class NDA(AbstractFeature):
+    def __init__(self):
+        AbstractFeature.__init__(self)
+
+    def compute(self, X, y, K=1, useweights=0):
+        
         self.train = train()
         self.train.mat = np.array(X)
         self.train.mat = asColumnMatrix(X) 
@@ -170,15 +170,15 @@ __author__ = "X"i"n"g"J"i"a""
         return np.dot(self.W, X)
 
     def __repr__(self):
-        return "N"D"A""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
+        return "NDA"
+
+
+
+
+
+
+
+
+
+
+

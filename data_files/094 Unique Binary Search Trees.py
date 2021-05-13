@@ -23,5 +23,5 @@ class Solution(object):
         return dp[-1]
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""n""u""m""T""r""e""e""s""(""1""0""0"")"" ""=""="" ""S""o""l""u""t""i""o""n""("")"".""n""u""m""T""r""e""e""s""_""m""a""t""h""(""1""0""0"")
+if __name__ == "__main__":
+    assert Solution().numTrees(100) == Solution().numTrees_math(100)

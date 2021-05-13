@@ -10,13 +10,13 @@ class Node:
 
 
 class Solution:
-    def maxDepth(self, root: "N"o"d"e"")"" ""-"">"" ""i""n""t"":""
-"" "" "" "" "" "" "" "" ""i""f"" ""n""o""t"" ""r""o""o""t"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""0""
-""
-"" "" "" "" "" "" "" "" ""m""a""x""_""c""h""i""l""d""_""d""e""p""t""h"" ""="" ""m""a""x""(""[""
-"" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""m""a""x""D""e""p""t""h""(""c""h""i""l""d"")""
-"" "" "" "" "" "" "" "" "" "" "" "" ""f""o""r"" ""c""h""i""l""d"" ""i""n"" ""r""o""o""t"".""c""h""i""l""d""r""e""n""
-"" "" "" "" "" "" "" "" ""]"" ""o""r"" ""[""0""]"")""
-"" "" "" "" "" "" "" "" ""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""m""a""x""_""c""h""i""l""d""_""d""e""p""t""h"" ""+"" ""1""
+    def maxDepth(self, root: "Node") -> int:
+        if not root:
+            return 0
+
+        max_child_depth = max([
+            self.maxDepth(child)
+            for child in root.children
+        ] or [0])
+        
+        return max_child_depth + 1

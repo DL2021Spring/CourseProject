@@ -6,6 +6,39 @@ import sys
 
 def relation_evaluate(file_path):
 	global tp, fp, fn
-	set_original = ann_to_xml.get_relation_set(file_path+"."a"n"n"")""
-""	""e""x""t""r""a""c""t""_""e""n""g""i""n""e"" ""="" ""i""n""f""o""_""e""x""t""r""a""c""t""i""o""n"".""I""n""f""o""E""x""t""r""a""c""t""i""o""n""("")""
-""	""s""e""t""_""e""x""t""r""a""c""t""e""d"" ""="" ""e""x""t""r""a""c""t""_""e""n""g""i""n""e"".""e""x""t""r""a""c""t""_""f""i""l""e""(""f""i""l""e""_""p""a""t""h""+
+	set_original = ann_to_xml.get_relation_set(file_path+".ann")
+	extract_engine = info_extraction.InfoExtraction()
+	set_extracted = extract_engine.extract_file(file_path+"-tagged.xml", "relation")
+	
+	
+	
+	
+
+	
+	
+	
+	
+
+	tp += len(set_original.intersection(set_original, set_extracted))
+	fp += len(set_extracted - set_original)
+	fn += len(set_original - set_extracted)
+
+if __name__ == '__main__':
+	if len(sys.argv)==1:
+		print "usage: python relation_evaluate.py [data_folder relative name]"
+		print "example: python relative_evaluate.py non-auto"
+		sys.exit(0)
+	else:
+		folder_name = sys.argv[1]
+	tp = fp = fn = 0
+
+	current_directory = os.path.dirname(os.path.realpath(__file__))
+	
+	for i in range(1,33):
+		
+		relation_evaluate(os.path.join(current_directory, folder_name, str(i)))
+
+	print "******summary*********"
+	print "tp: %d\nfp: %d\nfn: %d" % (tp, fp, fn)
+	print "f1: %f" % (float(2*tp)/(2*tp+fp+fn))
+	print "recall: %f" % (float(tp)/(tp+fn))

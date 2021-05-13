@@ -29,8 +29,8 @@ class Solution:
         return end_ptr
 
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""A"" ""="" ""[""1"","" ""3"","" ""4"","" ""2"","" ""5"","" ""4""]""
-"" "" "" "" ""e""l""e""m"" ""="" ""4""
-"" "" "" "" ""s""o""l""u""t""i""o""n"" ""="" ""S""o""l""u""t""i""o""n""("")""
-"" "" "" "" ""a""s""s""e""r""t"" ""s""o""l""u""t""i""o""n"".""r""e""m""o""v""e""E""l""e""m""e""n""t""(""A"","" ""e""l""e""m"")""=""=""s""o""l""u""t""i""o""n"".""r""e""m""o""v""e""E""l""e""m""e""n""t""_""n""e""g""a""t""i""v""e""_""i""n""d""e""x""(""A"","" ""e""l""e""m"")
+if __name__=="__main__":
+    A = [1, 3, 4, 2, 5, 4]
+    elem = 4
+    solution = Solution()
+    assert solution.removeElement(A, elem)==solution.removeElement_negative_index(A, elem)

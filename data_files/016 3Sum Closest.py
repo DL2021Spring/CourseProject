@@ -23,6 +23,6 @@ class Solution:
                     j += 1
         return min_summation
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""t""h""r""e""e""S""u""m""C""l""o""s""e""s""t""(""[""1"","" ""1"","" ""1"","" ""1""]"","" ""0"")""
-""
+if __name__=="__main__":
+    print Solution().threeSumClosest([1, 1, 1, 1], 0)
+

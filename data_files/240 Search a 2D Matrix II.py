@@ -57,6 +57,6 @@ class SolutionBinSearch(object):
         else:
             return lo
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""s""e""a""r""c""h""M""a""t""r""i""x""(""[""[""1"","" ""4""]"","" ""[""2"","" ""5""]""]"","" ""4"")"" ""=""="" ""T""r""u""e""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""B""i""n""S""e""a""r""c""h""("")"".""s""e""a""r""c""h""M""a""t""r""i""x""(""[""[""1"","" ""4""]"","" ""[""2"","" ""5""]""]"","" ""4"")"" ""=""="" ""T""r""u""e""
+if __name__ == "__main__":
+    assert Solution().searchMatrix([[1, 4], [2, 5]], 4) == True
+    assert SolutionBinSearch().searchMatrix([[1, 4], [2, 5]], 4) == True

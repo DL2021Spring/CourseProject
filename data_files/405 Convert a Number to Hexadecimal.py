@@ -28,5 +28,5 @@ class Solution(object):
         return chr(ord('a') + d - 10)
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""t""o""H""e""x""(""-""1"")"" ""=""="" ""'""f""f""f""f""f""f""f""f""'""
+if __name__ == "__main__":
+    assert Solution().toHex(-1) == 'ffffffff'

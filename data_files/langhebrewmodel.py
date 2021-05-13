@@ -197,7 +197,7 @@ Win1255HebrewModel = {
   'precedenceMatrix': HebrewLangModel,
   'mTypicalPositiveRatio': 0.984004,
   'keepEnglishLetter': False,
-  'charsetName': "w"i"n"d"o"w"s"-"1"2"5"5""
-""}""
-""
-""#"" ""f""l""a""k""e""8"":"" ""n""o""q""a""
+  'charsetName': "windows-1255"
+}
+
+

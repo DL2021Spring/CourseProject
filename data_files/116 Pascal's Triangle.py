@@ -15,5 +15,5 @@ class Solution:
 
         return result
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""g""e""n""e""r""a""t""e""(""5"")
+if __name__=="__main__":
+    print Solution().generate(5)

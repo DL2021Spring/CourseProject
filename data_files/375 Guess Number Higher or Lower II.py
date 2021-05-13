@@ -27,6 +27,6 @@ class Solution(object):
         return F[n]
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""g""e""t""M""o""n""e""y""A""m""o""u""n""t""(""1""0""0"")""
-""
+if __name__ == "__main__":
+    print Solution().getMoneyAmount(100)
+

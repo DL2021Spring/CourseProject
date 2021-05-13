@@ -50,5 +50,5 @@ class Solution_MLE(object):
         return f[n][m]
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""b""a""c""k""P""a""c""k""(""1""1"","" ""[""2"","" ""3"","" ""5"","" ""7""]"")
+if __name__ == "__main__":
+    print Solution().backPack(11, [2, 3, 5, 7])

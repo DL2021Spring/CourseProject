@@ -10,11 +10,11 @@ class ListNode:
         return repr(self.val)
 
     def __str__(self):
-        return str(self.val)+"," ""+""s""t""r""(""s""e""l""f"".""n""e""x""t"")""
-""
-""c""l""a""s""s"" ""S""o""l""u""t""i""o""n"":""
-"" "" "" "" ""d""e""f"" ""r""e""v""e""r""s""e""B""e""t""w""e""e""n""(""s""e""l""f"","" ""h""e""a""d"","" ""m"","" ""n"")"":""
-"" "" "" "" "" "" "" "" 
+        return str(self.val)+", "+str(self.next)
+
+class Solution:
+    def reverseBetween(self, head, m, n):
+        
         
         if not head or m>=n:
             return head
@@ -64,9 +64,9 @@ class ListNode:
 
         return dummy.next
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""l""e""n""g""t""h"" ""="" ""3""
-"" "" "" "" ""l""s""t"" ""="" ""[""L""i""s""t""N""o""d""e""(""i""+""1"")"" ""f""o""r"" ""i"" ""i""n"" ""r""a""n""g""e""(""l""e""n""g""t""h"")""]""
-"" "" "" "" ""f""o""r"" ""i"" ""i""n"" ""x""r""a""n""g""e""(""l""e""n""g""t""h""-""1"")"":""
-"" "" "" "" "" "" "" "" ""l""s""t""[""i""]"".""n""e""x""t"" ""="" ""l""s""t""[""i""+""1""]""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""r""e""v""e""r""s""e""B""e""t""w""e""e""n""(""l""s""t""[""0""]"","" ""1"","" ""3"")
+if __name__=="__main__":
+    length = 3
+    lst = [ListNode(i+1) for i in range(length)]
+    for i in xrange(length-1):
+        lst[i].next = lst[i+1]
+    print Solution().reverseBetween(lst[0], 1, 3)

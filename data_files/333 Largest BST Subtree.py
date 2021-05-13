@@ -73,11 +73,11 @@ class SolutionError(object):
         self.gmax = max(self.gmax, ret)
         return ret
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""r""o""o""t"" ""="" ""T""r""e""e""N""o""d""e""(""1"")""
-"" "" "" "" ""r""o""o""t"".""l""e""f""t"" ""="" ""T""r""e""e""N""o""d""e""(""2"")""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""l""a""r""g""e""s""t""B""S""T""S""u""b""t""r""e""e""(""r""o""o""t"")""
-""
-""
-""
-""
+if __name__ == "__main__":
+    root = TreeNode(1)
+    root.left = TreeNode(2)
+    print Solution().largestBSTSubtree(root)
+
+
+
+

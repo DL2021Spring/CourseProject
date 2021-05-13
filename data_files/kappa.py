@@ -1,14 +1,52 @@
 
 import sys
 import os
-sys.path.append(os.path.join(os.path.dirname(__file__), "."."")"")""
-""
-""f""r""o""m"" ""n""l""t""k"".""m""e""t""r""i""c""s"".""a""g""r""e""e""m""e""n""t"" ""i""m""p""o""r""t"" ""A""n""n""o""t""a""t""i""o""n""T""a""s""k""
-""f""r""o""m"" ""b""r""a""t"".""t""o""o""l""s"" ""i""m""p""o""r""t"" ""a""n""n""t""o""c""o""n""l""l""
-""i""m""p""o""r""t"" ""i""o""
-""i""m""p""o""r""t"" ""c""o""d""e""c""s""
-""_""_""a""u""t""h""o""r""_""_"" ""="" ""'""D""a""n""y""a""n""g""'""
-""c""l""a""s""s"" ""K""a""p""p""a""R""a""t""e""r""(""o""b""j""e""c""t"")"":""
-"" "" "" "" ""d""e""f"" ""_""_""i""n""i""t""_""_""(""s""e""l""f"","" ""S"")"":""
-"" "" "" "" "" "" "" "" ""t""h""i""s""_""d""i""r"" ""="" ""o""s"".""p""a""t""h"".""d""i""r""n""a""m""e""(""o""s"".""p""a""t""h"".""r""e""a""l""p""a""t""h""(""_""_""f""i""l""e""_""_"")"")""
-"" "" "" "" "" "" "" "" ""d""i""r""1"" ""="" ""o""s"".""p""a""t""h"".""j""o""i""n""(""t""h""i""s""_""d""i""r"","" ""S"","" 
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
+
+from nltk.metrics.agreement import AnnotationTask
+from brat.tools import anntoconll
+import io
+import codecs
+__author__ = 'Danyang'
+class KappaRater(object):
+    def __init__(self, S):
+        this_dir = os.path.dirname(os.path.realpath(__file__))
+        dir1 = os.path.join(this_dir, S, "G1")
+        dir2 = os.path.join(this_dir, S, "G2")
+        self.annotation_task = AnnotationTask(data=self.__readfile(dir1, dir2))
+
+    def __readfile(self, *args):
+        data = []
+
+        for i in xrange(len(args)):
+            lines = self.__get_lines(args[i])
+            coder = "c"+str(i+1)
+            for ind, line in enumerate(lines):
+                item, label = line
+                d = (coder, str(ind)+"_"+item, label)
+                
+                data.append(d)
+
+        return data
+
+    def __get_lines(self, dir):
+        lines = []
+        for root, dirs, files in os.walk(dir):
+            for file in files:
+                if file.endswith(".txt"):
+                    
+                    with io.open(os.path.join(root, file), 'r', newline='', encoding="utf-8") as f:  
+                        print f
+                        lines += anntoconll.text_to_conll_lines(f)
+                        f.close()
+        return lines
+
+    def kappa(self):
+        return self.annotation_task.kappa()
+
+
+if __name__=="__main__":
+    for S in ["S2", "S3", "S4"]:
+        kappa_rater = KappaRater(S)
+        print "%s: %f"%(S, kappa_rater.kappa())
+        print "------------------------------

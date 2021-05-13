@@ -43,5 +43,5 @@ class Solution(object):
         return ret
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""n""t""h""U""g""l""y""N""u""m""b""e""r""(""1""0"")"" ""=""="" ""1""2""
+if __name__ == "__main__":
+    assert Solution().nthUglyNumber(10) == 12

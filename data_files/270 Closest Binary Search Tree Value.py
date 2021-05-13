@@ -39,5 +39,5 @@ class Solution(object):
             self.find(root.left, target, ret, lower)
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""c""l""o""s""e""s""t""V""a""l""u""e""(""T""r""e""e""N""o""d""e""(""2""1""4""7""4""8""3""6""4""7"")"","" ""0"".""0"")"" ""=""="" ""2""1""4""7""4""8""3""6""4""7""
+if __name__ == "__main__":
+    assert Solution().closestValue(TreeNode(2147483647), 0.0) == 2147483647

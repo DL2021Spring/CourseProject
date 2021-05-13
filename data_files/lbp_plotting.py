@@ -17,16 +17,100 @@ class LbpIntermidiate(object):
 
     def read(self):
         if len(sys.argv) < 2:
-            print "U"S"A"G"E":" "e"x"p"e"r"i"m"e"n"t"_"s"e"t"u"p"."p"y" "<"/"p"a"t"h"/"t"o"/"i"m"a"g"e"s">""
-"" "" "" "" "" "" "" "" "" "" "" "" ""s""y""s"".""e""x""i""t""("")""
-"" "" "" "" "" "" "" "" ""#"" ""N""o""w"" ""r""e""a""d"" ""i""n"" ""t""h""e"" ""i""m""a""g""e"" ""d""a""t""a""."" ""T""h""i""s"" ""m""u""s""t"" ""b""e"" ""a"" ""v""a""l""i""d"" ""p""a""t""h""!""
-"" "" "" "" "" "" "" "" ""X"","" ""y"" ""="" ""r""e""a""d""_""i""m""a""g""e""s""(""s""y""s"".""a""r""g""v""[""1""]"")""
-""
-"" "" "" "" "" "" "" "" ""X"" ""="" ""n""p"".""a""s""a""r""r""a""y""(""X"")""
-"" "" "" "" "" "" "" "" ""y"" ""="" ""n""p"".""a""s""a""r""r""a""y""(""y"")""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""X"","" ""y""
-""
-"" "" "" "" ""d""e""f"" ""d""r""a""w""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" ""o""r""g""_""i""m""g""s"" ""="" ""r""e""d""u""c""e""(""s""e""l""f"".""h""s""t""a""c""k"","" ""s""e""l""f"".""X"")""
-"" "" "" "" "" "" "" "" ""l""b""p""_""i""m""g""s"" ""="" ""r""e""d""u""c""e""(""s""e""l""f"".""h""s""t""a""c""k"","" ""m""a""p""(""s""e""l""f"".""l""b""p""_""f""i""l""t""e""r"","" ""s""e""l""f"".""X"")"")""
-"" "" "" "" "" "" "" "" ""c""v""2"".""i""m""s""h""o""w""(
+            print "USAGE: experiment_setup.py </path/to/images>"
+            sys.exit()
+        
+        X, y = read_images(sys.argv[1])
+
+        X = np.asarray(X)
+        y = np.asarray(y)
+        return X, y
+
+    def draw(self):
+        org_imgs = reduce(self.hstack, self.X)
+        lbp_imgs = reduce(self.hstack, map(self.lbp_filter, self.X))
+        cv2.imshow("original", org_imgs)
+        cv2.imshow("lbp", lbp_imgs)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+
+    def hstack(self, x, y):
+        return np.hstack((x, y))
+
+    def lbp_filter(self, x):
+        return self.lbp(x).astype(np.uint8)
+
+
+class GaborLbpIntermidiate(LbpIntermidiate):
+    def __init__(self):
+        super(GaborLbpIntermidiate, self).__init__()
+        self.sz = (16, 16)
+        self.py = 0
+        self.px = 0
+
+    def square(self, X, row, col):
+        for x in X:
+            x[row * self.py, col * self.px:(col + 1) * self.px] = 255
+            x[(row + 1) * self.py, col * self.px:(col + 1) * self.px] = 255
+            x[row * self.py:(row + 1) * self.py, col * self.px] = 255
+            x[row * self.py:(row + 1) * self.py, (col + 1) * self.px] = 255
+        return X
+
+    def gabor_filter(self, x, idx=34):
+        gabor = GaborFilterCv2(8, 5)
+        return cv2.filter2D(x, cv2.CV_8UC3, gabor._kernels[idx])
+
+    def draw(self, title, row=12, col=3, gabor_filter=lambda x: x, lbp_filter=lambda x: x):
+        
+
+        imgs_procssed = map(lbp_filter, map(gabor_filter, self.X))
+
+        hists = []
+        for i in imgs_procssed:
+            hists.append(self.histogram(i, row, col))
+
+
+        cv2.imshow("original", reduce(self.hstack, self.square(self.X, row, col)))
+
+        plt.subplot()
+        plt.title(title)
+        plt.ylabel("Number of Pixels")
+        plt.xlabel("Gray Level")
+
+        lines = []
+        for idx, hist in enumerate(hists):
+            line, = plt.plot(range(len(hist)), hist, label="image-%d" % (idx + 1))
+            lines.append(line)
+        plt.legend(handles=lines)
+
+        plt.show()
+
+    def run(self):
+        self.draw("Original")
+        self.draw("LBP", lbp_filter=self.lbp_filter)
+        self.draw("Gabor Magnitude", gabor_filter=lambda x: self.gabor_filter(x, 12))
+        self.draw("LGBP", lbp_filter=self.lbp_filter, gabor_filter=self.gabor_filter)
+
+    def histogram(self, L, row, col):
+        
+        lbp_height, lbp_width = L.shape
+        grid_rows, grid_cols = self.sz
+        
+        self.py = int(np.floor(lbp_height / grid_rows))
+        self.px = int(np.floor(lbp_width / grid_cols))
+
+        C = L[row * self.py:(row + 1) * self.py, col * self.px:(col + 1) * self.px]  
+        H = np.histogram(C,
+                         bins=16,
+                         range=(0, 2 ** self.lbp.neighbors),
+                         weights=None,
+                         normed=False
+        )[0]  
+        
+        return np.asarray(H)
+
+
+if __name__ == "__main__":
+    print __file__
+    
+    GaborLbpIntermidiate().run()

@@ -23,5 +23,6 @@ class Solution:
         return s == s[::-1]
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""v""a""l""i""d""P""a""l""i""n""d""r""o""m""e""(
+if __name__ == "__main__":
+    assert Solution().validPalindrome("aba") == True
+    assert Solution().validPalindrome("abca") == True

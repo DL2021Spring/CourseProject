@@ -117,7 +117,7 @@ class MergeSorter2(object):
         return 'test pass!'
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""P""a""r""t""i""a""l""Q""u""i""c""k""S""o""r""t"".""t""e""s""t""("")""
-"" "" "" "" ""M""e""r""g""e""S""o""r""t"".""t""e""s""t""("")""
-"" "" "" "" ""M""e""r""g""e""S""o""r""t""e""r""2"".""t""e""s""t""("")""
+if __name__ == "__main__":
+    PartialQuickSort.test()
+    MergeSort.test()
+    MergeSorter2.test()

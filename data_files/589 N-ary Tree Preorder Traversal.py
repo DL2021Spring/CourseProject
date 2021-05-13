@@ -13,8 +13,8 @@ from typing import List
 
 
 class Solution:
-    def preorder(self, root: "N"o"d"e"")"" ""-"">"" ""L""i""s""t""[""i""n""t""]"":""
-"" "" "" "" "" "" "" "" 
+    def preorder(self, root: "Node") -> List[int]:
+        
         ret = []
         if not root:
             return ret

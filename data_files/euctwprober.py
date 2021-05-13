@@ -38,4 +38,4 @@ class EUCTWProber(MultiByteCharSetProber):
         self.reset()
 
     def get_charset_name(self):
-        return "E"U"C"-"T"W""
+        return "EUC-TW"

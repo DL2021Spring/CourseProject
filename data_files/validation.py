@@ -140,114 +140,269 @@ class ValidationResult(object):
         return self.__div(2*self.precision*self.recall, self.precision+self.recall)
 
     def __repr__(self):
-        return "V"a"l"i"d"a"t"i"o"n"R"e"s"u"l"t" "("D"e"s"c"r"i"p"t"i"o"n"="%"s"," "P"r"e"c"i"s"i"o"n"="%"."2"f"%"%"," "R"e"c"a"l"l"="%"."2"f"%"%"," "T"P"R"="%"."2"f"%"%"," "F"P"R"="%"."2"f"%"%"," "T"P"="%"d"," "T"N"="%"d"," "F"P"="%"d"," "F"N"="%"d")"" ""%"" ""(""
-"" "" "" "" "" "" "" "" "" "" "" "" ""s""e""l""f"".""d""e""s""c""r""i""p""t""i""o""n"","" ""s""e""l""f"".""p""r""e""c""i""s""i""o""n""*""1""0""0"","" ""s""e""l""f"".""r""e""c""a""l""l""*""1""0""0"","" ""s""e""l""f"".""T""P""R""*""1""0""0"","" ""s""e""l""f"".""F""P""R""*""1""0""0"","" ""s""e""l""f"".""t""r""u""e""_""p""o""s""i""t""i""v""e""s"","" ""s""e""l""f"".""t""r""u""e""_""n""e""g""a""t""i""v""e""s"","" ""s""e""l""f"".""f""a""l""s""e""_""p""o""s""i""t""i""v""e""s"","" ""s""e""l""f"".""f""a""l""s""e""_""n""e""g""a""t""i""v""e""s"")""
-""
-""
-""c""l""a""s""s"" ""V""a""l""i""d""a""t""i""o""n""S""t""r""a""t""e""g""y""(""o""b""j""e""c""t"")"":""
-"" "" "" "" 
+        return "ValidationResult (Description=%s, Precision=%.2f%%, Recall=%.2f%%, TPR=%.2f%%, FPR=%.2f%%, TP=%d, TN=%d, FP=%d, FN=%d)" % (
+            self.description, self.precision*100, self.recall*100, self.TPR*100, self.FPR*100, self.true_positives, self.true_negatives, self.false_positives, self.false_negatives)
+
+
+class ValidationStrategy(object):
+    
 
     def __init__(self, model):
         
         if not isinstance(model, AbstractPredictableModel):
-            raise TypeError("V"a"l"i"d"a"t"i"o"n" "c"a"n" "o"n"l"y" "v"a"l"i"d"a"t"e" "t"h"e" "t"y"p"e" "P"r"e"d"i"c"t"a"b"l"e"M"o"d"e"l"."")""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""m""o""d""e""l"" ""="" ""m""o""d""e""l""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""v""a""l""i""d""a""t""i""o""n""_""r""e""s""u""l""t""s"" ""="" ""[""]""
-""
-"" "" "" "" ""d""e""f"" ""a""d""d""(""s""e""l""f"","" ""v""a""l""i""d""a""t""i""o""n""_""r""e""s""u""l""t"")"":""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""v""a""l""i""d""a""t""i""o""n""_""r""e""s""u""l""t""s"".""a""p""p""e""n""d""(""v""a""l""i""d""a""t""i""o""n""_""r""e""s""u""l""t"")""
-""
-"" "" "" "" ""d""e""f"" ""v""a""l""i""d""a""t""e""(""s""e""l""f"","" ""X"","" ""y"","" ""d""e""s""c""r""i""p""t""i""o""n"")"":""
-"" "" "" "" "" "" "" "" 
-        raise NotImplementedError("E"v"e"r"y" "V"a"l"i"d"a"t"i"o"n" "m"o"d"u"l"e" "m"u"s"t" "i"m"p"l"e"m"e"n"t" "t"h"e" "v"a"l"i"d"a"t"e" "m"e"t"h"o"d"!"")""
-""
-"" "" "" "" ""d""e""f"" ""p""r""i""n""t""_""r""e""s""u""l""t""s""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" ""p""r""i""n""t"" ""s""e""l""f"".""m""o""d""e""l""
-"" "" "" "" "" "" "" "" ""f""o""r"" ""v""a""l""i""d""a""t""i""o""n""_""r""e""s""u""l""t"" ""i""n"" ""s""e""l""f"".""v""a""l""i""d""a""t""i""o""n""_""r""e""s""u""l""t""s"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""p""r""i""n""t"" ""v""a""l""i""d""a""t""i""o""n""_""r""e""s""u""l""t""
-""
-"" "" "" "" ""d""e""f"" ""_""_""r""e""p""r""_""_""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n""  
+            raise TypeError("Validation can only validate the type PredictableModel.")
+        self.model = model
+        self.validation_results = []
+
+    def add(self, validation_result):
+        self.validation_results.append(validation_result)
+
+    def validate(self, X, y, description):
+        
+        raise NotImplementedError("Every Validation module must implement the validate method!")
+
+    def print_results(self):
+        print self.model
+        for validation_result in self.validation_results:
+            print validation_result
+
+    def __repr__(self):
+        return "Validation Strategy (model=%s, results=%s)"%(self.model, self.validation_results)
+
+
+class KFoldCrossValidation(ValidationStrategy):
     
-    Divides the Data into 10 equally spaced and non-overlapping folds for training and testing.
+
+    def __init__(self, model, k=10, threshold_up=1, froze_shuffle=False, debug=True):
+        
+        super(KFoldCrossValidation, self).__init__(model=model)
+        self.threshold_up = threshold_up
+        self.k = k
+        self.logger = logging.getLogger("facerec.validation.KFoldCrossValidation")
+        self._debug = debug
+        self.froze_shuffle = froze_shuffle
+
+    def validate(self, X, y, description="ExperimentName"):
+        
+        if not self.froze_shuffle:
+            X, y = shuffle(X, y)
+
+        c = len(np.unique(y))
+        foldIndices = []
+        n = np.iinfo(np.int).max  
+        for i in range(0, c):
+            idx = np.where(y == i)[0]  
+            n = min(n, idx.shape[0])
+            foldIndices.append(idx.tolist());
+
+        
+        
+        
+        
+        if n < self.k:
+            self.k = n
+
+        
+        foldSize = int(math.floor(n / self.k))
+
+        if self.threshold_up==0:
+            threshold_r = [0]
+        else:
+            threshold_r = frange(0, self.threshold_up, 0.001)
+
+        rates = {}
+        for threshold in threshold_r:
+            rates[threshold] = TFPN()
+
+        for i in range(0, self.k):
+            self.logger.info("Processing fold %d/%d." % (i + 1, self.k))
+
+            
+            l = int(i * foldSize)
+            h = int((i + 1) * foldSize)
+            
+            
+            testIdx = slice_2d(foldIndices, rows=range(0, c), cols=range(l, h))
+            trainIdx = slice_2d(foldIndices, rows=range(0, c), cols=range(0, l))
+            trainIdx.extend(slice_2d(foldIndices, rows=range(0, c), cols=range(h, n)))
+
+            
+            Xtrain = [X[t] for t in trainIdx]
+            ytrain = y[trainIdx]
+
+            self.model.compute(Xtrain, ytrain)
+
+            predictions = {}
+            for j in testIdx:
+                predictions[j] = self.model.predict(X[j])
+
+            if self.threshold_up == 0:  
+                rates[threshold] += self.simple_evaluate(testIdx, predictions, X, y)
+            else:  
+                for threshold in threshold_r:
+                    rates[threshold] += self.binary_evaluate(testIdx, predictions, X, y, threshold)
+
+        for threshold in threshold_r:
+            r = rates[threshold]
+            self.add(ValidationResult(r.TP, r.TN, r.FP, r.FN, threshold))
+
+    def simple_evaluate(self, testIdX, predictions, X, y):
+        r = TFPN()
+        for j in testIdX:
+            prediction, info = predictions[j]
+            if prediction==y[j]:
+                r.TP += 1
+            else:
+                r.FP += 1
+                if self._debug:
+                    self.display_prediction_error(X[j], y[j], prediction)
+        return r
+
+    def display_prediction_error(self, data, actual, predicted):
+        
+        error_msg = "%d!=%d" % (actual, predicted)
+        self.logger.debug("prediction error, actual!=predicted: " + error_msg)
+        cv2.imshow(error_msg, data)
+        cv2.waitKey(1)
+
+    def binary_evaluate(self, testIdX, predictions, X, y, threshold):
+        
+        r = TFPN()
+        for lbl in np.unique(y):
+            for j in testIdX:
+                _, info = predictions[j]
+                labels = info['labels']
+                idx = labels==lbl
+
+                sims = info['similarities']
+                sims = sims[idx]
+                sims = sims[:1]  
+                score = np.sum(sims)/float(sims.size)
+                if score>threshold:  
+                    if lbl==y[j]:
+                        r.TP += 1
+                    else:
+                        r.FP += 1
+                else:  
+                    if lbl==y[j]:
+                        r.FN += 1
+                    else:
+                        r.TN += 1
+        
+        return r
+
+    def __repr__(self):
+        return "k-Fold Cross Validation (model=%s, k=%s, results=%s)" % (self.model, self.k, self.validation_results)
+
+
+class LeaveOneOutCrossValidation(ValidationStrategy):
     
-    Here is a 3-fold cross validation example for 9 observations and 3 classes, so each observation is given by its index [c_i][o_i]:
+
+    def __init__(self, model, k=0):
+        
+        super(LeaveOneOutCrossValidation, self).__init__(model=model)
+        self.logger = logging.getLogger("facerec.validation.LeaveOneOutCrossValidation")
+        self.k = k
+
+    def validate(self, X, y, description="ExperimentName"):
+        
+        X, y = shuffle(X, y)
+        true_positives, false_positives, true_negatives, false_negatives = (0, 0, 0, 0)
+        if self.k==0:
+            self.k = y.shape[0]
+
+        for i in range(0, self.k):
+            self.logger.info("Processing fold %d/%d." % (i + 1, self.k))
+
+            
+            trainIdx = []
+            trainIdx.extend(range(0, i))
+            trainIdx.extend(range(i + 1, self.k))
+
+            
+            Xtrain = [X[t] for t in trainIdx]
+            ytrain = y[trainIdx]
+
+            
+            self.model.compute(Xtrain, ytrain)
+
+            
+            prediction = self.model.predict(X[i])[0]
+            if prediction == y[i]:
+                true_positives += 1
+            else:
+                false_positives += 1
+
+        self.add(ValidationResult(true_positives, true_negatives, false_positives, false_negatives, description))
+
+    def __repr__(self):
+        return "Leave-One-Out Cross Validation (model=%s, results=%s)"%(self.model, self.validation_results)
+
+
+class LeaveOneClassOutCrossValidation(ValidationStrategy):
+    
+
+    def __init__(self, model):
+        
+        super(LeaveOneClassOutCrossValidation, self).__init__(model=model)
+        self.logger = logging.getLogger("facerec.validation.LeaveOneClassOutCrossValidation")
+
+    def validate(self, X, y, g, description="ExperimentName"):
+        
+        true_positives, false_positives, true_negatives, false_negatives = (0, 0, 0, 0)
+
+        for i in range(0, len(np.unique(y))):
+            self.logger.info("Validating Class %s." % i)
+            
+            trainIdx = np.where(y != i)[0]
+            testIdx = np.where(y == i)[0]
+            
+            Xtrain = [X[t] for t in trainIdx]
+            gtrain = g[trainIdx]
+
+            
+            self.model.compute(Xtrain, gtrain)
+
+            for j in testIdx:
                 
-        o0 o1 o2        o0 o1 o2        o0 o1 o2  
-    c0 | A  B  B |  c0 | B  A  B |  c0 | B  B  A |
-    c1 | A  B  B |  c1 | B  A  B |  c1 | B  B  A |
-    c2 | A  B  B |  c2 | B  A  B |  c2 | B  B  A |
-    
-    Please note: If there are less than k observations in a class, k is set to the minimum of observations available through all classes.
+                prediction = self.model.predict(X[j])[0]
+                if prediction == g[j]:
+                    true_positives += 1
+                else:
+                    false_positives += 1
+        self.add(ValidationResult(true_positives, true_negatives, false_positives, false_negatives, description))
+
+    def __repr__(self):
+        return "Leave-One-Class-Out Cross Validation (model=%s, results=%s)"%(self.model, self.validation_results)
+
+
+class SimpleValidation(ValidationStrategy):
     
 
-        :param model:
-        :param k: [int] number of folds in this k-fold cross-validation (default 10)
-        :param threshold_up: threshold upper limit for ROC curve, range [0, 1]; 0 to disable ROC
-        :return:
+    def __init__(self, model):
         
-        X, y are original data
-        :param X: X [dim x num_data] input data to validate on
-        :param y: y [1 x num_data] classes
-        :param description:
-        :return:
-        
-        display the gray scale image
-        :param data: matrix
-        :param actual: actual label
-        :param predicted: predicted label
-        :return:
-        
-        Binary classification thresholding strategy
-        :param testIdX:
-        :param predictions:
-        :param y:
-        :param threshold:
-        :return:
-         Leave-One-Cross Validation (LOOCV) uses one observation for testing and the rest for training a classifier:
+        super(SimpleValidation, self).__init__(model=model)
+        self.logger = logging.getLogger("facerec.validation.SimpleValidation")
 
-        o0 o1 o2        o0 o1 o2        o0 o1 o2           o0 o1 o2
-    c0 | A  B  B |  c0 | B  A  B |  c0 | B  B  A |     c0 | B  B  B |
-    c1 | B  B  B |  c1 | B  B  B |  c1 | B  B  B |     c1 | B  B  B |
-    c2 | B  B  B |  c2 | B  B  B |  c2 | B  B  B | ... c2 | B  B  A |
-    
-    Arguments:
-        model [Model] model for this validation
-        ... see [Validation]
-     Intialize Cross-Validation module.
+    def validate(self, Xtrain, ytrain, Xtest, ytest, description="ExperimentName"):
         
-        Args:
-            model [Model] model for this validation
-         Performs a LOOCV.
-        
-        Args:
-            X [dim x num_data] input data to validate on
-            y [1 x num_data] classes
-         Leave-One-Cross Validation (LOOCV) uses one observation for testing and the rest for training a classifier:
+        self.logger.info("Simple Validation.")
 
-        o0 o1 o2        o0 o1 o2        o0 o1 o2           o0 o1 o2
-    c0 | A  B  B |  c0 | B  A  B |  c0 | B  B  A |     c0 | B  B  B |
-    c1 | B  B  B |  c1 | B  B  B |  c1 | B  B  B |     c1 | B  B  B |
-    c2 | B  B  B |  c2 | B  B  B |  c2 | B  B  B | ... c2 | B  B  A |
-    
-    Arguments:
-        model [Model] model for this validation
-        ... see [Validation]
-     Intialize Cross-Validation module.
-        
-        Args:
-            model [Model] model for this validation
-        
-        TODO Add example and refactor into proper interface declaration.
-        Implements a simple Validation, which allows you to partition the data yourself.
-    
-        Args:
-            model [PredictableModel] model to perform the validation on
-        
+        self.model.compute(Xtrain, ytrain)
 
-        Performs a validation given training data and test data. User is responsible for non-overlapping assignment of indices.
+        self.logger.debug("Model computed.")
 
-        Args:
-            X [dim x num_data] input data to validate on
-            y [1 x num_data] classes
-        
+        true_positives, false_positives, true_negatives, false_negatives = (0, 0, 0, 0)
+        count = 0
+        for i in ytest:
+            self.logger.debug("Predicting %s/%s." % (count, len(ytest)))
+            prediction = self.model.predict(Xtest[i])[0]
+            if prediction == ytest[i]:
+                true_positives += 1
+            else:
+                false_positives += 1
+            count += 1
+        self.add(ValidationResult(true_positives, true_negatives, false_positives, false_negatives, description))
+
+    def __repr__(self):
+        return "Simple Validation (model=%s)" % self.model

@@ -26,7 +26,7 @@ def arange(b, e, s):
     
     return np.arange(b, e, s)
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""r""i""n""t"" ""n""p"".""a""r""a""n""g""e""(""1""0""0""0"")""
-"" "" "" "" ""p""r""i""n""t"" ""p""r""i""m""e""_""s""i""e""v""e""(""1""0""0"")""
-""
+if __name__=="__main__":
+    print np.arange(1000)
+    print prime_sieve(100)
+

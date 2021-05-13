@@ -34,5 +34,5 @@ class Solution:
 
         return result
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""s""p""i""r""a""l""O""r""d""e""r""(""[""[""2"","" ""3""]""]"")""
+if __name__=="__main__":
+    print Solution().spiralOrder([[2, 3]])

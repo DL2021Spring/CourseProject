@@ -43,5 +43,7 @@ class Solution(object):
         return False
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""i""s""I""n""t""e""r""l""e""a""v""e""(
+if __name__ == "__main__":
+    assert Solution().isInterleave("aa", "ab", "abaa") == True
+    assert Solution().isInterleave("aabcc", "dbbca", "aadbbcbcac") == True
+    assert Solution().isInterleave("aabcc", "dbbca", "aadbbbaccc") == False

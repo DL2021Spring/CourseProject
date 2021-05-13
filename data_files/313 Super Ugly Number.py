@@ -52,5 +52,5 @@ class SolutionHeap(object):
 
         return ret
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""n""t""h""S""u""p""e""r""U""g""l""y""N""u""m""b""e""r""(""1""2"","" ""[""2"","" ""7"","" ""1""3"","" ""1""9""]"")"" ""=""="" ""3""2
+if __name__ == "__main__":
+    assert Solution().nthSuperUglyNumber(12, [2, 7, 13, 19]) == 32

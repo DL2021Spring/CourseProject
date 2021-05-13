@@ -28,5 +28,5 @@ class Solution(object):
         return nums.index(None)
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""m""i""s""s""i""n""g""N""u""m""b""e""r""(""[""2"","" ""0""]"")"" ""=""="" ""1""
+if __name__ == "__main__":
+    assert Solution().missingNumber([2, 0]) == 1

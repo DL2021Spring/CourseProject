@@ -36,5 +36,29 @@ class Solution(object):
                         if not matched:
                             break
                     if matched:
-                        return "Y"E"S""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" 
+                        return "YES"
+        return "NO"
+
+
+if __name__ == "__main__":
+    import sys
+
+    f = open("1.in", "r")
+    
+    testcases = int(f.readline().strip())
+
+    for t in xrange(testcases):
+        
+        matrix = []
+        pattern = []
+        R, C = map(int, f.readline().strip().split(' '))
+        for i in xrange(R):
+            matrix.append(map(int, list(f.readline().strip())))
+        R, C = map(int, f.readline().strip().split(' '))
+        for i in xrange(R):
+            pattern.append(map(int, list(f.readline().strip())))
+
+        cipher = matrix, pattern
+        
+        s = "%s\n" % (Solution().solve(cipher))
+        print s,

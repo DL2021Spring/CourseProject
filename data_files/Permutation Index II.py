@@ -23,5 +23,5 @@ class Solution(object):
 
         return idx+1
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""p""e""r""m""u""t""a""t""i""o""n""I""n""d""e""x""I""I""(""[""1"","" ""4"","" ""2"","" ""2""]"")""
+if __name__ == "__main__":
+    print Solution().permutationIndexII([1, 4, 2, 2])

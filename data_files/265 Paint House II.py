@@ -25,5 +25,5 @@ class Solution(object):
         return min(F[n][i] for i in xrange(m))
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""m""i""n""C""o""s""t""I""I""(""[""[""8""]""]"")"" ""=""="" ""8
+if __name__ == "__main__":
+    assert Solution().minCostII([[8]]) == 8

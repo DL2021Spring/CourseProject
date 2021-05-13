@@ -51,13 +51,17 @@ class Solution:
             root.children[word[0]] = Trie.insert(root.children[word[0]], word, 0)
 
         ret = []
-        for word in sentence.split(" "")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""f""o""r"" ""c""h""i""l""d"" ""i""n"" ""t""r""i""e"".""r""o""o""t"".""c""h""i""l""d""r""e""n"".""v""a""l""u""e""s""("")"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""s""e""a""r""c""h""e""d"" ""="" ""T""r""i""e"".""s""e""a""r""c""h""(""c""h""i""l""d"","" ""w""o""r""d"","" ""0"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""i""f"" ""s""e""a""r""c""h""e""d"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t"".""a""p""p""e""n""d""(""s""e""a""r""c""h""e""d"")""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""b""r""e""a""k""
-"" "" "" "" "" "" "" "" "" "" "" "" ""e""l""s""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t"".""a""p""p""e""n""d""(""w""o""r""d"")""
-""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" 
+        for word in sentence.split(" "):
+            for child in trie.root.children.values():
+                searched = Trie.search(child, word, 0)
+                if searched:
+                    ret.append(searched)
+                    break
+            else:
+                ret.append(word)
+
+        return " ".join(ret)
+
+
+if __name__ == "__main__":
+    assert Solution().replaceWords(["cat", "bat", "rat"], "the cattle was rattled by the battery") == "the cat was rat by the bat"

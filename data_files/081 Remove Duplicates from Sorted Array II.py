@@ -59,5 +59,5 @@ class Solution:
 
 
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""S""o""l""u""t""i""o""n""("")"".""r""e""m""o""v""e""D""u""p""l""i""c""a""t""e""s""(""[""1"","" ""1"","" ""2"","" ""2""]"")
+if __name__=="__main__":
+    Solution().removeDuplicates([1, 1, 2, 2])

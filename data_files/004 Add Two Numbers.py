@@ -41,12 +41,19 @@ class Solution:
     def addNode(self, node1, node2):
         
         if not node1 and not node2:
-            raise Exception("t"w"o" "n"o"d"e"s" "a"r"e" "N"o"n"e"")""
-"" "" "" "" "" "" "" "" ""i""f"" ""n""o""t"" ""n""o""d""e""1"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""n""o""d""e""2"".""v""a""l""
-"" "" "" "" "" "" "" "" ""i""f"" ""n""o""t"" ""n""o""d""e""2"":""
-"" "" "" "" "" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""n""o""d""e""1"".""v""a""l""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""n""o""d""e""1"".""v""a""l""+""n""o""d""e""2"".""v""a""l""
-""
-""
-""i""f"" ""_""_""n""a""m""e""_""_"" ""=""="" 
+            raise Exception("two nodes are None")
+        if not node1:
+            return node2.val
+        if not node2:
+            return node1.val
+        return node1.val+node2.val
+
+
+if __name__ == "__main__":
+    l1s = [ListNode(1)]
+    l2s = [ListNode(9), ListNode(9)]
+    for i in range(len(l1s)-1):
+        l1s[i].next = l1s[i+1]
+    for i in range(len(l2s)-1):
+        l2s[i].next = l2s[i+1]
+    Solution().addTwoNumbers(l1s[0], l2s[0])

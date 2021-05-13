@@ -22,5 +22,5 @@ class Solution:
         
         return s == s[::-1]
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""p""a""r""t""i""t""i""o""n""(
+if __name__=="__main__":
+    assert Solution().partition("aab")==[['a', 'a', 'b'], ['aa', 'b']]

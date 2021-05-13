@@ -32,7 +32,14 @@ class Solution(object):
         return dp[-1][-1]
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""i""m""p""o""r""t"" ""s""y""s""
-""
-"" "" "" "" ""f"" ""="" ""o""p""e""n""(
+if __name__ == "__main__":
+    import sys
+
+    f = open("1.in", "r")
+    
+    cipher = []
+    cipher.append(f.readline().strip())
+    cipher.append(f.readline().strip())
+
+    s = "%s\n" % (Solution().solve(cipher))
+    print s,

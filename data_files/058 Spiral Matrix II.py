@@ -69,7 +69,7 @@ class SolutionError:
         return result
 
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""r""e""s""u""l""t"" ""="" ""S""o""l""u""t""i""o""n""("")"".""g""e""n""e""r""a""t""e""M""a""t""r""i""x""(""4"")""
-"" "" "" "" ""f""o""r"" ""r""o""w"" ""i""n"" ""r""e""s""u""l""t"":""
-"" "" "" "" "" "" "" "" ""p""r""i""n""t"" ""r""o""w""
+if __name__=="__main__":
+    result = Solution().generateMatrix(4)
+    for row in result:
+        print row

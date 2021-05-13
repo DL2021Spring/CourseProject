@@ -42,5 +42,5 @@ class Solution:
         return False
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""p""r""i""n""t"" ""S""o""l""u""t""i""o""n""("")"".""c""o""n""t""a""i""n""s""N""e""a""r""b""y""A""l""m""o""s""t""D""u""p""l""i""c""a""t""e""(""[""-""3"","" ""3""]"","" ""2"","" ""4"")
+if __name__ == "__main__":
+    print Solution().containsNearbyAlmostDuplicate([-3, 3], 2, 4)

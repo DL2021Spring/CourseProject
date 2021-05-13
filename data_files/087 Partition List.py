@@ -35,8 +35,8 @@ class Solution:
         pre_smaller.next = dummy_larger.next
         return dummy_smaller.next
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""l""s""t"" ""="" ""[""L""i""s""t""N""o""d""e""(""2"")"","" ""L""i""s""t""N""o""d""e""(""1"")""]""
-"" "" "" "" ""f""o""r"" ""i""n""d"" ""i""n"" ""x""r""a""n""g""e""(""l""e""n""(""l""s""t"")""-""1"")"":""
-"" "" "" "" "" "" "" "" ""l""s""t""[""i""n""d""]"".""n""e""x""t"" ""="" ""l""s""t""[""i""n""d""+""1""]""
-"" "" "" "" ""S""o""l""u""t""i""o""n""("")"".""p""a""r""t""i""t""i""o""n""(""l""s""t""[""0""]"","" ""2"")
+if __name__=="__main__":
+    lst = [ListNode(2), ListNode(1)]
+    for ind in xrange(len(lst)-1):
+        lst[ind].next = lst[ind+1]
+    Solution().partition(lst[0], 2)

@@ -70,7 +70,7 @@ class Twitter(object):
 
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""t""w""i""t""t""e""r"" ""="" ""T""w""i""t""t""e""r""("")""
-"" "" "" "" ""t""w""i""t""t""e""r"".""p""o""s""t""T""w""e""e""t""(""1"","" ""5"")""
-"" "" "" "" ""t""w""i""t""t""e""r"".""u""n""f""o""l""l""o""w""(""1"","" ""1"")""
+if __name__ == "__main__":
+    twitter = Twitter()
+    twitter.postTweet(1, 5)
+    twitter.unfollow(1, 1)

@@ -7,5 +7,13 @@ class TestGenerator(TestCase):
     def test_coroutine(self):
         itr = first_coroutine()
         itr.next()  
-        self.assertEquals(itr.send(1), "R"e"c"e"i"v"e"d":" "1"")""
-"" "" "" "" "" "" "" "" ""s""e""l""f"".""a""s""s""e""r""t""E""q""u""a""l""s""(""i""t""r"".""s""e""n""d""(""2"")"","" 
+        self.assertEquals(itr.send(1), "Received: 1")
+        self.assertEquals(itr.send(2), "Received: 2")
+
+    def test_yieldmin(self):
+        itr = minimize()
+        next(itr)
+        self.assertEquals(itr.send(10), 10)
+        self.assertEquals(itr.send(4), 4)
+        self.assertEquals(itr.send(22), 4)
+        self.assertEquals(itr.send(-1), -1)

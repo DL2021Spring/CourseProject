@@ -44,6 +44,6 @@ class Solution:
         return j - i + 1
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""f""i""n""d""U""n""s""o""r""t""e""d""S""u""b""a""r""r""a""y""(""[""2"","" ""1""]"")"" ""=""="" ""2""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""f""i""n""d""U""n""s""o""r""t""e""d""S""u""b""a""r""r""a""y""(""[""2"","" ""6"","" ""4"","" ""8"","" ""1""0"","" ""9"","" ""1""5""]"")"" ""=""="" ""5""
+if __name__ == "__main__":
+    assert Solution().findUnsortedSubarray([2, 1]) == 2
+    assert Solution().findUnsortedSubarray([2, 6, 4, 8, 10, 9, 15]) == 5

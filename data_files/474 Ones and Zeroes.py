@@ -36,15 +36,15 @@ class Solution:
     def count(self, s):
         z, o = 0, 0
         for e in s:
-            if e == "0"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""z"" ""+""="" ""1""
-"" "" "" "" "" "" "" "" "" "" "" "" ""e""l""s""e"":""
-"" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""o"" ""+""="" ""1""
-""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""z"","" ""o""
-""
-"" "" "" "" ""d""e""f"" ""f""i""n""d""M""a""x""F""o""r""m""_""T""L""E""(""s""e""l""f"","" ""s""t""r""s"","" ""m"","" ""n"")"":""
-"" "" "" "" "" "" "" "" 
+            if e == "0":
+                z += 1
+            else:
+                o += 1
+
+        return z, o
+
+    def findMaxForm_TLE(self, strs, m, n):
+        
         if not strs:
             return 0
 
@@ -52,20 +52,65 @@ class Solution:
         count = Counter(strs[0])
         for i in range(m+1):
             for j in range(n+1):
-                if i + count["0""]"" ""<""="" ""m"" ""a""n""d"" ""j"" ""+"" ""c""o""u""n""t""[
-        0-1 knapsack
-        let F[p][q][i] be the max end at A[i], with p 0's and q 1's
-        F[p][q][i] = max(F[p'][q'][i-1] + 1, F[p][q][i-1])
+                if i + count["0"] <= m and j + count["1"] <= n:
+                    F[i][j][0] = 1
 
-        :type strs: List[str]
-        :type m: int
-        :type n: int
-        :rtype: int
-        
-        reward is 1 regarless of length, then greedy - error
+        for e in range(1, len(strs)):
+            count = Counter(strs[e])
+            for i in range(m+1):
+                for j in range(n+1):
+                    if i + count["0"] <= m and j + count["1"] <= n:
+                        F[i][j][e] = F[i + count["0"]][j + count["1"]][e-1] + 1
+                    F[i][j][e] = max(F[i][j][e], F[i][j][e-1])
 
-        :type strs: List[str]
-        :type m: int
-        :type n: int
-        :rtype: int
+        ret = max(
+            F[i][j][-1]
+            for i in range(m + 1)
+            for j in range(n + 1)
+        )
+        return ret
+
+    def findMaxForm_error(self, strs, m, n):
         
+        if not strs:
+            return 0
+
+        F = [[[0 for _ in range(len(strs))] for _ in range(n + 1)] for _ in range(m + 1)]
+        count = Counter(strs[0])
+        if count["0"] <= m and count["1"] <= n:
+            F[m - count["0"]][n - count["1"]][0] += 1
+
+        for e in range(1, len(strs)):
+            count = Counter(strs[e])
+            for i in range(m+1):
+                for j in range(n+1):
+                    if count["0"] <= i and count["1"] <= j:
+                        F[i - count["0"]][j - count["1"]][e] = F[i][j][e-1] + 1
+                    else:
+                        F[i][j][e] = F[i][j][e-1]
+
+        ret = max(
+            F[i][j][-1]
+            for i in range(m + 1)
+            for j in range(n + 1)
+        )
+        return ret
+
+    def findMaxForm_error(self, strs, m, n):
+        
+        strs.sort(key=len)
+        ret = 0
+        for a in strs:
+            count = Counter(a)
+            if count["0"] <= m and count["1"] <= n:
+                ret += 1
+                m -= count["0"]
+                n -= count["1"]
+
+        return ret
+
+
+if __name__ == "__main__":
+    assert Solution().findMaxForm(["10", "0001", "111001", "1", "0"], 5, 3) == 4
+    assert Solution().findMaxForm(["10", "0", "1"], 1, 1) == 2
+    assert Solution().findMaxForm(["111", "1000", "1000", "1000"], 9, 3) == 3

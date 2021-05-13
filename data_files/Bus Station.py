@@ -23,7 +23,20 @@ class Solution(object):
                     result.append(k)
 
         result.sort()  
-        return " "".""j""o""i""n""(""m""a""p""(""s""t""r"","" ""r""e""s""u""l""t"")"")""
-""
-""
-""i""f"" ""_""_""n""a""m""e""_""_"" ""=""="" 
+        return " ".join(map(str, result))
+
+
+if __name__ == "__main__":
+    import sys
+
+    f = open("1.in", "r")
+    
+    N = int(f.readline().strip())
+
+
+    
+    cipher = map(int, f.readline().strip().split(' '))
+
+    
+    s = "%s\n" % (Solution().solve(cipher))
+    print s,

@@ -8,4 +8,15 @@
 
 
 cpp_examples = [
-    ("w"i"m"a"x"-"s"i"m"p"l"e"","" 
+    ("wimax-simple", "True", "True"),
+    ("wimax-ipv4", "True", "True"),
+    ("wimax-multicast", "True", "True"),
+]
+
+
+
+
+
+
+
+python_examples = []

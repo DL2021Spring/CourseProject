@@ -106,11 +106,11 @@ class Solution:
         return global_max
 
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""#"" ""h""e""i""g""h""t"" ""="" ""[""2"","" ""1"","" ""2""]""
-"" "" "" "" ""h""e""i""g""h""t"" ""="" ""[""4"","" ""2"","" ""0"","" ""3"","" ""2"","" ""5""]""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""l""a""r""g""e""s""t""R""e""c""t""a""n""g""l""e""A""r""e""a""(""h""e""i""g""h""t"")"" ""=""="" ""S""o""l""u""t""i""o""n""("")"".""l""a""r""g""e""s""t""R""e""c""t""a""n""g""l""e""A""r""e""a""_""c""o""m""p""l""e""x""(""h""e""i""g""h""t"")""
-""
-""
-""
-""
+if __name__=="__main__":
+    
+    height = [4, 2, 0, 3, 2, 5]
+    assert Solution().largestRectangleArea(height) == Solution().largestRectangleArea_complex(height)
+
+
+
+

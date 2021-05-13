@@ -41,5 +41,7 @@ class Solution:
         return s + 1
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""c""o""m""p""r""e""s""s""(""[
+if __name__ == "__main__":
+    assert Solution().compress(["a"]) == 1
+    assert Solution().compress(["a","a","b","b","c","c","c"]) == 6
+    assert Solution().compress(["a","b","b","b","b","b","b","b","b","b","b","b","b"]) == 4

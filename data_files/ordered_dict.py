@@ -225,8 +225,13 @@ class OrderedDict(dict):
     
 
     def viewkeys(self):
-        "o"d"."v"i"e"w"k"e"y"s"(")" "-">" "a" "s"e"t"-"l"i"k"e" "o"b"j"e"c"t" "p"r"o"v"i"d"i"n"g" "a" "v"i"e"w" "o"n" "o"d"'"s" "k"e"y"s""
-"" "" "" "" "" "" "" "" ""r""e""t""u""r""n"" ""K""e""y""s""V""i""e""w""(""s""e""l""f"")""
-""
-"" "" "" "" ""d""e""f"" ""v""i""e""w""v""a""l""u""e""s""(""s""e""l""f"")"":""
-"" "" "" "" "" "" "" "" 
+        "od.viewkeys() -> a set-like object providing a view on od's keys"
+        return KeysView(self)
+
+    def viewvalues(self):
+        "od.viewvalues() -> an object providing a view on od's values"
+        return ValuesView(self)
+
+    def viewitems(self):
+        "od.viewitems() -> a set-like object providing a view on od's items"
+        return ItemsView(self)

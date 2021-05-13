@@ -35,12 +35,12 @@ class DualHeap(object):
             return -self.max_h[0]
         elif m == l2:
             return self.min_h[0]
-        raise Exception("n"o"t" "b"a"l"a"n"c"e"d"")""
-""
-""
-""c""l""a""s""s"" ""S""o""l""u""t""i""o""n"":""
-"" "" "" "" ""d""e""f"" ""m""e""d""i""a""n""I""I""(""s""e""l""f"","" ""n""u""m""s"")"":""
-"" "" "" "" "" "" "" "" 
+        raise Exception("not balanced")
+
+
+class Solution:
+    def medianII(self, nums):
+        
         dh = DualHeap()
         ret = []
         for num in nums:
@@ -48,7 +48,7 @@ class DualHeap(object):
             ret.append(dh.get_median())
         return ret
 
-if __name__=="_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""a""s""s""e""r""t"" ""S""o""l""u""t""i""o""n""("")"".""m""e""d""i""a""n""I""I""(""[""4"","" ""5"","" ""1"","" ""3"","" ""2"","" ""6"","" ""0""]"")"" ""=""="" ""[""4"","" ""4"","" ""4"","" ""3"","" ""3"","" ""3"","" ""3""]""
-""
-""
+if __name__=="__main__":
+    assert Solution().medianII([4, 5, 1, 3, 2, 6, 0]) == [4, 4, 4, 3, 3, 3, 3]
+
+

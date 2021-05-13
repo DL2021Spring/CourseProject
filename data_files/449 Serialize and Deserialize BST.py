@@ -10,10 +10,10 @@ class TreeNode(object):
 
 
 class Codec:
-    DELIMITER = ",""
-""
-"" "" "" "" ""d""e""f"" ""s""e""r""i""a""l""i""z""e""(""s""e""l""f"","" ""r""o""o""t"")"":""
-"" "" "" "" "" "" "" "" 
+    DELIMITER = ","
+
+    def serialize(self, root):
+        
         def traverse(root, ret):
             if not root:
                 return

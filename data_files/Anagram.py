@@ -29,7 +29,17 @@ class Solution(object):
         return sum(filter(lambda x: x > 0, bucket))
 
 
-if __name__ == "_"_"m"a"i"n"_"_"":""
-"" "" "" "" ""i""m""p""o""r""t"" ""s""y""s""
-""
-"" "" "" "" ""f"" ""="" ""o""p""e""n""(
+if __name__ == "__main__":
+    import sys
+
+    f = open("1.in", "r")
+    
+    testcases = int(f.readline().strip())
+
+    for t in xrange(testcases):
+        
+        cipher = f.readline().strip().split(' ')
+
+        
+        s = "%s\n" % (Solution().solve(cipher))
+        print s,
